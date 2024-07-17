@@ -40,6 +40,23 @@ const LoginButton = styled.button`
   }
 `;
 
+const SignUpButton = styled.button`
+  width: 50%;
+  padding: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  height: 40px;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #343a40;
+    transition: background-color 0.2s ease-in;
+  }
+`;
+
 function Header() {
   const [tabs, setTabs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -92,7 +109,7 @@ function Header() {
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingRight: 150, paddingLeft: 20 }}>
             <h5>Register Now</h5>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Morbi adipiscing gravdio, sit amet suscipit risus ultrices eu.Fusce viverra neque at purus laoreet consequa.Vivamus vulputate posuere nisl quis consequat.</p>
-            <LoginButton>Create an account</LoginButton>
+            <SignUpButton>Create an account</SignUpButton>
           </div>
         </LoginArea>
         <div className="top-bar">
