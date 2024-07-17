@@ -3,6 +3,8 @@ import './App.css';
 import Side from './Side';
 import QandABar from './QandABar';
 import styled from 'styled-components';
+import { AiOutlineSearch } from "react-icons/ai";
+
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -120,6 +122,7 @@ function Header() {
             <LeftSectionButton>Buy now</LeftSectionButton>
           </div>
           <div className="right-section">
+            <div style={{display:'flex',alignItems:'center'}}><AiOutlineSearch /></div>
             <input
               type="text"
               placeholder="Search here ..."
