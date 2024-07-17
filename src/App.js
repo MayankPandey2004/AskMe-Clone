@@ -5,7 +5,6 @@ import QandABar from './QandABar';
 import styled from 'styled-components';
 import { AiOutlineSearch } from "react-icons/ai";
 
-
 const LeftSectionButton = styled.button`
   text-decoration: none;
   color: white;
