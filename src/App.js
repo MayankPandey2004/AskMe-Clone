@@ -4,6 +4,8 @@ import Side from './Side';
 import QandABar from './QandABar';
 import styled from 'styled-components';
 import { AiOutlineSearch } from "react-icons/ai";
+import axios from 'axios';
+import './Modal.css';
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -64,6 +66,9 @@ function Header() {
   const [error, setError] = useState(null);
   const [loginStatus, setLoginStatus] = useState(false);
   const [loginAreaHeight, setLoginAreaHeight] = useState('0px');
+  const [usernamelog, setUsernamelog] = useState('');
+  const [passwordlog, setPasswordlog] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const getApiData = async () => {
@@ -97,20 +102,52 @@ function Header() {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const login = () => {
+    axios.post('http://localhost:8080/home', {
+      username: usernamelog,
+      password: passwordlog
+    }).then((response) => {
+      console.log(response);
+    })
+    console.log(usernamelog, passwordlog);
+  }
+
   return (
     <div className="header-container">
       <div className="top-bar-content">
         <LoginArea style={{ height: loginAreaHeight }}>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
             <h5>Login</h5>
-            <input className='search-login' placeholder='Username' />
-            <input className='search-login' placeholder='Password' />
-            <LoginButton>Log in</LoginButton>
+            <input className='search-login' placeholder='Username' type='text' onChange={(e) => { setUsernamelog(e.target.value) }} />
+            <input className='search-login' placeholder='Password' type='password' onChange={(e) => { setPasswordlog(e.target.value) }} />
+            <LoginButton onClick={() => login()}>Log in</LoginButton>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingRight: 150, paddingLeft: 20 }}>
             <h5>Register Now</h5>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Morbi adipiscing gravdio, sit amet suscipit risus ultrices eu.Fusce viverra neque at purus laoreet consequa.Vivamus vulputate posuere nisl quis consequat.</p>
-            <SignUpButton>Create an account</SignUpButton>
+            <SignUpButton onClick={() => openModal()}>Create an account</SignUpButton>
+            {showModal ?
+              <div className='modal-overlay'>
+                <div style={{ backgroundColor: 'white' }}>
+                  <div className="modal-content">
+                  <div className="close-button" onClick={() => closeModal()} style={{color:"#ff6b6b"}}>×</div>
+                    <div style={{ display: 'flex', flexDirection: 'column',padding: 20}}>
+                      <h5>Login</h5>
+                      <input className='search-login' placeholder='Username' type='text' onChange={(e) => { setUsernamelog(e.target.value) }} />
+                      <input className='search-login' placeholder='Password' type='password' onChange={(e) => { setPasswordlog(e.target.value) }} />
+                      <LoginButton onClick={() => login()}>Log in</LoginButton>
+                    </div>
+                  </div>
+                </div>
+              </div> : null}
           </div>
         </LoginArea>
         <div className="top-bar">
@@ -121,7 +158,7 @@ function Header() {
             <LeftSectionButton>Buy now</LeftSectionButton>
           </div>
           <div className="right-section">
-            <div style={{display:'flex',alignItems:'center'}}><AiOutlineSearch /></div>
+            <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch /></div>
             <input
               type="text"
               placeholder="Search here ..."
