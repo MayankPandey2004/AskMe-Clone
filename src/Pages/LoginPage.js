@@ -40,11 +40,17 @@ const Button = styled.button`
   &:hover {
     background-color: #e55b5b;
   }
+
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
 `;
 
 const ErrorMessage = styled.div`
-  color: red;
-  margin-top: 10px;
+  color: white;
+  margin-top: 5px;
 `;
 
 const SignUpText = styled.div`
@@ -128,7 +134,7 @@ function LoginPage() {
         <Container>
             <Form onSubmit={handleSubmit}>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <h2>Login</h2>
+                <h2 style={{fontSize:27, color:'#ff6b6b'}}>Login</h2>
                 <Input
                     type="text"
                     id="username"
@@ -164,7 +170,7 @@ function LoginPage() {
                     Must include uppercase and lowercase letters, a number and a special character.<br />
                     Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                 </ErrorMessage>
-                <Button disabled={!validName || !validPwd ? true : false}>Sign Up</Button>
+                <Button disabled={!validName || !validPwd ? true : false}>Sign In</Button>
                 <SignUpText>
                 Create an account<br />
                 <span className="line">

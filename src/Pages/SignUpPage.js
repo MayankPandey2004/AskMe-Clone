@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-import {FaInfoCircle } from "react-icons/fa";
+import axios from '../api/Axios';
+import { FaInfoCircle } from "react-icons/fa";
 import '../App.css';
 
 const Container = styled.div`
@@ -40,11 +40,17 @@ const Button = styled.button`
   &:hover {
     background-color: #e55b5b;
   }
+
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
 `;
 
 const ErrorMessage = styled.div`
-  color: red;
-  margin-top: 10px;
+  color: white;
+  margin-top: 5px;
 `;
 
 const SignInText = styled.div`
@@ -54,8 +60,9 @@ const SignInText = styled.div`
     margin-top: 10px;
 `
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{8,23}$/;
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const SIGNUP_URL = '/signup';
 
 function SignUpPage() {
     const userRef = useRef();
@@ -101,15 +108,16 @@ function SignUpPage() {
             setErrMsg("Invalid Entry");
             return;
         }
-        try {
-            const response = await axios.post('http://localhost:8080/signup',
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(response?.data);
+        try{
+            const response = await axios.post(SIGNUP_URL,
+                JSON.stringify({
+                    username: user, password: pwd}),
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                    }
+                );
+                console.log(response?.data);
             console.log(response?.accessToken);
             console.log(JSON.stringify(response))
             setSuccess(true);
@@ -129,73 +137,85 @@ function SignUpPage() {
     }
 
     return (
-        <Container>
-            <Form onSubmit={handleSubmit}>
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <h2>Login</h2>
-                <Input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    required
-                    aria-invalid={validName ? "false" : "true"}
-                    aria-describedby="uidnote"
-                    onFocus={() => setUserFocus(true)}
-                    onBlur={() => setUserFocus(false)}
-                />
-                <ErrorMessage id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
-                    <FaInfoCircle />
-                    4 to 24 characters.<br />
-                    Must begin with a letter.<br />
-                    Letters, numbers, underscores, hyphens allowed.
-                </ErrorMessage>
+        <>
+            {success ? (
+                <Container>
+                    <Form>
+                    <h1 style={{ fontSize: 35, color: '#ff6b6b' }}>Success!</h1>
+                    <SignInText>
+                        <a href="/login">Sign In</a>
+                    </SignInText>
+                    </Form>
+                </Container>
+            ) : <Container>
+                <Form onSubmit={handleSubmit}>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <h2 style={{ fontSize: 27, color: '#ff6b6b' }}>Sign Up</h2>
+                    <Input
+                        type="text"
+                        id="username"
+                        placeholder='Username'
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                        aria-invalid={validName ? "false" : "true"}
+                        aria-describedby="uidnote"
+                        onFocus={() => setUserFocus(true)}
+         
+                    />
+                    <ErrorMessage id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
+                        <FaInfoCircle />
+                        6 to 24 characters.<br />
+                        Must begin with a letter.<br />
+                        Letters, numbers, underscores, hyphens allowed.
+                    </ErrorMessage>
 
-                <Input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    required
-                    aria-invalid={validPwd ? "false" : "true"}
-                    aria-describedby="pwdnote"
-                    onFocus={() => setPwdFocus(true)}
-                    onBlur={() => setPwdFocus(false)}
-                />
-                <ErrorMessage id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                    <FaInfoCircle />
-                    8 to 24 characters.<br />
-                    Must include uppercase and lowercase letters, a number and a special character.<br />
-                    Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                </ErrorMessage>
+                    <Input
+                        type="password"
+                        id="password"
+                        placeholder='Password'
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                        aria-invalid={validPwd ? "false" : "true"}
+                        aria-describedby="pwdnote"
+                        onFocus={() => setPwdFocus(true)}
+                    />
+                    <ErrorMessage id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                        <FaInfoCircle />
+                        8 to 24 characters.<br />
+                        Must include uppercase and lowercase letters, a number and a special character.<br />
+                        Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                    </ErrorMessage>
 
-                <Input
-                    type="password"
-                    id="confirm_pwd"
-                    onChange={(e) => setMatchPwd(e.target.value)}
-                    value={matchPwd}
-                    required
-                    aria-invalid={validMatch ? "false" : "true"}
-                    aria-describedby="confirmnote"
-                    onFocus={() => setMatchFocus(true)}
-                    onBlur={() => setMatchFocus(false)}
-                />
-                <ErrorMessage id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
-                    <FaInfoCircle />
-                    Must match the first password input field.
-                </ErrorMessage>
+                    <Input
+                        type="password"
+                        id="confirm_pwd"
+                        placeholder='Confirm Password'
+                        onChange={(e) => setMatchPwd(e.target.value)}
+                        value={matchPwd}
+                        required
+                        aria-invalid={validMatch ? "false" : "true"}
+                        aria-describedby="confirmnote"
+                        onFocus={() => setMatchFocus(true)}
+                    />
+                    <ErrorMessage id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                        <FaInfoCircle />
+                        Must match the first password input field.
+                    </ErrorMessage>
 
-                <Button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</Button>
-                <SignInText>
-                Already registered?<br />
-                <span className="line">
-                    <a href="/login">Sign In</a>
-                </span>
-                </SignInText>
-            </Form>
-        </Container>
+                    <Button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</Button>
+                    <SignInText>
+                        Already registered?<br />
+                        <span className="line">
+                            <a href="/login">Sign In</a>
+                        </span>
+                    </SignInText>
+                </Form>
+            </Container>
+            }</>
     );
 }
 
