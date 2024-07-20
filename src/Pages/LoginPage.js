@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect} from 'react';
 import useAuth from '../hooks/useAuth';
 import styled from 'styled-components';
-import axios from 'axios';
+import axios from '../api/Axios';
 import {FaInfoCircle } from "react-icons/fa";
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +62,7 @@ const SignUpText = styled.div`
     margin-top: 10px;
 `
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{8,23}$/;
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{7,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const LOGIN_URL = '/login';
 
@@ -156,7 +156,7 @@ function LoginPage() {
                 />
                 <ErrorMessage id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
                     <FaInfoCircle />
-                    4 to 24 characters.<br />
+                    8 to 24 characters.<br />
                     Must begin with a letter.<br />
                     Letters, numbers, underscores, hyphens allowed.
                 </ErrorMessage>
