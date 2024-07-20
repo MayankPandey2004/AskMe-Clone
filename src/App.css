@@ -81,11 +81,6 @@
 
 } 
 
-.nav-item:after {
-  content: " ▼";
-  font-size: 12px;
-}
-
 .page-title {
   background-color: #ff6b6b;
   color: white;
@@ -174,4 +169,27 @@ input:focus {
   color: #fff;
   font-size: small;
   font-weight: 600;
+}
+
+.errmsg {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.instructions {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f4f4f4;
+  color: #333;
 }

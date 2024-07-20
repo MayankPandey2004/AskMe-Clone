@@ -14,49 +14,10 @@ const LeftSectionButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 10px;
-`;
-
-const LoginArea = styled.div`
-  background-color: #333;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition: height 0.5s ease-in-out;
-`;
-
-const LoginButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: #ff6b6b;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 15px;
-  height: 40px;
-  font-size: 14px;
 
   &:hover {
-    background-color: #343a40;
-    transition: background-color 0.2s ease-in;
-  }
-`;
-
-const SignUpButton = styled.button`
-  width: 50%;
-  padding: 10px;
-  background-color: #ff6b6b;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 15px;
-  height: 40px;
-  font-size: 14px;
-
-  &:hover {
-    background-color: #343a40;
-    transition: background-color 0.2s ease-in;
+    color: #333;
+    transition: color 0.1s ease-in;
   }
 `;
 
@@ -64,8 +25,6 @@ function HomePage() {
   const [tabs, setTabs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [loginStatus, setLoginStatus] = useState(false);
-  const [loginAreaHeight, setLoginAreaHeight] = useState('0px');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,14 +48,6 @@ function HomePage() {
     getApiData();
   }, []);
 
-  useEffect(() => {
-    if (loginStatus) {
-      setLoginAreaHeight('300px');
-    } else {
-      setLoginAreaHeight('0px');
-    }
-  }, [loginStatus]);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -104,29 +55,13 @@ function HomePage() {
     navigate('/login');
   }
 
-  const signup = () => {
-    navigate('/signup')
-  }
-
   return (
     <div className="header-container">
       <div className="top-bar-content">
-        <LoginArea style={{ height: loginAreaHeight }}>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
-            <LoginButton onClick={() => login()}>Log in</LoginButton>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingRight: 150, paddingLeft: 20 }}>
-            <h5>Register Now</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Morbi adipiscing gravdio, sit amet suscipit risus ultrices eu.Fusce viverra neque at purus laoreet consequa.Vivamus vulputate posuere nisl quis consequat.</p>
-            <SignUpButton onClick={() => signup()}>Create an account</SignUpButton>
-          </div>
-        </LoginArea>
         <div className="top-bar">
           <div className="left-section">
-            <LeftSectionButton onClick={() => { setLoginStatus(!loginStatus) }}>Login Area</LeftSectionButton>
+            <LeftSectionButton onClick={() => { login() }}>Login</LeftSectionButton>
             <LeftSectionButton>Add post</LeftSectionButton>
-            <LeftSectionButton>Badges</LeftSectionButton>
-            <LeftSectionButton>Buy now</LeftSectionButton>
           </div>
           <div className="right-section">
             <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch /></div>
@@ -150,14 +85,9 @@ function HomePage() {
               className='nav-list-item'
               style={index === 0 ? { backgroundColor: '#ff6b6b', padding: 10, borderRadius: 2 } : { padding: 10, borderRadius: 2 }}
             >
-              <a href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false" className="nav-item">
+              <a href="/" role="button" className="nav-item">
                 {tab}
               </a>
-              <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="/">Action</a></li>
-                <li><a className="dropdown-item" href="/">Another action</a></li>
-                <li><a className="dropdown-item" href="/">Something else here</a></li>
-              </ul>
             </li>
           ))}
         </ul>
