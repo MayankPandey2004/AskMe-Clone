@@ -28,17 +28,6 @@ const StatItem = styled.div`
   align-items: center;
 `;
 
-// const Icon = styled.span`
-//   background-color: #333;
-//   color: white;
-//   width: 24px;
-//   height: 24px;
-//   display: inline-flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin-right: 10px;
-// `;
-
 const Tag = styled.button`
   padding: 5px;
   padding-left: 10px;
@@ -143,10 +132,6 @@ function SidebarComponent() {
               {tab.name} ({tab.count})
             </StatItem>
           ))}
-          {/* <StatItem><Icon>?</Icon> Questions ( 00 )</StatItem>
-           <StatItem><Icon>💬</Icon> Answers ( 00 )</StatItem>
-           <StatItem><Icon>*</Icon> Best Answers ( 00 )</StatItem>
-           <StatItem><Icon>👤</Icon> Users ( 00 )</StatItem> */}
         </Section>
       </Container>
       <Container>
