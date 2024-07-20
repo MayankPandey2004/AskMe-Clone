@@ -1,8 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
+import AuthContext from '../context/AuthProvider';
 import styled from 'styled-components';
 import axios from 'axios';
 import {FaInfoCircle } from "react-icons/fa";
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -62,10 +64,13 @@ const SignUpText = styled.div`
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{8,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const LOGIN_URL = '/login';
 
 function LoginPage() {
+    const navigate = useNavigate();
     const userRef = useRef();
     const errRef = useRef();
+    const {setAuth} = useContext(AuthContext);
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -76,7 +81,6 @@ function LoginPage() {
     const [pwdFocus, setPwdFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -103,19 +107,21 @@ function LoginPage() {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:8080/signup',
-                JSON.stringify({ user, pwd }),
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({ username:user, password:pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
-            console.log(response?.data);
+            console.log(JSON.stringify(response?.data));
             console.log(response?.accessToken);
             console.log(JSON.stringify(response))
-            setSuccess(true);
-            //clear state and controlled inputs
-            //need value attrib on inputs for this
+            navigate('/home');
+            const accessToken = response?.data.accessToken;
+            const roles = response?.data?.roles;
+            setAuth({user,pwd,roles,accessToken});
+            
             setUser('');
             setPwd('');
         } catch (err) {

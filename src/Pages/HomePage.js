@@ -14,7 +14,8 @@ const LeftSectionButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 10px;
-
+  font-weight: 600;
+  
   &:hover {
     color: #333;
     transition: color 0.1s ease-in;
@@ -61,7 +62,7 @@ function HomePage() {
         <div className="top-bar">
           <div className="left-section">
             <LeftSectionButton onClick={() => { login() }}>Login</LeftSectionButton>
-            <LeftSectionButton>Add post</LeftSectionButton>
+            <LeftSectionButton>Add Post</LeftSectionButton>
           </div>
           <div className="right-section">
             <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch /></div>
@@ -92,8 +93,8 @@ function HomePage() {
           ))}
         </ul>
       </div>
-      <div className="page-title">Add post</div>
-      <div className="breadcrumb">Home / Add post</div>
+      <div className="page-title">Add Post</div>
+      <div className="breadcrumb">Home / Add Post</div>
       <div className="thirdbar">
         <QandABar />
         <Side />
