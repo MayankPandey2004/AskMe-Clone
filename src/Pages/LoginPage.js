@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from '../context/AuthProvider';
+import React, { useRef, useState, useEffect} from 'react';
+import useAuth from '../hooks/useAuth';
 import styled from 'styled-components';
 import axios from 'axios';
 import {FaInfoCircle } from "react-icons/fa";
@@ -67,10 +67,12 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const LOGIN_URL = '/login';
 
 function LoginPage() {
+
     const navigate = useNavigate();
+
     const userRef = useRef();
     const errRef = useRef();
-    const {setAuth} = useContext(AuthContext);
+    const {setAuth} = useAuth();
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -117,11 +119,10 @@ function LoginPage() {
             console.log(JSON.stringify(response?.data));
             console.log(response?.accessToken);
             console.log(JSON.stringify(response))
-            navigate('/home');
+            navigate('/main');
             const accessToken = response?.data.accessToken;
             const roles = response?.data?.roles;
             setAuth({user,pwd,roles,accessToken});
-            
             setUser('');
             setPwd('');
         } catch (err) {
