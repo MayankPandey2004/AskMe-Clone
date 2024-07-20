@@ -39,34 +39,48 @@ const StatItem = styled.div`
 //   margin-right: 10px;
 // `;
 
-const Input = styled.input`
-  width: 80%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ff7f7f;
-  background-color: #ffe5e5;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: #ff7f7f;
+const Tag = styled.button`
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  background-color: #343a40;
   color: white;
   border: none;
   cursor: pointer;
-
+  margin-right: 2px;
+  border-radius: 5px;
+  
   &:hover {
-    background-color: #343a40;
+    background-color: #ff7f7f;
     transition: background-color 0.2s ease-in;
   }
-`;
+`
 
-const ForgetLink = styled.a`
+const QuestionHeader = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  cursor: pointer;
+
+  &:hover{
+    color: #ff7f7f;
+    transition: color 0.2s ease-in;
+  }
+`
+
+const QuestionBody = styled.div`
+  font-size: 13px;
+  font-weight: 300;
   color: #333;
-  text-decoration: none;
-  float: right;
+  margin-bottom: 5px;
+`
+
+const QuestionDate = styled.div`
   font-size: 12px;
-`;
+  font-weight: 300;
+  color: gray;
+`
 
 const AskButton = styled.button`
   width: 100%;
@@ -86,14 +100,6 @@ const AskButton = styled.button`
 `
 
 function SidebarComponent() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt with:', username, password);
-  };
   const [tabs, setTabs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -108,7 +114,6 @@ function SidebarComponent() {
         }
         const result = await response.json();
         setTabs(result.stats);
-        //setActiveTab(result.qanda_bar[1]); // Set the first tab as active by default
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the data: ", e);
@@ -131,6 +136,7 @@ function SidebarComponent() {
       <Container>
         <Section>
           <Title>Stats</Title>
+          <hr />
           {tabs.map((tab) => (
             <StatItem
             >
@@ -145,23 +151,20 @@ function SidebarComponent() {
       </Container>
       <Container>
         <Section>
-          <Title>Login</Title>
-          <form onSubmit={handleLogin}>
-            <Input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)} />
-            <div style={{ position: 'relative' }}>
-              <Input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} />
-              <ForgetLink href="#">Forget</ForgetLink>
-            </div>
-            <Button type="submit">Log in</Button>
-          </form>
+          <Title>Tags</Title>
+          <hr />
+          <Tag>Analytic</Tag>
+          <Tag>British</Tag>
+          <Tag>Company</Tag>
+        </Section>
+      </Container>
+      <Container>
+        <Section>
+          <Title>Recent Questions</Title>
+          <hr />
+          <QuestionHeader>Do I need to have a undergrad percentage of 70%</QuestionHeader>
+          <QuestionBody>Participate in the referendum, Please...</QuestionBody>
+          <QuestionDate>November 19, 2023</QuestionDate>
         </Section>
       </Container>
     </div>
