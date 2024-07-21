@@ -112,7 +112,7 @@ function LoginPage() {
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({ username:user, password:pwd }),
                 {
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'Credentials': 'CustomHeaderValue' },
                     withCredentials: true
                 }
             );
