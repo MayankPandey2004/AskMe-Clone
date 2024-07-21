@@ -119,7 +119,7 @@ function LoginPage() {
             console.log(JSON.stringify(response?.data));
             console.log(response?.accessToken);
             console.log(response.data.accessToken);
-            navigate('/main');
+            navigate('/');
             setToken(response.data.accessToken);
             const accessToken = response?.data.accessToken;
             const roles = response?.data?.roles;
