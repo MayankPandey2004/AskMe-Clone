@@ -64,7 +64,6 @@ const SignUpText = styled.div`
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{7,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const LOGIN_URL = '/login';
 
 function LoginPage() {
 
@@ -113,11 +112,12 @@ function LoginPage() {
                 JSON.stringify({ username:user, password:pwd })
             );
             console.log(JSON.stringify(response?.data));
-            console.log(response?.accessToken);
+            console.log(response?.Token);
             console.log(JSON.stringify(response))
             navigate('/main');
             const accessToken = response?.data.accessToken;
             const roles = response?.data?.roles;
+            Request.Cookie();
             setAuth({user,pwd,roles,accessToken});
             setUser('');
             setPwd('');

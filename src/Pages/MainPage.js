@@ -23,31 +23,34 @@ const LeftSectionButton = styled.button`
 `;
 
 function MainPage() {
-  const [tabs, setTabs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const getApiData = async () => {
-      try {
-        const url = "http://localhost:8080/home";
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const result = await response.json();
-        setTabs(result.middel_bar);
-        setIsLoading(false);
-      } catch (e) {
-        console.error("An error occurred while fetching the data: ", e);
-        setError(e.message);
-        setIsLoading(false);
-      }
-    };
+    const navigate = useNavigate();
+    const [tabs, setTabs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    getApiData();
-  }, []);
+    useEffect(() => {
+        const getApiData = async () => {
+            try {
+                const url = "http://localhost:8080/home";
+                const response = await fetch(url, {
+                    credentials: 'include'
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const result = await response.json();
+                setTabs(result.middel_bar);
+                setIsLoading(false);
+            } catch (e) {
+                console.error("An error occurred while fetching the data: ", e);
+                setError(e.message);
+                setIsLoading(false);
+            }
+        };
+
+        getApiData();
+    }, []);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
