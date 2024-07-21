@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect} from 'react';
 import useAuth from '../hooks/useAuth';
 import styled from 'styled-components';
-import axios from '../api/Axios';
+import axios from 'axios';
 import {FaInfoCircle } from "react-icons/fa";
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
@@ -109,12 +109,8 @@ function LoginPage() {
             return;
         }
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ username:user, password:pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json', 'Credentials': 'CustomHeaderValue' },
-                    withCredentials: true
-                }
+            const response = await axios.post('http://localhost:8080/login',
+                JSON.stringify({ username:user, password:pwd })
             );
             console.log(JSON.stringify(response?.data));
             console.log(response?.accessToken);
