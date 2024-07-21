@@ -5,6 +5,7 @@ import axios from 'axios';
 import {FaInfoCircle } from "react-icons/fa";
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import { setToken } from '../api/auth';
 
 const Container = styled.div`
   display: flex;
@@ -109,14 +110,19 @@ function LoginPage() {
         }
         try {
             const response = await axios.post('http://localhost:8080/login',
-                JSON.stringify({ username:user, password:pwd })
+                JSON.stringify({ username:user, password:pwd }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
             );
             console.log(JSON.stringify(response?.data));
-            console.log(JSON.stringify(response.cookie.value));
+            console.log(response?.accessToken);
+            console.log(response.data.accessToken);
             navigate('/main');
+            setToken(response.data.accessToken);
             const accessToken = response?.data.accessToken;
             const roles = response?.data?.roles;
-            Request.Cookie();
             setAuth({user,pwd,roles,accessToken});
             setUser('');
             setPwd('');
