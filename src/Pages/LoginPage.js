@@ -112,8 +112,7 @@ function LoginPage() {
                 JSON.stringify({ username:user, password:pwd })
             );
             console.log(JSON.stringify(response?.data));
-            console.log(response?.Token);
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response.data.accessToken));
             navigate('/main');
             const accessToken = response?.data.accessToken;
             const roles = response?.data?.roles;
