@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   font-family: Arial, sans-serif;
-  width: 250px;
+  width: 300px;
   margin: 20px auto;
   background-color: #fff;
   padding: 20px;
+  margin-left: 50px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 `;
 
@@ -72,8 +73,9 @@ const QuestionDate = styled.div`
 `
 
 const AskButton = styled.button`
-  width: 100%;
+  width: 85%;
   padding: 10px;
+  margin-left: 50px;
   background-color: #ff7f7f;
   color: white;
   border: none;
@@ -118,7 +120,7 @@ function SidebarComponent() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div style={{display:'flex',flexDirection:'column',marginRight:30}}>
+    <div style={{display:'flex',flexDirection:'column'}}>
       <AskButton> 
         Ask A Question
       </AskButton>

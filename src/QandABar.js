@@ -109,6 +109,7 @@ function QuestionNav() {
   const [activeTab, setActiveTab] = useState('');
   const [tabs, setTabs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [questions, setQuestions] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -121,6 +122,7 @@ function QuestionNav() {
         }
         const result = await response.json();
         setTabs(result.qanda_bar);
+        setQuestions(result.questions);
         setActiveTab(result.qanda_bar[1]); // Set the first tab as active by default
         setIsLoading(false);
       } catch (e) {
@@ -149,7 +151,7 @@ function QuestionNav() {
           </NavItem>
         ))}
       </NavList>
-      <QuestionCard/>
+      <QuestionCard questions={questions}/>
     </NavContainer>
   );
 }
