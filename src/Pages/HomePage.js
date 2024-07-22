@@ -8,6 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import '../Modal.css';
 import 'ldrs/helix';
 import { lineSpinner } from 'ldrs'
+import { IoHomeSharp } from "react-icons/io5";
+import { FaCircleQuestion } from "react-icons/fa6";
+import { MdQuestionAnswer } from "react-icons/md";
+
 
 lineSpinner.register()
 
@@ -27,6 +31,21 @@ const LeftSectionButton = styled.button`
   }
 `;
 
+const ProfileButton = styled.button`
+  text-decoration: none;
+  color: #ff6b6b;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  
+  
+  &:hover {
+    color: white;
+    transition: color 0.1s ease-in;
+  }
+`;
+
 const LoginArea = styled.div`
   background-color: #333;
   color: white;
@@ -36,6 +55,18 @@ const LoginArea = styled.div`
   overflow: hidden;
   transition: height 0.5s ease-in-out;
 `;
+
+const ProfileImage = styled.div`
+  background-color: white;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  &:hover {
+    background-color: gray;
+    transition: background-color 0.1s ease-in;
+  }
+`
 
 function MainPage() {
 
@@ -60,10 +91,11 @@ function MainPage() {
         const result = await response.json();
         setTabs(result.middel_bar);
 
-        // Check if the cookie is valid
         if (result.valid) {
           setIsLoggedIn(true);
         }
+
+        console.log(result);
 
         setIsLoading(false);
       } catch (e) {
@@ -101,28 +133,27 @@ function MainPage() {
     setShowProfile(!showProfile);
   }
 
+  const Logout = async () => {
+    localStorage.setItem('auth', false);
+    setIsLoggedIn(false);
+    setShowProfile(false);
+  }
+
   return (
     <div className="header-container">
       <div className="top-bar-content">
         <LoginArea style={{ height: loginAreaHeight }}>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
+          <div style={{ display: 'flex', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
+            <ProfileImage></ProfileImage>
             <h5>Welcome testusername1</h5>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <h5 style={{marginLeft:50}}>Quick Links</h5>
-            <div style={{ flexDirection: 'row', display: 'flex' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Profile Page</LeftSectionButton>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Profile Page</LeftSectionButton>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Profile Page</LeftSectionButton>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Profile Page</LeftSectionButton>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', flex: 2 }}>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Mesages</LeftSectionButton>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Mesages</LeftSectionButton>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Mesages</LeftSectionButton>
-                <LeftSectionButton style={{color:'#ff6b6b'}}>Mesages</LeftSectionButton>
-              </div>
+            <h5 style={{ marginLeft: 50 }}>Quick Links</h5>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: 50, flex: 1 }}>
+              <ProfileButton onClick={()=>navigate('/profile')}><IoHomeSharp size={14} style={{marginBottom:5}}/> Profile Page</ProfileButton>
+              <ProfileButton onClick={()=>navigate('/question')}><FaCircleQuestion size={14} style={{marginBottom:5}}/> Questions Asked</ProfileButton>
+              <ProfileButton onClick={()=>navigate('/answer')}><MdQuestionAnswer size={14} style={{marginBottom:5}}/> Answers</ProfileButton>
+              <ProfileButton onClick={()=>Logout()}><MdQuestionAnswer size={14} style={{marginBottom:5}}/> Logout</ProfileButton>
             </div>
           </div>
         </LoginArea>
@@ -131,6 +162,7 @@ function MainPage() {
           <div className="left-section">
             <LeftSectionButton onClick={isLoggedIn ? profile : login}>
               {isLoggedIn ? 'Profile' : 'Login'}
+              {isLoggedIn}
             </LeftSectionButton>
             <LeftSectionButton>Add Post</LeftSectionButton>
           </div>

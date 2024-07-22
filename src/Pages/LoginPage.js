@@ -5,7 +5,6 @@ import axios from 'axios';
 import {FaInfoCircle } from "react-icons/fa";
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
-import { setToken } from '../api/auth';
 
 const Container = styled.div`
   display: flex;
@@ -116,13 +115,10 @@ function LoginPage() {
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
-            console.log(response?.accessToken);
-            console.log(response.data.accessToken);
             navigate('/');
-            setToken(response.data.accessToken);
             const accessToken = response?.data.accessToken;
             const roles = response?.data?.roles;
+            console.log(response?.data?.roles);
             setAuth({user,pwd,roles,accessToken});
             setUser('');
             setPwd('');

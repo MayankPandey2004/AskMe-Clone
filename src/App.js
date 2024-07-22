@@ -4,7 +4,9 @@ import HomePage from './Pages/HomePage';
 import LoginPage from './Pages/LoginPage'; 
 import SignUpPage from './Pages/SignUpPage';
 import RequireAuth from './components/RequireAuth';
-import MainPage from './Pages/MainPage';
+import ProfilePage from './Pages/ProfilePage';
+import QuestionPage from './Pages/QuestionPage';
+import AnswerPage from './Pages/AnswersPage';
 
 function App() {
   return (
@@ -14,7 +16,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage/>} />
         <Route element={<RequireAuth/>}>
-        <Route path='/main' element={<MainPage/>}/>
+        <Route path='/profile' element={<ProfilePage/>} />
+        <Route path='/question' element={<QuestionPage/>} />
+        <Route path='/answer' element={<AnswerPage/>} />
         <Route path='*'/>
         </Route>
       </Routes>
