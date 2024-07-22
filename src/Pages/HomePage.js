@@ -11,7 +11,7 @@ import { lineSpinner } from 'ldrs'
 import { IoHomeSharp } from "react-icons/io5";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { MdQuestionAnswer } from "react-icons/md";
-
+import { BiLogOut } from "react-icons/bi";
 
 lineSpinner.register()
 
@@ -153,7 +153,7 @@ function MainPage() {
               <ProfileButton onClick={()=>navigate('/profile')}><IoHomeSharp size={14} style={{marginBottom:5}}/> Profile Page</ProfileButton>
               <ProfileButton onClick={()=>navigate('/question')}><FaCircleQuestion size={14} style={{marginBottom:5}}/> Questions Asked</ProfileButton>
               <ProfileButton onClick={()=>navigate('/answer')}><MdQuestionAnswer size={14} style={{marginBottom:5}}/> Answers</ProfileButton>
-              <ProfileButton onClick={()=>Logout()}><MdQuestionAnswer size={14} style={{marginBottom:5}}/> Logout</ProfileButton>
+              <ProfileButton onClick={()=>Logout()}><BiLogOut size={16} style={{marginBottom:2}}/> Logout</ProfileButton>
             </div>
           </div>
         </LoginArea>
