@@ -172,7 +172,7 @@ function LoginPage() {
                     aria-describedby="pwdnote"
                     onBlur={() => setPwdFocus(true)}
                 />
-                <ErrorMessage id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                <ErrorMessage id="pwdnote" className={pwdFocus && pwd && !validPwd ? "instructions" : "offscreen"}>
                     <FaInfoCircle />
                     8 to 24 characters.<br />
                     Must include uppercase and lowercase letters, a number and a special character.<br />
