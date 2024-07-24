@@ -71,7 +71,6 @@ const ProfileImage = styled.div`
 
 const AskBox = styled.textarea`
   font-size: 14px;
-
   &:focus {
     outline: none;
     box-shadow: 0 0 3px #ff6b6b;
@@ -233,7 +232,7 @@ function MainPage() {
           </div>
         </div>
         <div style={{ flex: 1.5, alignItems: 'flex-end' }}>
-          <AskBox placeholder='Ask a question and you will be sure to find an answer!' style={{ padding: 15, backgroundColor: 'rgba(253, 233, 233, 0.75)', borderWidth: 0, position: 'absolute', zIndex: 100, height: '25vh', width: '50vw', top: 250, right: 100, resize: 'none' }}></AskBox>
+          <AskBox placeholder='Ask a question and you will be sure to find an answer!' style={{ padding: 15, backgroundColor: 'rgba(253, 233, 233, 0.75)', borderWidth: 0, position: 'absolute', zIndex: 100, height: '25vh', width: '50vw', top: showProfile ? 550 : 250 , right: 100, resize: 'none',  transition: 'top 0.5s ease-in-out' }}></AskBox>
           <img src={ImageUrl} alt='searchimage' />
         </div>
       </div>
