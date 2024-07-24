@@ -12,6 +12,7 @@ import { IoHomeSharp } from "react-icons/io5";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { MdQuestionAnswer } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
+import ImageUrl from "../assets/chrome.png";
 
 lineSpinner.register()
 
@@ -68,6 +69,32 @@ const ProfileImage = styled.div`
   }
 `
 
+const AskBox = styled.textarea`
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 3px #ff6b6b;
+  }
+`
+
+const AskButton = styled.button`
+  width: 85%;
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #343a40;
+  color: white;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #555E66;
+    transition: background-color 0.2s ease-in;
+  }
+`
+
 function MainPage() {
 
   const navigate = useNavigate();
@@ -80,6 +107,7 @@ function MainPage() {
 
   useEffect(() => {
     const getApiData = async () => {
+      console.log('Logged In');
       try {
         const url = "http://localhost:8080/home";
         const response = await fetch(url, {
@@ -94,9 +122,7 @@ function MainPage() {
         if (result.valid) {
           setIsLoggedIn(true);
         }
-
         console.log(result);
-
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the data: ", e);
@@ -150,10 +176,10 @@ function MainPage() {
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <h5 style={{ marginLeft: 50 }}>Quick Links</h5>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: 50, flex: 1 }}>
-              <ProfileButton onClick={()=>navigate('/profile')}><IoHomeSharp size={14} style={{marginBottom:5}}/> Profile Page</ProfileButton>
-              <ProfileButton onClick={()=>navigate('/question')}><FaCircleQuestion size={14} style={{marginBottom:5}}/> Questions Asked</ProfileButton>
-              <ProfileButton onClick={()=>navigate('/answer')}><MdQuestionAnswer size={14} style={{marginBottom:5}}/> Answers</ProfileButton>
-              <ProfileButton onClick={()=>Logout()}><BiLogOut size={16} style={{marginBottom:2}}/> Logout</ProfileButton>
+              <ProfileButton onClick={() => navigate('/profile')}><IoHomeSharp size={14} style={{ marginBottom: 5 }} /> Profile Page</ProfileButton>
+              <ProfileButton onClick={() => navigate('/question')}><FaCircleQuestion size={14} style={{ marginBottom: 5 }} /> Questions Asked</ProfileButton>
+              <ProfileButton onClick={() => navigate('/answer')}><MdQuestionAnswer size={14} style={{ marginBottom: 5 }} /> Answers</ProfileButton>
+              <ProfileButton onClick={() => Logout()}><BiLogOut size={16} style={{ marginBottom: 2 }} /> Logout</ProfileButton>
             </div>
           </div>
         </LoginArea>
@@ -195,8 +221,22 @@ function MainPage() {
           ))}
         </ul>
       </div>
-      <div className="page-title">Add Post</div>
-      <div className="breadcrumb">Home / Add Post</div>
+      <div className="page-title" style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }}>
+          <div>
+            <h3 style={{ margin:90, marginTop:60, marginBottom:20}}>Welcome to Ask me</h3>
+            <p style={{ color: 'white', fontWeight: '300',  margin:90, marginBottom:20, marginTop:20, }}>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
+            <div style={{ display: 'flex',olor: 'white', fontWeight: '300',  margin:90, marginBottom:20, marginTop:20, }}>
+              <AskButton>About Us</AskButton>
+              <AskButton>Ask Question</AskButton>
+            </div>
+          </div>
+        </div>
+        <div style={{ flex: 1.5, alignItems: 'flex-end' }}>
+          <AskBox placeholder='Ask a question and you will be sure to find an answer!' style={{ padding: 15, backgroundColor: 'rgba(253, 233, 233, 0.75)', borderWidth: 0, position: 'absolute', zIndex: 100, height: '25vh', width: '50vw', top: 250, right: 100, resize: 'none' }}></AskBox>
+          <img src={ImageUrl} alt='searchimage' />
+        </div>
+      </div>
       <div className="thirdbar">
         <QandABar />
         <Side />

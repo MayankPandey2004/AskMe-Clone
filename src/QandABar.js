@@ -123,7 +123,7 @@ function QuestionNav() {
         const result = await response.json();
         setTabs(result.qanda_bar);
         setQuestions(result.questions);
-        setActiveTab(result.qanda_bar[1]); // Set the first tab as active by default
+        setActiveTab(result.qanda_bar[1]);
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the data: ", e);

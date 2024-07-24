@@ -101,6 +101,7 @@ function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form Submitted'); 
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
