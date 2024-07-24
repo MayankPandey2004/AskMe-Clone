@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import TopBar from "../components/TopBar";
+import MainNav from "../components/MainNav";
+import Side from "../Side";
 
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  width: 850px;
   background-color: #f9f9f9;
   color: #333;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
   margin: 50px auto;
 `;
 
@@ -30,74 +33,67 @@ const ProfileTitle = styled.h2`
   font-weight: bold;
   color: #ff6b6b;`;
 
-const BackButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: #ff6b6b;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 
-  &:hover {
-    background-color: #f9f9f9;
-    color: #e55b5b;
-    transition: background-color 0.2s ease-in;
-  }
-`;
-
-function ProfilePage() {
+function AnswerPage() {
   const [profile, setProfile] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-    
-//   useEffect(() => {
-//     const fetchProfile = async () => {
-//       try {
-//         const url = "http://localhost:8080/profile";
-//         const response = await fetch(url, {
-//           credentials: 'include'
-//         });
-//         if (!response.ok) {
-//           throw new Error(`HTTP error! status: ${response.status}`);
-//         }
-//         const result = await response.json();
-//         setProfile(result);
-//         setIsLoading(false);
-//       } catch (e) {
-//         console.error("An error occurred while fetching the profile data: ", e);
-//         setError(e.message);
-//         setIsLoading(false);
-//       }
-//     };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const url = "http://localhost:8080/home";
+        const response = await fetch(url, {
+          credentials: 'include'
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        setProfile(result);
+        setIsLoading(false);
+      } catch (e) {
+        console.error("An error occurred while fetching the profile data: ", e);
+        setError(e.message);
+        setIsLoading(false);
+      }
+    };
 
-//     fetchProfile();
-//   }, []);
+    fetchProfile();
+  }, []);
 
-//   if (isLoading) return <div>Loading...</div>;
-//   if (error) return <div>Error: {error}</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="header-container">
-      <div className="top-bar-content">
-        <div className="top-bar">
-          <div className="left-section">
-            <BackButton onClick={() => navigate("/")} className="back-button">
-              Back
-            </BackButton>
-          </div>
-        </div>
-      </div>
+      <TopBar
+        isLoggedIn={true}
+        showProfile={true}
+        loginAreaHeight="0px"
+        profile={() => { }}
+        login={() => { }}
+        navigate={navigate}
+        Logout={() => { }}
+      />
+      <MainNav tabs={["Home", "Profile", "Questions", "Answers", "Logout"]} />
+      <div style={{display:'flex'}}>
+        <div style={{flex:2}}>
       <ProfileContainer>
-        <ProfileTitle>Questions Answered</ProfileTitle>
+        <ProfileTitle>Answers</ProfileTitle>
         <ProfileItem>
-          <strong>Name?</strong> <br />name
+          <strong>Name?</strong> <br />{profile.name}
         </ProfileItem>
       </ProfileContainer>
+      </div>
+      <div style={{flex:1}}>
+        <Side/>
+      </div>
+      </div>
+      
     </div>
   );
 }
 
-export default ProfilePage;
+export default AnswerPage;

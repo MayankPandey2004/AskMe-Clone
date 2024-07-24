@@ -73,7 +73,7 @@ const QuestionDate = styled.div`
 `
 
 const AskButton = styled.button`
-  width: 85%;
+  width: 300px;
   padding: 10px;
   margin-left: 50px;
   background-color: #ff7f7f;
@@ -90,7 +90,7 @@ const AskButton = styled.button`
   }
 `
 
-function SidebarComponent() {
+function Side() {
   const [tabs, setTabs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -158,4 +158,4 @@ function SidebarComponent() {
   );
 }
 
-export default SidebarComponent;
+export default Side;
