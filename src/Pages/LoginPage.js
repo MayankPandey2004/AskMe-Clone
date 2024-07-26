@@ -118,9 +118,9 @@ function LoginPage() {
             );
             navigate('/');
             const accessToken = response?.data.accessToken;
-            const roles = response?.data?.roles;
+            const user_id = response?.data?.user_id;
             console.log(response?.data?.roles);
-            setAuth({user,pwd,roles,accessToken});
+            setAuth({user,pwd,user_id,accessToken});
             setUser('');
             setPwd('');
         } catch (err) {

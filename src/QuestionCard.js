@@ -1,40 +1,68 @@
 import React from 'react';
 import './QuestionCard.css';
+import styled from "styled-components";
+import UserImage from './assets/profilephoto.png';
+import { FaThumbsUp } from "react-icons/fa";
+import { AiFillQuestionCircle } from "react-icons/ai";
+
+const AskButton = styled.button`
+  width: 30%;
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #343a40;
+    transition: background-color 0.2s ease-in;
+  }
+`
+
+const QuestionButton = styled.div`
+  width: 10%;
+  margin-right: 10px;
+  display: flex;
+  border-radius: 2px;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+`
 
 const QuestionCard = ({ questions }) => (
   <>
     {questions.map((question, index) => (
-      <div className="question-card">
-        <div className="user-avatar">
-          {/* Add user avatar image here */}
-        </div>
-        <div className="question-content">
-          <div key={index}>
-            <h2>{question.question}</h2>
-            <p>{question.discription}</p>
-            <div className="question-meta">
-              {/* {question.type === 'question' && <span className="status">in progress</span>}
-            <span className="stars">{tags.stars}</span>
-            <span className="category">{tags.category}</span>
-            <span className="duration">{tags.duration}</span>
-            <span className="answers">{stats.answers} Answers</span>
-            <span className="views">{stats.views} views</span>
-            <span className="explainer">Explainer</span> */}
-            </div>
+      <div className="question-card" style={{ marginLeft: 40, padding: 30, paddingBottom: 10, flexDirection: 'column' }}>
+      <div className="question-content">
+        <div style={{ display:'flex', justifyContent:'space-between'}}>
+          <div style={{display:'flex'}}>
+          <div style={{borderRadius:'50%', height:40, width:40, backgroundColor:'lightgray'}}>
+            <img src={UserImage} alt="profile-photo" style={{height:40, width:40}} />
           </div>
-        </div>
-
-        {questions.length > 0 && (
-          <div className="question-type">
-            {questions[0].type === 'question' ? (
-              <button className="question-button">Question</button>
-            ) : (
-              <button className="poll-button">Poll</button>
-            )}
+          <p style={{ fontSize: 18, fontWeight: '400', marginTop: 5, marginLeft:5 }}>Test Username</p>
           </div>
-        )}
-        <button className="report-button">Report</button>
+          <QuestionButton><AiFillQuestionCircle style={{marginRight:2}}/>Question</QuestionButton>
+        </div>
+        <p style={{ fontSize: 18, fontWeight: '600', marginBottom: 10 }}>{question.question}</p>
+        <p style={{ fontSize: 16 }}>{question.discription}</p>
       </div>
+      <hr />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <AskButton>Add Answer to the Question</AskButton>
+        <div style={{ display: 'flex', marginTop: 8, marginRight: 10 }}>
+          <FaThumbsUp style={{ marginRight: 5, marginTop: 2 }} color="gray" />
+          <p style={{ color: 'gray', fontSize: 16 }}>likes</p>
+        </div>
+      </div>
+    </div>
     ))}
   </>
 );

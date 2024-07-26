@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import MainNav from "../components/MainNav";
 import Side from "../Side";
+import useAuth from "../hooks/useAuth";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -39,11 +40,11 @@ function AnswerPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+  const { auth } = useAuth();
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const url = "http://localhost:8080/home";
+        const url = `http://localhost:8080/user_answered_questions?user_id=${auth.accessToken}`;
         const response = await fetch(url, {
           credentials: 'include'
         });
@@ -61,7 +62,7 @@ function AnswerPage() {
     };
 
     fetchProfile();
-  }, []);
+  }, [auth.accessToken]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
