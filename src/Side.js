@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -91,6 +92,7 @@ const AskButton = styled.button`
 `
 
 function Side() {
+  const navigate = useNavigate(); 
   const [tabs, setTabs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -121,7 +123,7 @@ function Side() {
 
   return (
     <div style={{display:'flex',flexDirection:'column'}}>
-      <AskButton> 
+      <AskButton onClick={()=>navigate('/askquestion')}> 
         Ask A Question
       </AskButton>
       <Container>

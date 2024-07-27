@@ -127,7 +127,7 @@ function MainPage() {
             <p style={{ color: 'white', fontWeight: '300',  margin:90, marginBottom:20, marginTop:20, }}>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
             <div style={{ display: 'flex',olor: 'white', fontWeight: '300',  margin:90, marginBottom:20, marginTop:20, }}>
               <AskButton>About Us</AskButton>
-              <AskButton>Ask Question</AskButton>
+              <AskButton onClick={()=>navigate('/askquestion')}>Ask Question</AskButton>
             </div>
           </div>
         </div>

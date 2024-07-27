@@ -7,6 +7,7 @@ import RequireAuth from './components/RequireAuth';
 import ProfilePage from './Pages/ProfilePage';
 import QuestionPage from './Pages/QuestionPage';
 import AnswerPage from './Pages/AnswersPage';
+import AskQuestion from './Pages/AskQuestion';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/profile' element={<ProfilePage/>} />
         <Route path='/question' element={<QuestionPage/>} />
         <Route path='/answer' element={<AnswerPage/>} />
+        <Route path='/askquestion' element={<AskQuestion/>}/>
         <Route path='*'/>
         </Route>
       </Routes>

@@ -18,7 +18,7 @@ const MainNav = () => {
             {tabs[0]}
           </li>
         </a>
-        <a href="/question" role="button" className="nav-item">
+        <a href="/askquestion" role="button" className="nav-item">
           <li
             className='nav-list-item'
             style={{ padding: 10, borderRadius: 2 }}
