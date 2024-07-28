@@ -58,8 +58,8 @@ const QuestionCard = ({ questions }) => (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <AskButton>Add Answer to the Question</AskButton>
         <div style={{ display: 'flex', marginTop: 8, marginRight: 10 }}>
-          <FaThumbsUp style={{ marginRight: 5, marginTop: 2 }} color="gray" />
-          <p style={{ color: 'gray', fontSize: 16 }}>likes</p>
+          <FaThumbsUp style={{ marginRight: 5, marginTop: 3 }} color="gray" />
+          <p style={{ color: 'gray', fontSize: 16 }}>{question.like}</p>
         </div>
       </div>
     </div>
