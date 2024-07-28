@@ -38,6 +38,22 @@ const AskButton = styled.button`
   }
 `
 
+const SubmitButton = styled.button`
+margin-right: 10px;
+background-color: #ff6d6d;
+color: white;
+border: none;
+cursor: pointer;
+height: 35px;
+font-size: 14px;
+border-radius: 2px;
+
+&:hover {
+  background-color: #343a40;
+  transition: background-color 0.2s ease-in;
+}
+`
+
 function MainPage() {
 
   const navigate = useNavigate();
@@ -134,6 +150,14 @@ function MainPage() {
         <div style={{ flex: 1.5, alignItems: 'flex-end' }}>
           <AskBox placeholder='Ask a question and you will be sure to find an answer!' style={{ padding: 15, backgroundColor: 'rgba(253, 233, 233, 0.75)', borderWidth: 0, position: 'absolute', zIndex: 100, height: '25vh', width: '50vw', top: showProfile ? 550 : 250 , right: 100, resize: 'none',  transition: 'top 0.5s ease-in-out' }}></AskBox>
           <img src={ImageUrl} alt='searchimage' />
+          <SubmitButton style={{
+          position: 'absolute',
+          right: '100px',
+          zIndex:100,
+          top: showProfile ? '85vh' : '50vh',
+          transition: 'top 0.5s ease-in-out',
+          width:95,
+        }}>Ask Now</SubmitButton>
         </div>
       </div>
       <div className="thirdbar">

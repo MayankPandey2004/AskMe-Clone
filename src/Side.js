@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Container = styled.div`
   font-family: Arial, sans-serif;
@@ -9,7 +9,7 @@ const Container = styled.div`
   background-color: #fff;
   padding: 20px;
   margin-left: 50px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Section = styled.div`
@@ -41,12 +41,12 @@ const Tag = styled.button`
   cursor: pointer;
   margin-right: 2px;
   border-radius: 5px;
-  
+
   &:hover {
     background-color: #ff7f7f;
     transition: background-color 0.2s ease-in;
   }
-`
+`;
 
 const QuestionHeader = styled.div`
   font-size: 14px;
@@ -54,24 +54,24 @@ const QuestionHeader = styled.div`
   margin-bottom: 5px;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     color: #ff7f7f;
     transition: color 0.2s ease-in;
   }
-`
+`;
 
 const QuestionBody = styled.div`
   font-size: 13px;
   font-weight: 300;
   color: #333;
   margin-bottom: 5px;
-`
+`;
 
 const QuestionDate = styled.div`
   font-size: 12px;
   font-weight: 300;
   color: gray;
-`
+`;
 
 const AskButton = styled.button`
   width: 300px;
@@ -89,24 +89,32 @@ const AskButton = styled.button`
     background-color: #343a40;
     transition: background-color 0.2s ease-in;
   }
-`
+`;
 
 function Side() {
-  const navigate = useNavigate(); 
-  const [tabs, setTabs] = useState([]);
+  const navigate = useNavigate();
+  const [questions, setQuestions] = useState();
+  const [answers, setAnswers] = useState();
+  const [tags, setTags] = useState([]);
+  const [users, setUsers] = useState();
+  const [recQuestions, setRecQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const getApiData = async () => {
       try {
-        const url = "http://localhost:8080/home";
+        const url = `http://localhost:8080/home?user_id=3`;
         const response = await fetch(url);
-        if (!response.ok) {
+        if (!response) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setTabs(result.stats);
+        setQuestions(result.stat.questions);
+        setAnswers(result.stat.answers);
+        setUsers(result.stat.users);
+        setTags(result?.tags);
+        setRecQuestions(result?.recent_questions);
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the data: ", e);
@@ -122,38 +130,46 @@ function Side() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div style={{display:'flex',flexDirection:'column'}}>
-      <AskButton onClick={()=>navigate('/askquestion')}> 
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <AskButton onClick={() => navigate("/askquestion")}>
         Ask A Question
       </AskButton>
       <Container>
         <Section>
           <Title>Stats</Title>
           <hr />
-          {tabs.map((tab) => (
-            <StatItem
-            >
-              {tab.name} ({tab.count})
+            <StatItem>
+              Questions ({questions})
             </StatItem>
-          ))}
+            <StatItem>
+              Answers ({answers})
+            </StatItem>
+            <StatItem>
+              Users ({users})
+            </StatItem>
         </Section>
       </Container>
       <Container>
         <Section>
           <Title>Tags</Title>
           <hr />
-          <Tag>Analytic</Tag>
-          <Tag>British</Tag>
-          <Tag>Company</Tag>
+          {Array.isArray(tags) && tags.map((tag, index) => (
+            <Tag key={index}>{tag.tag}</Tag>
+          ))}
         </Section>
       </Container>
       <Container>
         <Section>
           <Title>Recent Questions</Title>
           <hr />
-          <QuestionHeader>Do I need to have a undergrad percentage of 70%</QuestionHeader>
-          <QuestionBody>Participate in the referendum, Please...</QuestionBody>
-          <QuestionDate>November 19, 2023</QuestionDate>
+          {Array.isArray(recQuestions) && recQuestions.slice(0,3).map((question, index) => (
+            <div key={index}>
+              {(index>0) && <hr style={{color:'gray'}}/>}
+              <QuestionHeader>{question.question}</QuestionHeader>
+              <QuestionBody>{question.discription}</QuestionBody>
+              <QuestionDate>Posted by {question.username} on {new Date(question.date).toLocaleDateString()}</QuestionDate>
+            </div>
+          ))}
         </Section>
       </Container>
     </div>

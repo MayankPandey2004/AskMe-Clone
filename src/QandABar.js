@@ -82,15 +82,15 @@ const NavContainer = styled.nav`
   margin-bottom: 20px;
   margin-top: 30px;
   margin: 30px;
-
 `;
 
 const NavList = styled.ul`
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin-left: 40px;
   display: flex;
   border-bottom: 2px solid #ff6b6b;
+
 `;
 
 const NavItem = styled.li`
@@ -106,24 +106,25 @@ const NavItem = styled.li`
 `;
 
 function QuestionNav() {
-  const [activeTab, setActiveTab] = useState('');
-  const [tabs, setTabs] = useState([]);
+  const [activeTab, setActiveTab] = useState('Recent Questions');
+  const tabs = ["Recent Questions", "Most Answered", "No Answers"];
   const [isLoading, setIsLoading] = useState(true);
-  const [questions, setQuestions] = useState([]);
+  const [recentquestions, setRecentQuestions] = useState([]);
+  const [mostAnsweredquestions, setMostAnsweredQuestions] = useState([]);
+  const [noAnsweredquestions, setNoAnsweredQuestions] = useState([]);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const getApiData = async () => {
       try {
-        const url = "http://localhost:8080/home";
+        const url = `http://localhost:8080/home?user_id=3`;
         const response = await fetch(url);
-        if (!response.ok) {
+        if (!response) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setTabs(result.qanda_bar);
-        setQuestions(result.questions);
-        setActiveTab(result.qanda_bar[1]);
+        setRecentQuestions(result.recent_questions);
+        setNoAnsweredQuestions(result.no_answered);
+        setMostAnsweredQuestions(result.most_answered);
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the data: ", e);
@@ -151,7 +152,7 @@ function QuestionNav() {
           </NavItem>
         ))}
       </NavList>
-      <QuestionCard questions={questions}/>
+      <QuestionCard questions={activeTab==="Recent Questions"?recentquestions:activeTab==="Most Answered"?mostAnsweredquestions:noAnsweredquestions}/>
     </NavContainer>
   );
 }
