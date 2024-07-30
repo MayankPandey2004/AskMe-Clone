@@ -94,7 +94,7 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, Logout, userna
         <LeftSectionButton onClick={isLoggedIn ? profile : login}>
           {isLoggedIn ? 'Profile' : 'Login'}
         </LeftSectionButton>
-        <LeftSectionButton>Add Post</LeftSectionButton>
+        <LeftSectionButton onClick={()=>navigate('/askquestion')}>Add Post</LeftSectionButton>
       </div>
       <div className="right-section">
         <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch /></div>
