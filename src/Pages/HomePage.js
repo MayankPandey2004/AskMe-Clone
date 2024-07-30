@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import '../Modal.css';
 import 'ldrs/helix';
-import { lineSpinner } from 'ldrs'
+import { lineSpinner } from 'ldrs';
 import ImageUrl from "../assets/chrome.png";
 import TopBar from '../components/TopBar';
 import MainNav from '../components/MainNav';

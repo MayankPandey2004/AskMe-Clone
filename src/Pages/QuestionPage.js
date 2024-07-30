@@ -11,6 +11,9 @@ import { FaThumbsUp } from "react-icons/fa";
 import { BsFillPinFill } from "react-icons/bs";
 import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
+import { lineSpinner } from 'ldrs';
+
+lineSpinner.register();
 
 const AskButton = styled.button`
   width: 30%;
@@ -74,7 +77,14 @@ function QuestionPage() {
     fetchquestion();
   }, [auth.user_id]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <l-line-spinner
+      size="40"
+      stroke="3"
+      speed="1"
+      color="#333"
+    ></l-line-spinner>
+  </div>;
   if (error) return <div>Error: {error}</div>;
 
   return (

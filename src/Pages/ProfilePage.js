@@ -6,6 +6,9 @@ import MainNav from "../components/MainNav";
 import Side from "../Side";
 import UserImage from '../assets/profilephoto.png';
 import useAuth from "../hooks/useAuth";
+import { lineSpinner } from 'ldrs';
+
+lineSpinner.register();
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -126,7 +129,14 @@ const ProfilePage = () => {
     fetchProfile();
   }, [auth.user_id]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <l-line-spinner
+      size="40"
+      stroke="3"
+      speed="1"
+      color="#333"
+    ></l-line-spinner>
+  </div>;
   if (error) return <ErrorMessage>Error: {error}</ErrorMessage>;
 
   return (
@@ -158,8 +168,8 @@ const ProfilePage = () => {
             </ProfileContent>
             <AskButton>Edit profile</AskButton>
           </ProfileContainer>
-          <QuestionButton style={{ marginRight: 20, marginLeft: 50 }}>Questions Asked</QuestionButton>
-          <QuestionButton>Questions Answered</QuestionButton>
+          <QuestionButton style={{ marginRight: 20, marginLeft: 50 }}  onClick={()=>navigate('/question')}>Questions Asked</QuestionButton>
+          <QuestionButton onClick={()=>navigate('/answer')}>Questions Answered</QuestionButton>
         </div>
         <div style={{ flex: 1 }}>
           <Side />
