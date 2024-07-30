@@ -92,6 +92,7 @@ function MainPage() {
 
     getApiData();
   }, [result.valid,auth.user_id]);
+
   useEffect(() => {
     if (showProfile) {
       setLoginAreaHeight('300px');
@@ -99,7 +100,7 @@ function MainPage() {
       setLoginAreaHeight('0px');
     }
   }, [showProfile]);
-
+  
   if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <l-line-spinner
       size="40"
@@ -128,6 +129,7 @@ function MainPage() {
     <div className="header-container">
       <TopBar
         isLoggedIn={isLoggedIn}
+        setShowProfile={setShowProfile}
         showProfile={showProfile}
         loginAreaHeight={loginAreaHeight}
         profile={profile}

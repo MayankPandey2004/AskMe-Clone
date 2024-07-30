@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoHomeSharp } from "react-icons/io5";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { MdQuestionAnswer } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
+import { useNavigate } from 'react-router-dom';
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -55,7 +56,22 @@ const ProfileImage = styled.div`
   }
 `;
 
-const TopBar = ({ isLoggedIn, showProfile, loginAreaHeight, profile, login, navigate, Logout, username}) => (
+const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, Logout, username}) => {
+  const navigate = useNavigate();
+  const [loginAreaHeight, setLoginAreaHeight] = useState('0px');
+
+  useEffect(() => {
+    if (showProfile) {
+      setLoginAreaHeight('300px');
+    } else {
+      setLoginAreaHeight('0px');
+    }
+  }, [showProfile]);
+
+  const profile = () => {
+    setShowProfile(!showProfile);
+  }
+  return(
   <div className="top-bar-content">
     <LoginArea style={{ height: loginAreaHeight }}>
       <div style={{ display: 'flex', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
@@ -90,6 +106,7 @@ const TopBar = ({ isLoggedIn, showProfile, loginAreaHeight, profile, login, navi
       </div>
     </div>
   </div>
-);
+  )
+};
 
 export default TopBar;

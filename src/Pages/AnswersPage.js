@@ -53,6 +53,7 @@ function AnswersPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     const fetchanswers = async () => {
@@ -91,8 +92,8 @@ function AnswersPage() {
     <div className="header-container">
       <TopBar
         isLoggedIn={true}
-        showProfile={true}
-        loginAreaHeight="0px"
+        showProfile={showProfile}
+        setShowProfile={setShowProfile}
         profile={() => {
           navigate("/profile");
         }}

@@ -108,6 +108,7 @@ const ProfilePage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -143,7 +144,8 @@ const ProfilePage = () => {
     <div className="header-container">
       <TopBar
         isLoggedIn={true}
-        showProfile={true}
+        showProfile={showProfile}
+        setShowProfile={setShowProfile}
         loginAreaHeight="0px"
         profile={() => { }}
         login={() => { }}

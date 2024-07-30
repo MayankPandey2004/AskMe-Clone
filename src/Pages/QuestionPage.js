@@ -53,6 +53,7 @@ function QuestionPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     const fetchquestion = async () => {
@@ -91,8 +92,8 @@ function QuestionPage() {
     <div className="header-container">
       <TopBar
         isLoggedIn={true}
-        showProfile={true}
-        loginAreaHeight="0px"
+        showProfile={showProfile}
+        setShowProfile={setShowProfile}
         profile={() => {
           navigate("/profile");
         }}
@@ -111,6 +112,7 @@ function QuestionPage() {
               padding: 30,
               paddingBottom: 10,
               flexDirection: "column",
+              width:'65vw'
             }}
           >
             <div className="question-content">

@@ -121,11 +121,14 @@ const AskButton = styled.button`
 
 function AskQuestion() {
   const [isSelected, setIsSelected] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+
   return (
     <div>
       <TopBar
         isLoggedIn={true}
-        showProfile={true}
+        showProfile={showProfile}
+        setShowProfile={setShowProfile}
         loginAreaHeight="0px"
         profile={() => {}}
         login={() => {}}
