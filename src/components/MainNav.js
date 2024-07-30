@@ -13,7 +13,7 @@ const MainNav = () => {
         <a href="/" role="button" className="nav-item">
           <li
             className='nav-list-item'
-            style={{ backgroundColor: '#ff6b6b', padding: 10, borderRadius: 2 }}
+            style={{ padding: 10, borderRadius: 2 }}
           >
             {tabs[0]}
           </li>
