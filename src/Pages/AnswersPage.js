@@ -6,63 +6,73 @@ import TopBar from "../components/TopBar";
 import MainNav from "../components/MainNav";
 import Side from "../Side";
 import useAuth from "../hooks/useAuth";
+import "../QuestionCard.css";
 
-const ProfileContainer = styled.div`
+import { BsFillPinFill } from "react-icons/bs";
+import UserImage from "../assets/profilephoto.png";
+import { AiFillQuestionCircle } from "react-icons/ai";
+
+// const AskButton = styled.button`
+//   width: 30%;
+//   padding: 10px;
+//   margin-right: 10px;
+//   background-color: #ff6b6b;
+//   color: white;
+//   border: none;
+//   cursor: pointer;
+//   height: 40px;
+//   font-size: 14px;
+
+//   &:hover {
+//     background-color: #343a40;
+//     transition: background-color 0.2s ease-in;
+//   }
+// `;
+
+const QuestionButton = styled.div`
+  width: 10%;
+  margin-right: 10px;
   display: flex;
-  flex-direction: column;
+  border-radius: 2px;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
-  width: 850px;
-  background-color: #f9f9f9;
-  color: #333;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 50px auto;
+  height: 20px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
 `;
 
-const ProfileItem = styled.div`
-  margin: 10px 0;
-  font-size: 1.2em;
-  font-weight: 500;
-  align-self: flex-start;
-  margin-left: 20px;
-`;
-
-const ProfileTitle = styled.h2`
-  margin-bottom: 20px;
-  font-size: 2em;
-  font-weight: bold;
-  color: #ff6b6b;`;
-
-
-function AnswerPage() {
-  const [profile, setProfile] = useState({});
+function AnswersPage() {
+  const [answers, setAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { auth } = useAuth();
+
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchanswers = async () => {
       try {
-        const url = `http://localhost:8080/user_answered_questions?user_id=${auth.accessToken}`;
+        const url = `http://localhost:8080/user_answered_questions?user_id=${auth.user_id}`;
         const response = await fetch(url, {
-          credentials: 'include'
+          credentials: "include",
         });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setProfile(result);
+        setAnswers(result.user_answered_questions);
         setIsLoading(false);
       } catch (e) {
-        console.error("An error occurred while fetching the profile data: ", e);
+        console.error("An error occurred while fetching the answers data: ", e);
         setError(e.message);
         setIsLoading(false);
       }
     };
 
-    fetchProfile();
-  }, [auth.accessToken]);
+    fetchanswers();
+  }, [auth.user_id]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -73,28 +83,80 @@ function AnswerPage() {
         isLoggedIn={true}
         showProfile={true}
         loginAreaHeight="0px"
-        profile={() => { }}
-        login={() => { }}
+        profile={() => {
+          navigate("/profile");
+        }}
+        login={() => {}}
         navigate={navigate}
-        Logout={() => { }}
+        Logout={() => {}}
       />
       <MainNav tabs={["Home", "Profile", "Questions", "Answers", "Logout"]} />
-      <div style={{display:'flex'}}>
-        <div style={{flex:2}}>
-      <ProfileContainer>
-        <ProfileTitle>Answers</ProfileTitle>
-        <ProfileItem>
-          <strong>Name?</strong> <br />{profile.name}
-        </ProfileItem>
-      </ProfileContainer>
+      <div style={{ display: "flex" }}>
+        <div style={{ flex: 2, marginTop: 10 }}>
+          {answers.map((answers,index)=>(
+            <div
+            className="question-card"
+            style={{
+              marginLeft: 40,
+              padding: 30,
+              paddingBottom: 10,
+              flexDirection: "column",
+            }}
+          >
+            <div className="question-content">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 10,
+                }}
+              >
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      borderRadius: "50%",
+                      height: 50,
+                      width: 50,
+                      backgroundColor: "lightgray",
+                    }}
+                  >
+                    <img
+                      src={UserImage}
+                      alt="profile-photo"
+                      style={{ height: 50, width: 50 }}
+                    />
+                  </div>
+                  <p
+                    style={{
+                      fontSize: 22,
+                      fontWeight: "400",
+                      marginTop: 10,
+                      marginLeft: 5,
+                    }}
+                  >{answers.username}</p>
+                </div>
+                <QuestionButton style={{ marginTop: 10 }}>
+                  <AiFillQuestionCircle style={{ marginRight: 2 }} />
+                  Question
+                </QuestionButton>
+              </div>
+              <p style={{ fontSize: 22, fontWeight: "600", marginBottom: 20 }}>
+                <BsFillPinFill style={{ marginRight: 5 }} /> {answers.question}
+              </p>
+              <p style={{ fontSize: 16 }}>
+                {answers.discription}
+              </p>
+            </div>
+          </div>
+        ))}
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <Side />
+        </div>
       </div>
-      <div style={{flex:1}}>
-        <Side/>
-      </div>
-      </div>
-      
     </div>
   );
 }
 
-export default AnswerPage;
+export default AnswersPage;

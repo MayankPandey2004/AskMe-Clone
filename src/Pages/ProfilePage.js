@@ -55,7 +55,6 @@ const QuestionButton = styled.button`
   }
 `;
 
-
 const ProfileItem = styled.div`
   margin: 10px 0;
   font-size: 1.2em;
@@ -110,13 +109,13 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const url = 'http://localhost:8080/home';
+        const url = `http://localhost:8080/user_profile?user_id=${auth.user_id}`;
         const response = await fetch(url, { credentials: 'include' });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setProfile(result);
+        setProfile(result.user_info);
         setIsLoading(false);
       } catch (e) {
         setError(e.message);
@@ -145,22 +144,21 @@ const ProfilePage = () => {
       <div style={{ display: 'flex' }}>
         <div style={{ flex: 2 }}>
           <ProfileContainer>
-            <ProfileTitle>About TestUsername <hr style={{color:'gray'}} /></ProfileTitle>
+            <ProfileTitle>About {profile.username} <hr style={{ color: 'gray' }} /></ProfileTitle>
             <ProfileContent>
               <ProfileImage>
                 <img src={UserImage} alt="Profile" />
               </ProfileImage>
               <ProfileDetails>
                 <ProfileItem>
-                  <p>Name: {profile.name}</p>
-                  <p>Registered date:</p> 
-                  <p>Email:</p>
+                  <p>User ID: {profile.user_id}</p>
+                  <p>Email: {profile.email}</p>
                 </ProfileItem>
               </ProfileDetails>
             </ProfileContent>
             <AskButton>Edit profile</AskButton>
           </ProfileContainer>
-          <QuestionButton style={{marginRight:20, marginLeft:50}}>Questions Asked</QuestionButton>
+          <QuestionButton style={{ marginRight: 20, marginLeft: 50 }}>Questions Asked</QuestionButton>
           <QuestionButton>Questions Answered</QuestionButton>
         </div>
         <div style={{ flex: 1 }}>
