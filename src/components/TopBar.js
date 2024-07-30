@@ -85,7 +85,7 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, Logout, userna
           <ProfileButton onClick={() => navigate('/profile')}><IoHomeSharp size={14} style={{ marginBottom: 5 }} /> Profile Page</ProfileButton>
           <ProfileButton onClick={() => navigate('/question')}><FaCircleQuestion size={14} style={{ marginBottom: 5 }} /> Questions Asked</ProfileButton>
           <ProfileButton onClick={() => navigate('/answer')}><MdQuestionAnswer size={14} style={{ marginBottom: 5 }} /> Answers</ProfileButton>
-          <ProfileButton onClick={() => Logout()}><BiLogOut size={16} style={{ marginBottom: 2 }} /> Logout</ProfileButton>
+          <ProfileButton onClick={() => navigate('/login')}><BiLogOut size={16} style={{ marginBottom: 2 }} /> Logout</ProfileButton>
         </div>
       </div>
     </LoginArea>
