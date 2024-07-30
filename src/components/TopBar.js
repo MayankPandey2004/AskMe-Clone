@@ -6,6 +6,7 @@ import { FaCircleQuestion } from "react-icons/fa6";
 import { MdQuestionAnswer } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
+import UserImage from '../assets/profilephoto.png'
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -75,7 +76,7 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, Logout, userna
   <div className="top-bar-content">
     <LoginArea style={{ height: loginAreaHeight }}>
       <div style={{ display: 'flex', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
-        <ProfileImage></ProfileImage>
+        <ProfileImage><img src={UserImage} alt="user-image" style={{width:'100%', height:'100%'}}/></ProfileImage>
         <h5>Welcome {username}</h5>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
