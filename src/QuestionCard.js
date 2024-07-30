@@ -47,7 +47,7 @@ const QuestionCard = ({ questions }) => (
           <div style={{borderRadius:'50%', height:40, width:40, backgroundColor:'lightgray'}}>
             <img src={UserImage} alt="profile-photo" style={{height:40, width:40}} />
           </div>
-          <p style={{ fontSize: 18, fontWeight: '400', marginTop: 5, marginLeft:5 }}>Test Username</p>
+          <p style={{ fontSize: 18, fontWeight: '400', marginTop: 5, marginLeft:5 }}>{question.username}</p>
           </div>
           <QuestionButton><AiFillQuestionCircle style={{marginRight:2}}/>Question</QuestionButton>
         </div>

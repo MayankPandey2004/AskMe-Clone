@@ -55,17 +55,17 @@ const ProfileImage = styled.div`
   }
 `;
 
-const TopBar = ({ isLoggedIn, showProfile, loginAreaHeight, profile, login, navigate, Logout }) => (
+const TopBar = ({ isLoggedIn, showProfile, loginAreaHeight, profile, login, navigate, Logout, username}) => (
   <div className="top-bar-content">
     <LoginArea style={{ height: loginAreaHeight }}>
       <div style={{ display: 'flex', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
         <ProfileImage></ProfileImage>
-        <h5>Welcome testusername1</h5>
+        <h5>Welcome {username}</h5>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
         <h5 style={{ marginLeft: 50 }}>Quick Links</h5>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: 50, flex: 1 }}>
-          <ProfileButton onClick={() => navigate('/profile')}><IoHomeSharp size={14} style={{ marginBottom: 5 }} /> Profile Page</ProfileButton>
+          <ProfileButton onClick={() => showProfile()}><IoHomeSharp size={14} style={{ marginBottom: 5 }} /> Profile Page</ProfileButton>
           <ProfileButton onClick={() => navigate('/question')}><FaCircleQuestion size={14} style={{ marginBottom: 5 }} /> Questions Asked</ProfileButton>
           <ProfileButton onClick={() => navigate('/answer')}><MdQuestionAnswer size={14} style={{ marginBottom: 5 }} /> Answers</ProfileButton>
           <ProfileButton onClick={() => Logout()}><BiLogOut size={16} style={{ marginBottom: 2 }} /> Logout</ProfileButton>

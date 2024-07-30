@@ -10,6 +10,7 @@ import { lineSpinner } from 'ldrs';
 import ImageUrl from "../assets/chrome.png";
 import TopBar from '../components/TopBar';
 import MainNav from '../components/MainNav';
+import useAuth from '../hooks/useAuth';
 
 lineSpinner.register()
 
@@ -57,31 +58,30 @@ border-radius: 2px;
 function MainPage() {
 
   const navigate = useNavigate();
-  const [tabs, setTabs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [result, setResult] = useState([]);
   const [error, setError] = useState(null);
   const [loginAreaHeight, setLoginAreaHeight] = useState('0px');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const { auth } = useAuth();
 
   useEffect(() => {
     const getApiData = async () => {
       console.log('Logged In');
+      console.log(auth.user_id);
       try {
-        const url = "http://localhost:8080/home";
+        const url = auth.user_id?`http://localhost:8080/home?user_id=${auth.user_id}`:`http://localhost:8080/home`;
         const response = await fetch(url, {
           credentials: 'include'
         });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const result = await response.json();
-        setTabs(result.middel_bar);
-
+        setResult(await response.json());
         if (result.valid) {
           setIsLoggedIn(true);
         }
-        console.log(result);
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the data: ", e);
@@ -91,7 +91,7 @@ function MainPage() {
     };
 
     getApiData();
-  }, []);
+  }, [result.valid,auth.user_id]);
   useEffect(() => {
     if (showProfile) {
       setLoginAreaHeight('300px');
@@ -134,8 +134,9 @@ function MainPage() {
         login={login}
         navigate={navigate}
         Logout={Logout}
+        username={isLoggedIn?result.user_info.username:"User"}
       />
-      <MainNav tabs={tabs} />
+      <MainNav/>
       <div className="page-title" style={{ display: 'flex' }}>
         <div style={{ flex: 1 }}>
           <div>
