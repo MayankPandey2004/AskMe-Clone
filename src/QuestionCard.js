@@ -4,6 +4,7 @@ import styled from "styled-components";
 import UserImage from './assets/profilephoto.png';
 import { FaThumbsUp } from "react-icons/fa";
 import { AiFillQuestionCircle } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
 
 const AskButton = styled.button`
   width: 30%;
@@ -37,7 +38,11 @@ const QuestionButton = styled.div`
   font-size: 12px;
 `
 
-const QuestionCard = ({ questions }) => (
+const QuestionCard = ({ questions }) => {
+
+  const navigate = useNavigate();
+  
+  return(
   <>
     {questions.map((question, index) => (
       <div className="question-card" style={{ marginLeft: 40, padding: 30, paddingBottom: 10, flexDirection: 'column' }}>
@@ -51,7 +56,7 @@ const QuestionCard = ({ questions }) => (
           </div>
           <QuestionButton><AiFillQuestionCircle style={{marginRight:2}}/>Question</QuestionButton>
         </div>
-        <p style={{ fontSize: 18, fontWeight: '600', marginBottom: 10 }}>{question.question}</p>
+        <p style={{ fontSize: 18, fontWeight: '600', marginBottom: 10 }} onClick={()=>navigate('/addanswer')}>{question.question}</p>
         <p style={{ fontSize: 16 }}>{question.discription}</p>
       </div>
       <hr />
@@ -65,6 +70,7 @@ const QuestionCard = ({ questions }) => (
     </div>
     ))}
   </>
-);
+  )
+};
 
 export default QuestionCard;

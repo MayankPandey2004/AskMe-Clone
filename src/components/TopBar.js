@@ -57,7 +57,7 @@ const ProfileImage = styled.div`
   }
 `;
 
-const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, Logout, username}) => {
+const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, username}) => {
   const navigate = useNavigate();
   const [loginAreaHeight, setLoginAreaHeight] = useState('0px');
 

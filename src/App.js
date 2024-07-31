@@ -8,6 +8,7 @@ import ProfilePage from './Pages/ProfilePage';
 import QuestionPage from './Pages/QuestionPage';
 import AnswerPage from './Pages/AnswersPage';
 import AskQuestion from './Pages/AskQuestion';
+import AddAnswerPage from './Pages/AddAnswer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/question' element={<QuestionPage/>} />
         <Route path='/answer' element={<AnswerPage/>} />
         <Route path='/askquestion' element={<AskQuestion/>}/>
+        <Route path='/addanswer' element={<AddAnswerPage/>}/>
         <Route path='*'/>
         </Route>
       </Routes>

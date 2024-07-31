@@ -62,7 +62,7 @@ function QuestionPage() {
         const response = await fetch(url, {
           credentials: "include",
         });
-        if (!response.ok) {
+        if (!response) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();

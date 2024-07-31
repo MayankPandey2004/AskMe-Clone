@@ -1,6 +1,6 @@
 import React from 'react'
 
-function QuestionAnswerPage() {
+function AnswerCard({ answers }) {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function QuestionAnswerPage() {
   )
 }
 
-export default QuestionAnswerPage
+export default AnswerCard
