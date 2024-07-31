@@ -22,7 +22,7 @@ function AddAnswerPage() {
   useEffect(() => {
     const fetchQuestionsAnswers = async () => {
       try {
-        const url = `http://localhost:8080/answers?user_id=${auth.user_id}`;
+        const url = `http://localhost:8080/answers?question_id=5`;
         const response = await fetch(url, {
           credentials: "include",
         });
@@ -35,7 +35,6 @@ function AddAnswerPage() {
       } catch (e) {
         console.error(
           "An error occurred while fetching the question data: ",
-          e
         );
         setError(e.message);
         setIsLoading(false);
