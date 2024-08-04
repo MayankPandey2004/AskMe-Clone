@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { lineSpinner } from 'ldrs';
+
+lineSpinner.register()
 
 const Container = styled.div`
   font-family: Arial, sans-serif;
@@ -126,7 +129,14 @@ function Side() {
     getApiData();
   }, []);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <l-line-spinner
+      size="40"
+      stroke="3"
+      speed="1"
+      color="#333"
+    ></l-line-spinner>
+  </div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
