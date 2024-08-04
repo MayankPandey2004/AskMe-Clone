@@ -4,6 +4,7 @@ import TopBar from "../components/TopBar";
 import styled from "styled-components";
 import Side from "../Side";
 import { FaCheck } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
 
 const CardContainer = styled.div`
   display: flex;
@@ -122,7 +123,7 @@ const AskButton = styled.button`
 function AskQuestion() {
   const [isSelected, setIsSelected] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-
+  const { auth } = useAuth();
   return (
     <div>
       <TopBar
@@ -134,6 +135,7 @@ function AskQuestion() {
         login={() => {}}
         navigate={() => {}}
         Logout={() => {}}
+        username={auth.username}
       />
       <MainNav />
       <div style={{ display: "flex" }}>
@@ -210,7 +212,7 @@ function AskQuestion() {
                 Details <span style={{ color: "red", marginLeft: 2 }}>*</span>
               </Label>
               <div style={{ display: "flex", flex: 5 }}>
-                <Textarea></Textarea>
+                <Textarea/>
               </div>
             </div>
           </form>

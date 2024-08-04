@@ -119,7 +119,7 @@ function LoginPage() {
             navigate('/');
             const accessToken = response?.data.accessToken;
             const user_id = response?.data?.user_id;
-            console.log(response?.data?.roles);
+            console.log(user_id);
             setAuth({user,pwd,user_id,accessToken});
             setUser('');
             setPwd('');

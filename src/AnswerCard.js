@@ -34,7 +34,7 @@ const AnswerCard = ({ answers }) => {
         paddingBottom: 10,
         flexDirection: "column",
         backgroundColor: "white",
-        boxShadow: "0px 0px 5px rgba(0,0,0,0.1)",
+        boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
       <AnswerTitle>Answers ({answers.length})</AnswerTitle>

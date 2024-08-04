@@ -7,6 +7,7 @@ import { MdQuestionAnswer } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
 import UserImage from '../assets/profilephoto.png'
+import useAuth from '../hooks/useAuth';
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -57,8 +58,9 @@ const ProfileImage = styled.div`
   }
 `;
 
-const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, username}) => {
+const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login}) => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
   const [loginAreaHeight, setLoginAreaHeight] = useState('0px');
 
   useEffect(() => {
@@ -77,7 +79,7 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, username}) => 
     <LoginArea style={{ height: loginAreaHeight }}>
       <div style={{ display: 'flex', flex: 1, paddingLeft: 150, paddingRight: 20 }}>
         <ProfileImage><img src={UserImage} alt="user-image" style={{width:'100%', height:'100%'}}/></ProfileImage>
-        <h5>Welcome {username}</h5>
+        <h5>Welcome {auth.username}</h5>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
         <h5 style={{ marginLeft: 50 }}>Quick Links</h5>
@@ -92,7 +94,7 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login, username}) => 
     <div className="top-bar">
       <div className="left-section">
         <LeftSectionButton onClick={isLoggedIn ? profile : login}>
-          {isLoggedIn ? 'Profile' : 'Login'}
+          {isLoggedIn ? <div style={{display:'flex', alignItems:'center'}}><ProfileImage style={{height:30,width:30}}><img src={UserImage} alt="user-image" style={{width:'100%', height:'100%'}}/></ProfileImage>{auth.username}</div> : 'Login'}
         </LeftSectionButton>
         <LeftSectionButton onClick={()=>navigate('/askquestion')}>Add Post</LeftSectionButton>
       </div>

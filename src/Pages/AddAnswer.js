@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TopBar from "../components/TopBar";
 import MainNav from "../components/MainNav";
 import Side from "../Side";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { lineSpinner } from "ldrs";
 import AnswerCard from "../AnswerCard";
@@ -10,6 +10,7 @@ import styled from "styled-components";
 import UserImage from "../assets/profilephoto.png";
 import { FaThumbsUp } from "react-icons/fa";
 import { AiFillQuestionCircle } from "react-icons/ai";
+import LeaveAnswerCard from "./LeaveAnswerCard";
 
 lineSpinner.register();
 
@@ -47,6 +48,8 @@ const QuestionButton = styled.div`
 
 function AddAnswerPage() {
   const [showProfile, setShowProfile] = useState(false);
+  const location = useLocation();
+  const { questionId } = location.state || {};
   const [question, setQuestion] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,7 +60,7 @@ function AddAnswerPage() {
   useEffect(() => {
     const fetchQuestionsAnswers = async () => {
       try {
-        const url = `http://localhost:8080/answers?question_id=5`;
+        const url = `http://localhost:8080/answers?question_id=${questionId}`;
         const response = await fetch(url, {
           credentials: "include",
         });
@@ -74,7 +77,7 @@ function AddAnswerPage() {
       }
     };
     fetchQuestionsAnswers();
-  }, [auth.user_id]);
+  }, [auth.user_id,questionId]);
   if (isLoading)
     return (
       <div
@@ -120,7 +123,7 @@ function AddAnswerPage() {
               flexDirection: "column",
               display: "flex",
               marginTop: 30,
-              boxShadow: "0px 0px 5px rgba(0,0,0,0.1)",
+              boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
             }}
           >
             <div className="question-content">
@@ -177,6 +180,7 @@ function AddAnswerPage() {
             </div>
           </div>
           <AnswerCard answers={answers} />
+          <LeaveAnswerCard/>
         </div>
         <Side />
       </div>

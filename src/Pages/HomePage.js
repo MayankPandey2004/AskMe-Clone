@@ -64,22 +64,25 @@ function MainPage() {
   const [loginAreaHeight, setLoginAreaHeight] = useState('0px');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setAuth} = useAuth();
 
   useEffect(() => {
     const getApiData = async () => {
-      console.log('Logged In');
-      console.log(auth.user_id);
       try {
-        const url = auth.user_id?`http://localhost:8080/home?user_id=${auth.user_id}`:`http://localhost:8080/home`;
+        const url = auth.user_id ? `http://localhost:8080/home?user_id=${auth.user_id}` : `http://localhost:8080/home`;
         const response = await fetch(url, {
-          credentials: 'include'
+          credentials: 'include',
         });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        setResult(await response.json());
-        if (result.valid) {
+        const data = await response.json();
+        setResult(data);
+        if (data.valid) {
+          setAuth((prevAuth) => ({
+            ...prevAuth,
+            username: data.user_info.username,
+          }));
           setIsLoggedIn(true);
         }
         setIsLoading(false);
@@ -91,7 +94,7 @@ function MainPage() {
     };
 
     getApiData();
-  }, [result.valid,auth.user_id]);
+  }, [auth.user_id, setAuth]);
 
   useEffect(() => {
     if (showProfile) {
@@ -120,10 +123,22 @@ function MainPage() {
   }
 
   const Logout = async () => {
-    localStorage.setItem('auth', false);
-    setIsLoggedIn(false);
-    setShowProfile(false);
-  }
+    try {
+      const response = await fetch('http://localhost:8080/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      localStorage.setItem('auth', false);
+      setIsLoggedIn(false);
+      setShowProfile(false);
+    } catch (e) {
+      console.error("An error occurred while logging out: ", e);
+      setError(e.message);
+    }
+  };
 
   return (
     <div className="header-container">

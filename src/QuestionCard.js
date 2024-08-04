@@ -62,7 +62,7 @@ const QuestionCard = ({ questions }) => {
           </div>
           <QuestionButton><AiFillQuestionCircle style={{marginRight:2}}/>Question</QuestionButton>
         </div>
-        <QuestionTitle style={{ fontSize: 18, fontWeight: '600', marginBottom: 10 }} onClick={()=>navigate('/addanswer')}>{question.question}</QuestionTitle>
+        <QuestionTitle style={{ fontSize: 18, fontWeight: '600', marginBottom: 10 }} onClick={()=>navigate('/addanswer',{ state: { questionId: question.question_id }})}>{question.question}</QuestionTitle>
         <p style={{ fontSize: 16 }}>{question.discription}</p>
       </div>
       <hr />
