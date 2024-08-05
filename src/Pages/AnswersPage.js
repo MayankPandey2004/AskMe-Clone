@@ -47,6 +47,13 @@ const QuestionButton = styled.div`
   font-size: 12px;
 `;
 
+const QuestionTitle = styled.p`
+  &:hover{
+    color: #ff6b6b;
+    cursor: pointer;
+  }
+`
+
 function AnswersPage() {
   const [answers, setAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -151,9 +158,9 @@ function AnswersPage() {
                   Question
                 </QuestionButton>
               </div>
-              <p style={{ fontSize: 22, fontWeight: "600", marginBottom: 20 }}>
+              <QuestionTitle style={{ fontSize: 22, fontWeight: "600", marginBottom: 20 }} onClick={()=>navigate('/addanswer',{ state: { questionId: answers.question_id }})}>
                 <BsFillPinFill style={{ marginRight: 5 }} /> {answers.question}
-              </p>
+              </QuestionTitle>
               <p style={{ fontSize: 16 }}>
                 {answers.discription}
               </p>
