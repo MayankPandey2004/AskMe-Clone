@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./QuestionCard.css";
 import UserImage from "./assets/profilephoto.png";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import LikeButton from "./components/LikeButton";
 
 const AnswerTitle = styled.h2`
   font-size: 1.5rem;
@@ -14,17 +13,7 @@ const AnswerTitle = styled.h2`
 `;
 
 const AnswerCard = ({ answers }) => {
-  const navigate = useNavigate();
-  const [likedAnswers, setLikedAnswers] = useState([]);
-  const like = (question_id) => {
-    console.log(likedAnswers);
-    if (likedAnswers.includes(question_id)) {
-      setLikedAnswers(likedAnswers.filter(id => id !== question_id));
-    } else {
-      setLikedAnswers([...likedAnswers, question_id]);
-    }
-  };
-
+  
   return (
     <div
       className="question-card"
@@ -71,21 +60,7 @@ const AnswerCard = ({ answers }) => {
                   >
                     {answer.username}
                   </p>
-                  <div style={{ display: "flex" }}>
-                    <FaThumbsUp
-                      style={{ marginRight: 5, marginTop: 3 , cursor: 'pointer'}}
-                      color={likedAnswers.includes(answer.answer_id)?"#6AC3F0":'gray'}
-                      onClick={() => like(answer.answer_id)}
-                    />
-                    <p style={{ color: "gray", fontSize: 16 }}>{likedAnswers.includes(answer.answer_id)?answer.likes+1:answer.likes}</p>
-                    <FaThumbsDown
-                      style={{ marginLeft: 5, marginRight: 5, marginTop: 5, cursor: 'pointer' }}
-                      color="gray"
-                    />
-                    <p style={{ color: "gray", fontSize: 16 }}>
-                      {answer.dislikes}
-                    </p>
-                  </div>
+                  <LikeButton answer={answer}/>
                 </div>
               </div>
             </div>
@@ -96,7 +71,6 @@ const AnswerCard = ({ answers }) => {
                 marginBottom: 10,
                 marginTop: 10,
               }}
-              onClick={() => navigate("/addanswer")}
             >
               {answer.answer}
             </p>

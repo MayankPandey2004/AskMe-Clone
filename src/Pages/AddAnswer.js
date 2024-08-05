@@ -160,9 +160,7 @@ function AddAnswerPage() {
                 </QuestionButton>
               </div>
               <p
-                style={{ fontSize: 18, fontWeight: "600", marginBottom: 10 }}
-                onClick={() => navigate("/addanswer")}
-              >
+                style={{ fontSize: 18, fontWeight: "600", marginBottom: 10 }}>
                 {question.question}
               </p>
               <p style={{ fontSize: 16 }}>{question.discription}</p>
