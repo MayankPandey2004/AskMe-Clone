@@ -77,6 +77,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import { lineSpinner } from 'ldrs';
+import useAuth from './hooks/useAuth';
 
 lineSpinner.register();
 
@@ -116,10 +117,11 @@ function QuestionNav() {
   const [mostAnsweredquestions, setMostAnsweredQuestions] = useState([]);
   const [noAnsweredquestions, setNoAnsweredQuestions] = useState([]);
   const [error, setError] = useState(null);
+  const { auth } = useAuth();
   useEffect(() => {
     const getApiData = async () => {
       try {
-        const url = `http://localhost:8080/home?user_id=3`;
+        const url = `http://localhost:8080/home?user_id=${auth.user_id}`;
         const response = await fetch(url);
         if (!response) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -137,7 +139,7 @@ function QuestionNav() {
     };
 
     getApiData();
-  }, []);
+  }, [auth.user_id]);
 
   if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <l-line-spinner

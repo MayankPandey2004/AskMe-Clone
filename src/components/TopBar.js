@@ -74,6 +74,23 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login}) => {
   const profile = () => {
     setShowProfile(!showProfile);
   }
+
+  const Logout = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/logout', {
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      localStorage.setItem('auth', false);
+      setShowProfile(false);
+      window.location.reload();
+    } catch (e) {
+      console.error("An error occurred while logging out: ", e);
+    }
+  };
+  
   return(
   <div className="top-bar-content">
     <LoginArea style={{ height: loginAreaHeight }}>
@@ -87,7 +104,7 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login}) => {
           <ProfileButton onClick={() => navigate('/profile')}><IoHomeSharp size={14} style={{ marginBottom: 5 }} /> Profile Page</ProfileButton>
           <ProfileButton onClick={() => navigate('/question')}><FaCircleQuestion size={14} style={{ marginBottom: 5 }} /> Questions Asked</ProfileButton>
           <ProfileButton onClick={() => navigate('/answer')}><MdQuestionAnswer size={14} style={{ marginBottom: 5 }} /> Answers</ProfileButton>
-          <ProfileButton onClick={() => navigate('/login')}><BiLogOut size={16} style={{ marginBottom: 2 }} /> Logout</ProfileButton>
+          <ProfileButton onClick={() => Logout()}><BiLogOut size={16} style={{ marginBottom: 2 }} /> Logout</ProfileButton>
         </div>
       </div>
     </LoginArea>

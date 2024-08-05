@@ -37,9 +37,10 @@ const AnswerCard = ({ answers }) => {
         boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <AnswerTitle>Answers ({answers.length})</AnswerTitle>
+      <AnswerTitle>Answers ({answers?answers.length:'0'})</AnswerTitle>
       <hr style={{marginTop: 5, marginBottom: 30}}/>
-      {answers.map((answer, index) => (
+      
+      {answers?.map((answer, index) => (
         <div key={answer.id}>
           {index > 0 && <hr style={{ marginBottom: 30 }} />}
           <div className="question-content">

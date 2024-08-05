@@ -60,7 +60,7 @@ function AddAnswerPage() {
   useEffect(() => {
     const fetchQuestionsAnswers = async () => {
       try {
-        const url = `http://localhost:8080/answers?question_id=${questionId}`;
+        const url = `http://localhost:8080/answers?question_id=${questionId}&user_id=${auth.user_id}`;
         const response = await fetch(url, {
           credentials: "include",
         });

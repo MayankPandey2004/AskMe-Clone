@@ -122,23 +122,7 @@ function MainPage() {
     setShowProfile(!showProfile);
   }
 
-  const Logout = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      localStorage.setItem('auth', false);
-      setIsLoggedIn(false);
-      setShowProfile(false);
-    } catch (e) {
-      console.error("An error occurred while logging out: ", e);
-      setError(e.message);
-    }
-  };
+  
 
   return (
     <div className="header-container">
@@ -150,7 +134,6 @@ function MainPage() {
         profile={profile}
         login={login}
         navigate={navigate}
-        Logout={Logout}
         username={isLoggedIn?result.user_info.username:"User"}
       />
       <MainNav/>
