@@ -6,9 +6,9 @@ function LikeButton({ answer }) {
   const [likedAnswers, setLikedAnswers] = useState([]);
   const { auth } = useAuth();
   const [color, setColor] = useState(answer.voted!=='none'?"#6AC3F0" : "gray");
-  const handleLike = async (question_id) => {
+  const handleLike = async (answer_id) => {
     try {
-      const response = await fetch(`http://localhost:8080/vote?user_id=${auth.user_id}&question_id=${question_id}&vote_type=like`, {
+      const response = await fetch(`http://localhost:8080/vote?user_id=${auth.user_id}&answer_id=${answer_id}&vote_type=like`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -18,9 +18,9 @@ function LikeButton({ answer }) {
       }
 
       setLikedAnswers((prevLikedAnswers) =>
-        prevLikedAnswers.includes(question_id)
-          ? prevLikedAnswers.filter((id) => id !== question_id)
-          : [...prevLikedAnswers, question_id]
+        prevLikedAnswers.includes(answer_id)
+          ? prevLikedAnswers.filter((id) => id !== answer_id)
+          : [...prevLikedAnswers, answer_id]
       );
 
       setColor(color==="gray"?"#6AC3F0":"gray")
