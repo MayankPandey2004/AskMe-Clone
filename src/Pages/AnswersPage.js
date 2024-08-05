@@ -104,7 +104,7 @@ function AnswersPage() {
       <MainNav tabs={["Home", "Profile", "Questions", "Answers", "Logout"]} />
       <div style={{ display: "flex" }}>
         <div style={{ flex: 2, marginTop: 10 }}>
-          {answers.map((answers,index)=>(
+          {answers?.map((answers,index)=>(
             <div
             className="question-card"
             style={{

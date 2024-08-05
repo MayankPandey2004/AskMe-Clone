@@ -85,6 +85,7 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login}) => {
       }
       localStorage.setItem('auth', false);
       setShowProfile(false);
+      navigate('/');
       window.location.reload();
     } catch (e) {
       console.error("An error occurred while logging out: ", e);
