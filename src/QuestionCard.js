@@ -2,9 +2,9 @@ import React from 'react';
 import './QuestionCard.css';
 import styled from "styled-components";
 import UserImage from './assets/profilephoto.png';
-import { FaThumbsUp } from "react-icons/fa";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
+import QuestionLikeButton from './components/QuestionLikeButton';
 
 const AskButton = styled.button`
   width: 30%;
@@ -69,8 +69,7 @@ const QuestionCard = ({ questions }) => {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <AskButton>Add Answer to the Question</AskButton>
         <div style={{ display: 'flex', marginTop: 8, marginRight: 10 }}>
-          <FaThumbsUp style={{ marginRight: 5, marginTop: 3 }} color="gray" />
-          <p style={{ color: 'gray', fontSize: 16 }}>{question.like}</p>
+          <QuestionLikeButton question={question}/>
         </div>
       </div>
     </div>

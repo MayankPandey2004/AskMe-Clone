@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 
 function QuestionLikeButton({ question }) {
-  const [likedAnswers, setLikedAnswers] = useState([]);
+  const [liked, setLiked] = useState(question.voted === 'like');
+  const [disliked, setDisliked] = useState(question.voted === 'dislike');
+  const [likes, setLikes] = useState(question.no_like);
+  const [dislikes, setDislikes] = useState(question.no_dislikes);
   const { auth } = useAuth();
-  const [color, setColor] = useState(question.voted!=='none'?"#6AC3F0" : "gray");
-  const handleLike = async (question_id) => {
+
+  useEffect(() => {
+    setLiked(question.voted === 'like');
+    setDisliked(question.voted === 'dislike');
+  }, [question]);
+
+  const handleVote = async (question_id, vote_type) => {
     try {
-      const response = await fetch(`http://localhost:8080/vote?user_id=${auth.user_id}&question_id=${question_id}&vote_type=like`, {
+      const response = await fetch(`http://localhost:8080/vote?user_id=${auth.user_id}&question_id=${question_id}&vote_type=${vote_type}`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -17,13 +25,28 @@ function QuestionLikeButton({ question }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setLikedAnswers((prevLikedAnswers) =>
-        prevLikedAnswers.includes(question_id)
-          ? prevLikedAnswers.filter((id) => id !== question_id)
-          : [...prevLikedAnswers, question_id]
-      );
+      if (vote_type === 'like') {
+        if (liked) {
+          setLiked(false);
+          setLikes(likes - 1);
+        } else {
+          setLiked(true);
+          setDisliked(false);
+          setLikes(likes + 1);
+          if (disliked) setDislikes(dislikes - 1);
+        }
+      } else if (vote_type === 'dislike') {
+        if (disliked) {
+          setDisliked(false);
+          setDislikes(dislikes - 1);
+        } else {
+          setDisliked(true);
+          setLiked(false);
+          setDislikes(dislikes + 1);
+          if (liked) setLikes(likes - 1);
+        }
+      }
 
-      setColor(color==="gray"?"#6AC3F0":"gray")
       console.log("Vote registered successfully");
     } catch (e) {
       console.error("An error occurred while voting: ", e);
@@ -34,13 +57,11 @@ function QuestionLikeButton({ question }) {
     <div style={{ display: "flex" }}>
       <FaThumbsUp
         style={{ marginRight: 5, marginTop: 3, cursor: "pointer" }}
-        color= {color}
-        onClick={() => handleLike(question.question_id)}
+        color={liked ? "#6AC3F0" : "gray"}
+        onClick={() => handleVote(question.question_id, 'like')}
       />
       <p style={{ color: "gray", fontSize: 16 }}>
-        {likedAnswers.includes(question.question_id)
-          ? question.voted!=='none'?question.no_likes - 1: question.no_likes + 1
-          : question.no_likes}
+        {likes}
       </p>
       <FaThumbsDown
         style={{
@@ -49,9 +70,12 @@ function QuestionLikeButton({ question }) {
           marginTop: 5,
           cursor: "pointer",
         }}
-        color="gray"
+        color={disliked ? "#6AC3F0" : "gray"}
+        onClick={() => handleVote(question.question_id, 'dislike')}
       />
-      <p style={{ color: "gray", fontSize: 16 }}>{question.no_dislikes}</p>
+      <p style={{ color: "gray", fontSize: 16 }}>
+        {dislikes}
+      </p>
     </div>
   );
 }
