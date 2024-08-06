@@ -12,6 +12,7 @@ import { BsFillPinFill } from "react-icons/bs";
 import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { lineSpinner } from 'ldrs';
+import QuestionLikeButton from "../components/QuestionLikeButton";
 
 lineSpinner.register();
 
@@ -170,10 +171,7 @@ function QuestionPage() {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <AskButton>Add Answer to the Question</AskButton>
               <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
-                <FaThumbsUp
-                  style={{ marginRight: 5, marginTop: 2 }}
-                  color="gray"
-                />
+                <QuestionLikeButton question={question}/>
                 <p style={{ color: "gray", fontSize: 16 }}>{question.like}</p>
               </div>
             </div>
