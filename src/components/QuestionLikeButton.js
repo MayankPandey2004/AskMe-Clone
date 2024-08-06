@@ -57,7 +57,7 @@ function QuestionLikeButton({ question }) {
     <div style={{ display: "flex" }}>
       <FaThumbsUp
         style={{ marginRight: 5, marginTop: 3, cursor: "pointer" }}
-        color={liked ? "#6AC3F0" : "gray"}
+        color={liked ? "#ff6b6b" : "gray"}
         onClick={() => handleVote(question.question_id, 'like')}
       />
       <p style={{ color: "gray", fontSize: 16 }}>
@@ -70,7 +70,7 @@ function QuestionLikeButton({ question }) {
           marginTop: 5,
           cursor: "pointer",
         }}
-        color={disliked ? "#6AC3F0" : "gray"}
+        color={disliked ? "#ff6b6b" : "gray"}
         onClick={() => handleVote(question.question_id, 'dislike')}
       />
       <p style={{ color: "gray", fontSize: 16 }}>
