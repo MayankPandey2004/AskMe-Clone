@@ -7,7 +7,6 @@ import MainNav from "../components/MainNav";
 import Side from "../Side";
 import useAuth from "../hooks/useAuth";
 import "../QuestionCard.css";
-import { FaThumbsUp } from "react-icons/fa";
 import { BsFillPinFill } from "react-icons/bs";
 import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
