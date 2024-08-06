@@ -2,7 +2,7 @@ import React from "react";
 import "./QuestionCard.css";
 import UserImage from "./assets/profilephoto.png";
 import styled from "styled-components";
-import LikeButton from "./components/LikeButton";
+import AnswerLikeButton from "./components/AnswerLikeButton";
 
 const AnswerTitle = styled.h2`
   font-size: 1.5rem;
@@ -60,7 +60,7 @@ const AnswerCard = ({ answers }) => {
                   >
                     {answer.username}
                   </p>
-                  <LikeButton answer={answer}/>
+                  <AnswerLikeButton answer={answer}/>
                 </div>
               </div>
             </div>

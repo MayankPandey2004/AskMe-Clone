@@ -8,9 +8,9 @@ import { lineSpinner } from "ldrs";
 import AnswerCard from "../AnswerCard";
 import styled from "styled-components";
 import UserImage from "../assets/profilephoto.png";
-import { FaThumbsUp } from "react-icons/fa";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import LeaveAnswerCard from "./LeaveAnswerCard";
+import QuestionLikeButton from "../components/QuestionLikeButton";
 
 lineSpinner.register();
 
@@ -169,11 +169,7 @@ function AddAnswerPage() {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <AskButton>Add Answer to the Question</AskButton>
               <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
-                <FaThumbsUp
-                  style={{ marginRight: 5, marginTop: 3 }}
-                  color="gray"
-                />
-                <p style={{ color: "gray", fontSize: 16 }}>{question.like}</p>
+                <QuestionLikeButton question={question}/>
               </div>
             </div>
           </div>
