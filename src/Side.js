@@ -175,7 +175,7 @@ function Side() {
           {Array.isArray(recQuestions) && recQuestions.slice(0,3).map((question, index) => (
             <div key={index}>
               {(index>0) && <hr style={{color:'gray'}}/>}
-              <QuestionHeader onClick={()=>navigate('/addanswer',{ state: { questionId: question.question_id }})}>{question.question}</QuestionHeader>
+              <QuestionHeader onClick={()=>{navigate('/addanswer',{ state: { questionId: question.question_id }});window.location.reload();}}>{question.question}</QuestionHeader>
               <QuestionBody>{question.discription}</QuestionBody>
               <QuestionDate>Posted by {question.username} on {new Date(question.date).toLocaleDateString()}</QuestionDate>
             </div>
