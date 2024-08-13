@@ -101,7 +101,7 @@
 
 .search-input {
   border-width: 0;
-  width: 150px;
+  width: 100px;
   transition: width 0.4s ease-in-out;
 }
 
@@ -114,7 +114,7 @@ input:focus {
 }
 
 .search-input::placeholder {
-  color: #fff;
+  color: #ff6b6b;
   font-size: small;
 }
 

@@ -273,7 +273,7 @@ function LoginPage() {
           <Divider>
             <DividerText>Or login with</DividerText>
           </Divider>
-          <GoogleButton type="button" onClick={()=>{}}><FcGoogle style={{marginBottom:2}}/> Google</GoogleButton>
+          <GoogleButton type="button" onClick={()=>{navigate('/auth/oauth')}}><FcGoogle style={{marginBottom:2}}/> Google</GoogleButton>
         </Form>
       </PageSection>
     </Container>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import { lineSpinner } from 'ldrs';
 import useAuth from './hooks/useAuth';
+import { AiOutlineSearch } from "react-icons/ai";
 
 lineSpinner.register();
 
@@ -101,6 +102,15 @@ function QuestionNav() {
             {tab}
           </NavItem>
         ))}
+        <div className="right-section" style={{flex:1, display:'flex', justifyContent:'flex-end'}}>
+        <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch color='#ff6b6b' /></div>
+        <input
+          type="text"
+          placeholder="Search here ..."
+          className='search-input'
+          style={{ backgroundColor: 'transparent', color: '#ff6b6b' }}
+        />
+      </div>
       </NavList>
       <QuestionCard questions={questions} />
     </NavContainer>

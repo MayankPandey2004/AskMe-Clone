@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { AiOutlineSearch } from "react-icons/ai";
 import { IoHomeSharp } from "react-icons/io5";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { MdQuestionAnswer } from "react-icons/md";
@@ -115,15 +114,6 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login}) => {
           {isLoggedIn ? <div style={{display:'flex', alignItems:'center'}}><ProfileImage style={{height:30,width:30}}><img src={UserImage} alt="user-image" style={{width:'100%', height:'100%'}}/></ProfileImage>{auth.username}</div> : 'Login'}
         </LeftSectionButton>
         <LeftSectionButton onClick={()=>navigate('/askquestion')}>Add Post</LeftSectionButton>
-      </div>
-      <div className="right-section">
-        <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch /></div>
-        <input
-          type="text"
-          placeholder="Search here ..."
-          className='search-input'
-          style={{ backgroundColor: 'transparent', color: 'white' }}
-        />
       </div>
     </div>
   </div>
