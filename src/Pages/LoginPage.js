@@ -188,6 +188,21 @@ function LoginPage() {
     }
   };
 
+  const handleGoogle = async () => {
+    try {
+      window.location.href = "http://localhost:8080/auth/oauth";
+      
+      const response = await axios.get("http://localhost:8080/auth/callback");
+
+      const accessToken = response?.data;
+      console.log('Access Token:', accessToken);
+
+      // You can now use the accessToken for authenticated requests
+    } catch (error) {
+      console.error('Error fetching the token:', error);
+    }
+  };
+
   return (
     <Container>
       <PageSection style={{ flex: 1 }}>
@@ -267,13 +282,13 @@ function LoginPage() {
             <div></div>
             <br />
             <span className="line">
-              <SignUpLink href="/signup" style={{}}>Create an account</SignUpLink>
+              <SignUpLink href="/signup">Create an account</SignUpLink>
             </span>
           </SignUpText>
           <Divider>
             <DividerText>Or login with</DividerText>
           </Divider>
-          <GoogleButton type="button" onClick={()=>{navigate('/auth/oauth')}}><FcGoogle style={{marginBottom:2}}/> Google</GoogleButton>
+          <GoogleButton type="button" onClick={()=>{handleGoogle()}}><FcGoogle style={{marginBottom:2}}/> Google</GoogleButton>
         </Form>
       </PageSection>
     </Container>

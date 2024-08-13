@@ -8,9 +8,10 @@ lineSpinner.register()
 const Container = styled.div`
   font-family: Arial, sans-serif;
   width: 300px;
-  margin: 20px auto;
+  margin: 15px auto;
   background-color: #fff;
   padding: 20px;
+  padding-bottom: 0px;
   margin-left: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
@@ -118,7 +119,7 @@ function Side() {
         setAnswers(result.stat.answers);
         setUsers(result.stat.users);
         setTags(result?.tags);
-        setCategory(result?.catagory);
+        setCategory(result?.category);
         setRecQuestions(result?.recent_questions);
         setIsLoading(false);
       } catch (e) {
@@ -165,8 +166,8 @@ function Side() {
         <Section>
           <Title>Categories</Title>
           <hr />
-          {Array.isArray(category) && category?.map((tag, index) => (
-            <Tag key={index} style={{marginBottom: '5px'}}>{category}</Tag>
+          {Array.isArray(category) && category?.map((cat, index) => (
+            <Tag key={index} style={{marginBottom: '5px'}}>{cat.Cname}</Tag>
           ))}
         </Section>
       </Container>

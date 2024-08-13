@@ -16,6 +16,7 @@ const CardContainer = styled.div`
   border-radius: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 50px auto;
+  margin-top: 30px;
 `;
 
 const CardTitle = styled.div`
@@ -139,85 +140,88 @@ function AskQuestion() {
       />
       <MainNav />
       <div style={{ display: "flex" }}>
-        <CardContainer>
-          <CardTitle>Ask Question</CardTitle>
-          <hr style={{ marginTop: 0, color: "gray" }} />
-          <form>
-            <div style={{ display: "flex" }}>
-              <Label htmlFor="title" style={{ marginBottom: 30 }}>
-                Question Title{" "}
-                <span style={{ color: "red", marginLeft: 2 }}>*</span>
-              </Label>
-              <div
-                style={{ display: "flex", flexDirection: "column", flex: 5 }}
-              >
-                <Input type="text" id="title" />
-                <p style={{ fontSize: 11 }}>
-                  Please choose an appropriate title for the question to answer
-                  it even easier .
-                </p>
+        <div style={{marginLeft:'50px'}}>
+          <CardContainer>
+            <CardTitle>Ask Question</CardTitle>
+            <hr style={{ marginTop: 0, color: "gray" }} />
+            <form>
+              <div style={{ display: "flex" }}>
+                <Label htmlFor="title" style={{ marginBottom: 30 }}>
+                  Question Title{" "}
+                  <span style={{ color: "red", marginLeft: 2 }}>*</span>
+                </Label>
+                <div
+                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
+                >
+                  <Input type="text" id="title" />
+                  <p style={{ fontSize: 11 }}>
+                    Please choose an appropriate title for the question to
+                    answer it even easier .
+                  </p>
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex" }}>
-              <Label htmlFor="title" style={{ marginBottom: 30 }}>
-                Category <span style={{ color: "red", marginLeft: 2 }}>*</span>
-              </Label>
-              <div
-                style={{ display: "flex", flexDirection: "column", flex: 5 }}
-              >
-                <Select defaultValue={"Select a Category"}>
-                  <option value="Select a Category">Select a Category</option>
-                  <option value="Analytics">Analytics</option>
-                  <option value="Company">Company</option>
-                  <option value="Language">Language</option>
-                  <option value="Management">Management</option>
-                  <option value="Programmers">Programmers</option>
-                </Select>
-                <p style={{ fontSize: 11 }}>
-                  Please choose the appropriate category so others can easily
-                  search your question.
-                </p>
+              <div style={{ display: "flex" }}>
+                <Label htmlFor="title" style={{ marginBottom: 30 }}>
+                  Category{" "}
+                  <span style={{ color: "red", marginLeft: 2 }}>*</span>
+                </Label>
+                <div
+                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
+                >
+                  <Select defaultValue={"Select a Category"}>
+                    <option value="Select a Category">Select a Category</option>
+                    <option value="Analytics">Analytics</option>
+                    <option value="Company">Company</option>
+                    <option value="Language">Language</option>
+                    <option value="Management">Management</option>
+                    <option value="Programmers">Programmers</option>
+                  </Select>
+                  <p style={{ fontSize: 11 }}>
+                    Please choose the appropriate category so others can easily
+                    search your question.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex" }}>
-              <Label htmlFor="title" style={{ marginBottom: 30 }}>
-                Tags
-              </Label>
-              <div
-                style={{ display: "flex", flexDirection: "column", flex: 5 }}
-              >
-                <Input type="text" id="title" />
-                <p style={{ fontSize: 11 }}>
-                  Please choose suitable Keywords Ex :{" "}
-                  <span style={{ color: "#BCBEBF" }}>question , poll</span> .
-                </p>
+              <div style={{ display: "flex" }}>
+                <Label htmlFor="title" style={{ marginBottom: 30 }}>
+                  Tags
+                </Label>
+                <div
+                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
+                >
+                  <Input type="text" id="title" />
+                  <p style={{ fontSize: 11 }}>
+                    Please choose suitable Keywords Ex :{" "}
+                    <span style={{ color: "#BCBEBF" }}>question , poll</span> .
+                  </p>
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex" }}>
-              <Label htmlFor="title">Poll</Label>
-              <div style={{ display: "flex", flex: 5 }}>
-                <CustomCheckbox onClick={() => setIsSelected(!isSelected)}>
-                  {isSelected && <FaCheck />}
-                </CustomCheckbox>
-                <p style={{ fontSize: 12, marginTop: 15, marginLeft: 10 }}>
-                  This question is a poll ?{" "}
-                  <span style={{ color: "#BCBEBF" }}>
-                    If you want to be doing a poll click here
-                  </span>
-                </p>
+              <div style={{ display: "flex" }}>
+                <Label htmlFor="title">Poll</Label>
+                <div style={{ display: "flex", flex: 5 }}>
+                  <CustomCheckbox onClick={() => setIsSelected(!isSelected)}>
+                    {isSelected && <FaCheck />}
+                  </CustomCheckbox>
+                  <p style={{ fontSize: 12, marginTop: 15, marginLeft: 10 }}>
+                    This question is a poll ?{" "}
+                    <span style={{ color: "#BCBEBF" }}>
+                      If you want to be doing a poll click here
+                    </span>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex" }}>
-              <Label htmlFor="title">
-                Details <span style={{ color: "red", marginLeft: 2 }}>*</span>
-              </Label>
-              <div style={{ display: "flex", flex: 5 }}>
-                <Textarea/>
+              <div style={{ display: "flex" }}>
+                <Label htmlFor="title">
+                  Details <span style={{ color: "red", marginLeft: 2 }}>*</span>
+                </Label>
+                <div style={{ display: "flex", flex: 5 }}>
+                  <Textarea />
+                </div>
               </div>
-            </div>
-          </form>
-          <AskButton>Publish Your Question</AskButton>
-        </CardContainer>
+            </form>
+            <AskButton>Publish Your Question</AskButton>
+          </CardContainer>
+        </div>
         <div style={{ marginRight: 50 }}>
           <Side />
         </div>

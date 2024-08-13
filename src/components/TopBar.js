@@ -7,6 +7,7 @@ import { BiLogOut } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
 import UserImage from '../assets/profilephoto.png'
 import useAuth from '../hooks/useAuth';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -114,6 +115,15 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login}) => {
           {isLoggedIn ? <div style={{display:'flex', alignItems:'center'}}><ProfileImage style={{height:30,width:30}}><img src={UserImage} alt="user-image" style={{width:'100%', height:'100%'}}/></ProfileImage>{auth.username}</div> : 'Login'}
         </LeftSectionButton>
         <LeftSectionButton onClick={()=>navigate('/askquestion')}>Add Post</LeftSectionButton>
+      </div>
+      <div className="right-section" style={{flex:1, display:'flex', justifyContent:'flex-end'}}>
+        <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch color='white' /></div>
+        <input
+          type="text"
+          placeholder="Search here ..."
+          className='search-input1'
+          style={{ backgroundColor: 'transparent', color: 'white' }}
+        />
       </div>
     </div>
   </div>
