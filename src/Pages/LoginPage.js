@@ -6,7 +6,8 @@ import { FaInfoCircle } from "react-icons/fa";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 import Background from "../assets/LoginBack.png";
-import { FcGoogle } from "react-icons/fc";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const Container = styled.div`
   display: flex;
@@ -87,13 +88,12 @@ const PageSection = styled.div`
 `;
 
 const SignUpLink = styled.a`
-    color: #ff6b6b;
-    
-    &:hover {
-        color: gray;
+  color: #ff6b6b;
 
-    }
-`
+  &:hover {
+    color: gray;
+  }
+`;
 
 const Divider = styled.div`
   display: flex;
@@ -169,13 +169,13 @@ function LoginPage() {
           withCredentials: true,
         }
       );
-      navigate("/");
       const accessToken = response?.data.accessToken;
       const user_id = response?.data?.user_id;
       console.log(user_id);
       setAuth({ user, pwd, user_id, accessToken });
       setUser("");
       setPwd("");
+      navigate("/");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -188,25 +188,37 @@ function LoginPage() {
     }
   };
 
-  const handleGoogle = async () => {
+  const handleGoogleLoginSuccess = async (email) => {
+
     try {
-      window.location.href = "http://localhost:8080/auth/oauth";
-      
-      const response = await axios.get("http://localhost:8080/auth/callback");
-
-      const accessToken = response?.data;
-      console.log('Access Token:', accessToken);
-
-      // You can now use the accessToken for authenticated requests
-    } catch (error) {
-      console.error('Error fetching the token:', error);
+      const response = await axios.post(
+        `http://localhost:8080/google/login?email=${email}`,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const accessToken = response?.data.accessToken;
+      const user_id = response?.data.user_id;
+      console.log(email,user_id,accessToken);
+      setAuth({ user: email, pwd: email , user_id: 6, accessToken });
+      setUser("");
+      setPwd("");
+      navigate("/");
+    } catch (err) {
+      console.error("Google Login Failed:", err);
+      setErrMsg("Google Login Failed");
     }
   };
+
 
   return (
     <Container>
       <PageSection style={{ flex: 1 }}>
-        <img src={Background} alt="login-image" style={{ width: "100%", height: "100vh" }} />
+        <img
+          src={Background}
+          alt="login-image"
+          style={{ width: "100%", height: "100vh" }}
+        />
       </PageSection>
       <PageSection>
         <Form onSubmit={handleSubmit}>
@@ -244,7 +256,6 @@ function LoginPage() {
             <br />
             Letters, numbers, underscores, hyphens allowed.
           </ErrorMessage>
-
           <Input
             type="password"
             id="password"
@@ -288,7 +299,14 @@ function LoginPage() {
           <Divider>
             <DividerText>Or login with</DividerText>
           </Divider>
-          <GoogleButton type="button" onClick={()=>{handleGoogle()}}><FcGoogle style={{marginBottom:2}}/> Google</GoogleButton>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              handleGoogleLoginSuccess(jwtDecode(credentialResponse.credential).email);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
         </Form>
       </PageSection>
     </Container>
