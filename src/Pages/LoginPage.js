@@ -6,8 +6,6 @@ import { FaInfoCircle } from "react-icons/fa";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 import Background from "../assets/LoginBack.png";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 import { FcGoogle } from "react-icons/fc";
 
 const Container = styled.div`
@@ -190,43 +188,8 @@ function LoginPage() {
   };
 
   const handleGoogle = async () => {
-    try {
-      window.location.href = "http://localhost:8080/auth/oauth";
-      
-      const response = await axios.get("http://localhost:8080/auth/callback");
-
-      const accessToken = response?.data;
-      console.log('Access Token:', accessToken);
-
-      // You can now use the accessToken for authenticated requests
-    } catch (error) {
-      console.error('Error fetching the token:', error);
-    }
+    window.location.href = "http://localhost:8080/auth/oauth";
   };
-
-  const handleGoogleLoginSuccess = async (email) => {
-
-    try {
-      const response = await axios.post(
-        `http://localhost:8080/google/login?email=${email}`,
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      const accessToken = response?.data.accessToken;
-      const user_id = response?.data.user_id;
-      console.log(email,user_id,accessToken);
-      setAuth({ user: email, user_id, accessToken });
-      setUser("");
-      setPwd("");
-      navigate("/");
-    } catch (err) {
-      console.error("Google Login Failed:", err);
-      setErrMsg("Google Login Failed");
-    }
-  };
-
 
   return (
     <Container>

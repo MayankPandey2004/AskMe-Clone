@@ -70,6 +70,7 @@ function MainPage() {
     const getApiData = async () => {
       try {
         const url = auth.user_id ? `http://localhost:8080/home?user_id=${auth.user_id}` : `http://localhost:8080/home`;
+        console.log(url);
         const response = await fetch(url, {
           credentials: 'include',
         });
@@ -94,6 +95,7 @@ function MainPage() {
         setIsLoading(false);
       }
     };
+    
 
     getApiData();
   }, [auth.user_id, setAuth]);
