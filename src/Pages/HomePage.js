@@ -73,10 +73,12 @@ function MainPage() {
         const response = await fetch(url, {
           credentials: 'include',
         });
+        
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        console.log(data);
         setResult(data);
         if (data.valid) {
           setAuth((prevAuth) => ({
