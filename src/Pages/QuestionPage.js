@@ -111,7 +111,7 @@ function QuestionPage() {
       <MainNav tabs={["Home", "Profile", "Questions", "Answers", "Logout"]} />
       <div style={{ display: "flex" }}>
         <div style={{ flex: 2, marginTop: 10 }}>
-          {question.map((question,index)=>(
+          {question?.map((question,index)=>(
             <div
             className="question-card"
             style={{

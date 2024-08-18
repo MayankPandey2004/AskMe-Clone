@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import MainNav from "../components/MainNav";
 import Side from "../Side";
-import UserImage from '../assets/profilephoto.png';
+import UserImage from "../assets/profilephoto.png";
 import useAuth from "../hooks/useAuth";
-import { lineSpinner } from 'ldrs';
+import { lineSpinner } from "ldrs";
 
 lineSpinner.register();
 
@@ -102,10 +102,20 @@ const ErrorMessage = styled.div`
   font-size: 1.2em;
 `;
 
+const Input = styled.input`
+  padding: 8px;
+  font-size: 1em;
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+`;
+
 const ProfilePage = () => {
   const [profile, setProfile] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
   const navigate = useNavigate();
   const { auth } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
@@ -114,7 +124,7 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
       try {
         const url = `http://localhost:8080/user_profile?user_id=${auth.user_id}`;
-        const response = await fetch(url, { credentials: 'include' });
+        const response = await fetch(url, { credentials: "include" });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -130,14 +140,52 @@ const ProfilePage = () => {
     fetchProfile();
   }, [auth.user_id]);
 
-  if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <l-line-spinner
-      size="40"
-      stroke="3"
-      speed="1"
-      color="#333"
-    ></l-line-spinner>
-  </div>;
+  const handleEditProfile = () => {
+    setIsEditing(true); 
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      const url = `http://localhost:8080/update_profile`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profile),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      setIsEditing(false);
+    } catch (e) {
+      setError(e.message);
+    }
+  };
+
+  const handleChange = (e) => {
+    setProfile({ ...profile, [e.target.name]: e.target.value });
+  };
+
+  if (isLoading)
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <l-line-spinner
+          size="40"
+          stroke="3"
+          speed="1"
+          color="#333"
+        ></l-line-spinner>
+      </div>
+    );
   if (error) return <ErrorMessage>Error: {error}</ErrorMessage>;
 
   return (
@@ -147,31 +195,76 @@ const ProfilePage = () => {
         showProfile={showProfile}
         setShowProfile={setShowProfile}
         loginAreaHeight="0px"
-        profile={() => { }}
-        login={() => { }}
+        profile={() => {}}
+        login={() => {}}
         navigate={navigate}
-        Logout={() => { }}
+        Logout={() => {}}
       />
       <MainNav />
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: "flex" }}>
         <div style={{ flex: 2 }}>
           <ProfileContainer>
-            <ProfileTitle>About {profile.username} <hr style={{ color: 'gray' }} /></ProfileTitle>
+            <ProfileTitle>
+              About {profile.username} <hr style={{ color: "gray" }} />
+            </ProfileTitle>
             <ProfileContent>
+              <div>
               <ProfileImage>
                 <img src={UserImage} alt="Profile" />
               </ProfileImage>
+              {isEditing ? (
+                  <AskButton onClick={handleSaveProfile}>Save</AskButton>
+                ) : (
+                  <AskButton onClick={handleEditProfile}>
+                    Edit Profile
+                  </AskButton>
+                )}
+                </div>
               <ProfileDetails>
                 <ProfileItem>
-                  <p>User ID: {profile.user_id}</p>
-                  <p>Email: {profile.email}</p>
+                  {isEditing ? (
+                    <div>
+                      <label style={{ fontSize: 13 }}>User ID:</label>
+                      <Input
+                        name="user_id"
+                        value={profile.user_id}
+                        onChange={handleChange}
+                        disabled
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                      <label style={{ fontSize: 13 }}>Email:</label>
+                      <Input
+                        name="email"
+                        value={profile.email}
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <p>
+                        User ID:{" "}
+                        <span style={{ color: "gray" }}>{profile.user_id}</span>
+                      </p>
+                      <p>
+                        Email:{" "}
+                        <span style={{ color: "gray" }}>{profile.email}</span>
+                      </p>
+                    </div>
+                  )}
                 </ProfileItem>
               </ProfileDetails>
             </ProfileContent>
-            <AskButton>Edit profile</AskButton>
           </ProfileContainer>
-          <QuestionButton style={{ marginRight: 20, marginLeft: 50 }}  onClick={()=>navigate('/question')}>Questions Asked</QuestionButton>
-          <QuestionButton onClick={()=>navigate('/answer')}>Questions Answered</QuestionButton>
+          <QuestionButton
+            style={{ marginRight: 20, marginLeft: 50 }}
+            onClick={() => navigate("/question")}
+          >
+            Questions Asked
+          </QuestionButton>
+          <QuestionButton onClick={() => navigate("/answer")}>
+            Questions Answered
+          </QuestionButton>
         </div>
         <div style={{ flex: 1 }}>
           <Side />

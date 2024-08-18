@@ -52,16 +52,17 @@ const Button = styled.button`
 const GoogleButton = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: #f4f4f4;
+  background-color: #fff;
   color: gray;
-  font-weight: 600;
+  font-weight: 500;
   border-color: gray;
   border-width: 0.2px;
   border-radius: 10px;
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.8);
+    scale: 0.9;
+    transition: scale 0.3s ease-in-out;
   }
 `;
 
@@ -279,7 +280,7 @@ function LoginPage() {
           <Divider>
             <DividerText>Or login with</DividerText>
           </Divider>
-          <GoogleButton type="button" onClick={handleGoogle}><FcGoogle style={{marginBottom:2}}/> Google</GoogleButton>
+          <GoogleButton type="button" onClick={handleGoogle}><FcGoogle style={{marginBottom:2, marginRight:10}}/>Continue with Google</GoogleButton>
         </Form>
       </PageSection>
     </Container>
