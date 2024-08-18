@@ -224,12 +224,11 @@ const ProfilePage = () => {
                 <ProfileItem>
                   {isEditing ? (
                     <div>
-                      <label style={{ fontSize: 13 }}>User ID:</label>
+                      <label style={{ fontSize: 13 }}>Username:</label>
                       <Input
-                        name="user_id"
-                        value={profile.user_id}
+                        name="username"
+                        value={profile.username}
                         onChange={handleChange}
-                        disabled
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
                       <label style={{ fontSize: 13 }}>Email:</label>
@@ -245,6 +244,10 @@ const ProfilePage = () => {
                       <p>
                         User ID:{" "}
                         <span style={{ color: "gray" }}>{profile.user_id}</span>
+                      </p>
+                      <p>
+                        Username:{" "}
+                        <span style={{ color: "gray" }}>{profile.username}</span>
                       </p>
                       <p>
                         Email:{" "}
