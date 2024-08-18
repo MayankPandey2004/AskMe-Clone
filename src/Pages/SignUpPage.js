@@ -85,7 +85,7 @@ function SignUpPage() {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   useEffect(() => {
     userRef.current.focus();
@@ -124,8 +124,8 @@ function SignUpPage() {
         setAuth({ user, pwd, user_id, accessToken });
         setUser("");
         setPwd("");
-
-        if (data.valid) {
+        console.log(auth.user_id);
+        if (data.user_id!==0) {
           navigate("/");
         }
       } catch (e) {
@@ -134,7 +134,7 @@ function SignUpPage() {
     };
 
     getApiData();
-  }, [setAuth, navigate]);
+  }, [setAuth, auth, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
