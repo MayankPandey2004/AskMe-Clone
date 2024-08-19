@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import UserImage from '../assets/profilephoto.png'
 import useAuth from '../hooks/useAuth';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { IoMdPerson } from 'react-icons/io';
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -112,9 +113,10 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login}) => {
     <div className="top-bar">
       <div className="left-section">
         <LeftSectionButton onClick={isLoggedIn ? profile : login}>
-          {isLoggedIn ? <div style={{display:'flex', alignItems:'center'}}><ProfileImage style={{height:30,width:30}}><img src={UserImage} alt="user-image" style={{width:'100%', height:'100%'}}/></ProfileImage>{auth.username}</div> : 'Login'}
+          {isLoggedIn ? <div style={{display:'flex', alignItems:'center'}}><ProfileImage style={{height:30,width:30}}><img src={UserImage} alt="user-image" style={{width:'100%', height:'100%'}}/></ProfileImage>{auth.username}</div > : <div style={{display:'flex', alignItems:'center'}}><IoMdPerson style={{marginRight:5}}/>
+          Login</div>}
         </LeftSectionButton>
-        <LeftSectionButton onClick={()=>navigate('/askquestion')}>Add Post</LeftSectionButton>
+        {/* <LeftSectionButton onClick={()=>navigate('/askquestion')}>Add Post</LeftSectionButton> */}
       </div>
       <div className="right-section" style={{flex:1, display:'flex', justifyContent:'flex-end'}}>
         <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch color='white' /></div>

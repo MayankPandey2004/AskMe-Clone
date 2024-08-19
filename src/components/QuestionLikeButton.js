@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 function QuestionLikeButton({ question }) {
   const [liked, setLiked] = useState(question.voted === 'like');
@@ -8,6 +9,7 @@ function QuestionLikeButton({ question }) {
   const [likes, setLikes] = useState(question.no_like);
   const [dislikes, setDislikes] = useState(question.no_dislikes);
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLiked(question.voted === 'like');
@@ -15,6 +17,9 @@ function QuestionLikeButton({ question }) {
   }, [question]);
 
   const handleVote = async (question_id, vote_type) => {
+    if (!auth){
+      navigate('/login');
+    }
     try {
       const response = await fetch(`http://localhost:8080/vote?user_id=${auth.user_id}&question_id=${question_id}&vote_type=${vote_type}`, {
         method: 'POST',
