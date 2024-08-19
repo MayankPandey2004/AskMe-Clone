@@ -150,7 +150,7 @@ function MainPage() {
         username={isLoggedIn ? result.user_info.username : "User"}
       />
       <MainNav />
-      <div className="page-title" style={{ display: "flex", height:'40vh' }}>
+      <div className="page-title" style={{ display: "flex", height:'320px' }}>
         <div style={{ flex: 1 }}>
           <div>
             <h3 style={{ margin: 90, marginTop: 60, marginBottom: 20 }}>
