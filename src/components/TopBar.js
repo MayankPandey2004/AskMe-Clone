@@ -44,7 +44,7 @@ const LoginArea = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: height 0.5s ease-in-out;
+  transition: height 0.75s cubic-bezier(0.25, 0.8, 0.25, 1);
 `;
 
 const ProfileImage = styled.div`
