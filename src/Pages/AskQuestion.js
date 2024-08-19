@@ -126,7 +126,7 @@ function AskQuestion() {
   const [showProfile, setShowProfile] = useState(false);
   const { auth } = useAuth();
   return (
-    <div>
+    <div style={{backgroundColor:'#fff'}}>
       <TopBar
         isLoggedIn={true}
         showProfile={showProfile}
