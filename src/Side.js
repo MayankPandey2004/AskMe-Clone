@@ -132,8 +132,12 @@ function Side() {
     getApiData();
   }, []);
 
-  const handleSearch = (tname) => {
+  const handleTagSearch = (tname) => {
     navigate(`/search`, { state: { tname } });
+  };
+
+  const handleCatSearch = (cname) => {
+    navigate(`/search`, { state: { cname } });
   };
 
   if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -171,7 +175,7 @@ function Side() {
           <Title>Categories</Title>
           <hr />
           {Array.isArray(category) && category?.map((cat, index) => (
-            <Tag key={index} style={{marginBottom: '5px'}}>{cat.Cname}</Tag>
+            <Tag key={index} style={{marginBottom: '5px'}} onClick={()=>handleCatSearch(cat.Cname)}>{cat.Cname}</Tag>
           ))}
         </Section>
       </Container>
@@ -180,7 +184,7 @@ function Side() {
           <Title>Tags</Title>
           <hr />
           {Array.isArray(tags) && tags.map((tag, index) => (
-            <Tag key={index} style={{marginBottom: '5px'}} onClick={()=>handleSearch(tag.Tname)}>{tag.Tname}</Tag>
+            <Tag key={index} style={{marginBottom: '5px'}} onClick={()=>handleTagSearch(tag.Tname)}>{tag.Tname}</Tag>
           ))}
         </Section>
       </Container>
