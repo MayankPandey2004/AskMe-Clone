@@ -98,12 +98,12 @@ const TopBar = ({ isLoggedIn, showProfile, setShowProfile, login }) => {
 
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
-      navigate(`/search?text=${searchQuery}`);
+      navigate(`/search`, { state: { searchQuery } });
     }
   };
 
   const handleSearchClick = () => {
-    navigate(`/search?query=${searchQuery}`);
+    navigate(`/search`, { state: { searchQuery } });
   };
 
   return (

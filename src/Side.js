@@ -132,6 +132,10 @@ function Side() {
     getApiData();
   }, []);
 
+  const handleSearch = (tname) => {
+    navigate(`/search`, { state: { tname } });
+  };
+
   if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <l-line-spinner
       size="40"
@@ -176,7 +180,7 @@ function Side() {
           <Title>Tags</Title>
           <hr />
           {Array.isArray(tags) && tags.map((tag, index) => (
-            <Tag key={index} style={{marginBottom: '5px'}}>{tag.Tname}</Tag>
+            <Tag key={index} style={{marginBottom: '5px'}} onClick={()=>handleSearch(tag.Tname)}>{tag.Tname}</Tag>
           ))}
         </Section>
       </Container>
