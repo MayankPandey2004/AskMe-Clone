@@ -180,9 +180,9 @@ function LoginPage() {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+        setErrMsg("Login Failed");
       } else {
-        setErrMsg("Registration Failed");
+        setErrMsg("Login Failed");
       }
       errRef.current.focus();
     }
