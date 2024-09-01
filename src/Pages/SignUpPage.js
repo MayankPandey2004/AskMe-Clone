@@ -121,7 +121,6 @@ function SignUpPage() {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
-  // const [success, setSuccess] = useState(false);
   const { setAuth } = useAuth();
   const fromLogin = location.state?.fromLogin || false; 
 
@@ -198,7 +197,6 @@ function SignUpPage() {
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
       navigate('/login');
-      setSuccess(true);
       setUser("");
       setPwd("");
       setMatchPwd("");
