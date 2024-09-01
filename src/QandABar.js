@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import { lineSpinner } from 'ldrs';
 import useAuth from './hooks/useAuth';
-import { AiOutlineSearch } from "react-icons/ai";
+// import { AiOutlineSearch } from "react-icons/ai";
 
 lineSpinner.register();
 
