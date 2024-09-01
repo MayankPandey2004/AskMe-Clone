@@ -79,7 +79,7 @@ const GoogleButton = styled.button`
 
 const ErrorMessage = styled.div`
   color: #131d52;
-  background-color: #ffe6e6;
+  background-color: #b5c1ed;
   padding: 5px 10px;
   border-radius: 4px;
   margin-top: 5px;

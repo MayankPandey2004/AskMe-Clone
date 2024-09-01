@@ -3,23 +3,24 @@ import styled from "styled-components";
 import axios from "../api/Axios";
 import { FaInfoCircle } from "react-icons/fa";
 import "../App.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import Background from "../assets/LoginBack.jpeg";
 import useAuth from "../hooks/useAuth";
-import { useNavigate, useLocation } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background: linear-gradient(90deg, rgba(14,21,59,1) 35%, rgba(106,133,182,1) 100%);
 `;
 
 const Form = styled.form`
-  background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const Input = styled.input`
@@ -28,38 +29,73 @@ const Input = styled.input`
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #131d52;
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
-    background-color: #e55b5b;
+    background-color: #4a5b8c;
+    transform: scale(0.95);
   }
 
   &:disabled {
     background-color: #cccccc;
     color: #666666;
+    transform: scale(1);
     cursor: not-allowed;
   }
 `;
 
 const ErrorMessage = styled.div`
-  color: white;
+  color: #131d52;
+  background-color: #b5c1ed;
+  padding: 5px 10px;
+  border-radius: 4px;
   margin-top: 5px;
+  font-size: 14px;
 `;
 
 const SignInText = styled.div`
-  color: gray;
-  font-size: 15;
+  color: #98c4e3;
+  font-size: 15px;
   font-weight: 300;
   margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PageSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100vh;
+  background: background: linear-gradient(90deg, rgba(34,44,101,1) 20%, rgba(57,82,171,1) 42%, rgba(71,98,171,1) 64%);
+`;
+
+const SignInLink = styled.p`
+  color: #131d52;
+  text-decoration: none;
+  transition: color 0.3s, text-decoration 0.3s;
+
+  &:hover {
+    color: #98c4e3;
+    text-decoration: underline;
+  }
 `;
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}$/;
@@ -85,7 +121,7 @@ function SignUpPage() {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const { setAuth } = useAuth();
   const fromLogin = location.state?.fromLogin || false; 
 
@@ -161,6 +197,7 @@ function SignUpPage() {
       console.log(response?.data);
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
+      navigate('/login');
       setSuccess(true);
       setUser("");
       setPwd("");
@@ -178,120 +215,115 @@ function SignUpPage() {
   };
 
   return (
-    <>
-      {success ? (
-        <Container>
-          <Form>
-            <h1 style={{ fontSize: 35, color: "#ff6b6b" }}>Success!</h1>
-            <SignInText>
-              <a href="/login">Sign In</a>
-            </SignInText>
-          </Form>
-        </Container>
-      ) : (
-        <Container>
-          <Form onSubmit={handleSubmit}>
-            <p
-              ref={errRef}
-              className={errMsg ? "errmsg" : "offscreen"}
-              aria-live="assertive"
-            >
-              {errMsg}
-            </p>
-            <h2 style={{ fontSize: 27, color: "#ff6b6b" }}>Sign Up</h2>
-            <Input
-              type="text"
-              id="username"
-              placeholder="Username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              required
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-            />
-            <ErrorMessage
-              id="uidnote"
-              className={
-                userFocus && user && !validName ? "instructions" : "offscreen"
-              }
-            >
-              <FaInfoCircle />
-              6 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </ErrorMessage>
-
-            <Input
-              type="password"
-              id="password"
-              placeholder="Password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-            />
-            <ErrorMessage
-              id="pwdnote"
-              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-            >
-              <FaInfoCircle />
-              8 to 24 characters.
-              <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percent">%</span>
-            </ErrorMessage>
-
-            <Input
-              type="password"
-              id="confirm_pwd"
-              placeholder="Confirm Password"
-              onChange={(e) => setMatchPwd(e.target.value)}
-              value={matchPwd}
-              required
-              aria-invalid={validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
-              onFocus={() => setMatchFocus(true)}
-            />
-            <ErrorMessage
-              id="confirmnote"
-              className={
-                matchFocus && !validMatch ? "instructions" : "offscreen"
-              }
-            >
-              <FaInfoCircle />
-              Must match the first password input field.
-            </ErrorMessage>
-
-            <Button
-              disabled={!validName || !validPwd || !validMatch ? true : false}
-            >
-              Sign Up
-            </Button>
-            <SignInText>
-              Already registered?
-              <br />
-              <span className="line">
-                <a href="/login">Sign In</a>
-              </span>
-            </SignInText>
-          </Form>
-        </Container>
-      )}
-    </>
+    <Container>
+      <PageSection style={{ flex: 1.4 }}>
+        <img
+          src={Background}
+          alt="signup-image"
+          style={{ width: "100%", height: "100vh" }}
+        />
+      </PageSection>
+      <PageSection>
+        <Form onSubmit={handleSubmit}>
+          <p
+            ref={errRef}
+            className={errMsg ? "errmsg" : "offscreen"}
+            aria-live="assertive"
+          >
+            {errMsg}
+          </p>
+          <h2 style={{ fontSize: 27, color: "#131d52" }}>Sign Up</h2>
+          <Input
+            type="text"
+            id="username"
+            ref={userRef}
+            autoComplete="off"
+            onChange={(e) => setUser(e.target.value)}
+            value={user}
+            required
+            placeholder="Username"
+            aria-invalid={validName ? "false" : "true"}
+            aria-describedby="uidnote"
+            onBlur={() => setUserFocus(true)}
+          />
+          <ErrorMessage
+            id="uidnote"
+            className={
+              userFocus && user && !validName ? "instructions" : "offscreen"
+            }
+          >
+            <FaInfoCircle />
+            6 to 24 characters.
+            <br />
+            Must begin with a letter.
+            <br />
+            Letters, numbers, underscores, hyphens allowed.
+          </ErrorMessage>
+          <Input
+            type="password"
+            id="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={pwd}
+            required
+            placeholder="Password"
+            aria-invalid={validPwd ? "false" : "true"}
+            aria-describedby="pwdnote"
+            onBlur={() => setPwdFocus(true)}
+          />
+          <ErrorMessage
+            id="pwdnote"
+            className={
+              pwdFocus && pwd && !validPwd ? "instructions" : "offscreen"
+            }
+          >
+            <FaInfoCircle />
+            8 to 24 characters.
+            <br />
+            Must include uppercase and lowercase letters, a number and a special
+            character.
+            <br />
+            Allowed special characters:{" "}
+            <span aria-label="exclamation mark">!</span>{" "}
+            <span aria-label="at symbol">@</span>{" "}
+            <span aria-label="hashtag">#</span>{" "}
+            <span aria-label="dollar sign">$</span>{" "}
+            <span aria-label="percent">%</span>
+          </ErrorMessage>
+          <Input
+            type="password"
+            id="confirm_pwd"
+            onChange={(e) => setMatchPwd(e.target.value)}
+            value={matchPwd}
+            required
+            placeholder="Confirm Password"
+            aria-invalid={validMatch ? "false" : "true"}
+            aria-describedby="confirmnote"
+            onBlur={() => setMatchFocus(true)}
+          />
+          <ErrorMessage
+            id="confirmnote"
+            className={
+              matchFocus && matchPwd && !validMatch ? "instructions" : "offscreen"
+            }
+          >
+            <FaInfoCircle />
+            Must match the first password input field.
+          </ErrorMessage>
+          <Button disabled={!validName || !validPwd || !validMatch ? true : false}>
+            Sign Up
+          </Button>
+          <SignInText>
+            <div></div>
+            <br />
+            <span className="line">
+              <SignInLink onClick={() => navigate("/login")}>
+                Already registered? Sign In
+              </SignInLink>
+            </span>
+          </SignInText>
+        </Form>
+      </PageSection>
+    </Container>
   );
 }
 
