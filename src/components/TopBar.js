@@ -20,7 +20,7 @@ const LeftSectionButton = styled.button`
   padding: 10px;
   font-weight: 600;
   &:hover {
-    color: #333;
+    color: #98c4e3;
     transition: color 0.1s ease-in;
   }
 `;

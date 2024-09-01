@@ -103,13 +103,6 @@ function QuestionNav() {
           </NavItem>
         ))}
         <div className="right-section" style={{flex:1, display:'flex', justifyContent:'flex-end'}}>
-        <div style={{ display: 'flex', alignItems: 'center' }}><AiOutlineSearch color='#343a40' /></div>
-        <input
-          type="text"
-          placeholder="Search here ..."
-          className='search-input'
-          style={{ backgroundColor: 'transparent', color: '#131e56' }}
-        />
       </div>
       </NavList>
       <QuestionCard questions={questions} />
