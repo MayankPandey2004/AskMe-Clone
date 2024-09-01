@@ -21,7 +21,7 @@ const Section = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #ff7f7f;
+  color: #131d52;
   font-size: 24px;
   margin-bottom: 10px;
 `;
@@ -47,7 +47,8 @@ const Tag = styled.button`
   border-radius: 5px;
 
   &:hover {
-    background-color: #ff7f7f;
+    background-color: #98c4e3;
+    color: #333;
     transition: background-color 0.2s ease-in;
   }
 `;
@@ -81,7 +82,7 @@ const AskButton = styled.button`
   width: 300px;
   padding: 10px;
   margin-left: 50px;
-  background-color: #ff7f7f;
+  background-color: #131e56;
   color: white;
   border: none;
   cursor: pointer;
@@ -90,7 +91,8 @@ const AskButton = styled.button`
   font-size: 14px;
 
   &:hover {
-    background-color: #343a40;
+    background-color: #98c4e3;
+    color: #333;
     transition: background-color 0.2s ease-in;
   }
 `;

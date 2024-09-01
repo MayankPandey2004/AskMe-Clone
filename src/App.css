@@ -4,8 +4,8 @@
 }
 
 .top-bar {
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #131d52;
+  color: black;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -73,26 +73,26 @@
 }
 
 .dropdown-item:hover {
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #4eb5ff;
+  color: black;
 }
 
 .nav-list-item:hover{
-  background-color: #ff6b6b;
+  background-color: #4eb5ff;
 
 } 
 
 .page-title {
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #131d52;
+  color: black;
   padding-top: 20px;
   font-size: 24px;
   font-weight: bold;
 }
 
 .breadcrumb {
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #131d52;
+  color: black;
   padding: 10px 20px;
 }
 
@@ -134,7 +134,7 @@ input:focus {
 }
 
 .search-input1::placeholder {
-  color: white;
+  color: black;
   font-size: small;
 }
 .welcomeCard {
@@ -146,13 +146,13 @@ input:focus {
   padding: 0;
   margin: 0;
   display: flex;
-  border-bottom: 2px solid #ff6b6b;
+  border-bottom: 2px solid #131d52;
 }
 
 .NavItem{
   padding: 10px 20px;
   cursor: pointer;
-  background-color:'#ff6b6b';
+  background-color:'#131d52';
   color: 'black'
 };
 
@@ -179,7 +179,7 @@ input:focus {
 
 .search-login:focus {
   border-width: 2px;
-  border-color: #ff6b6b;
+  border-color: #131d52;
   transition: border-color 0.3s ease-in;
 
 }
@@ -209,6 +209,6 @@ input:focus {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: #333;
 }

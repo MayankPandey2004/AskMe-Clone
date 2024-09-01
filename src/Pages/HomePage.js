@@ -18,7 +18,7 @@ const AskBox = styled.textarea`
   font-size: 14px;
   &:focus {
     outline: none;
-    box-shadow: 0 0 3px #ff6b6b;
+    box-shadow: 0 0 3px #131e56;
   }
 `;
 
@@ -41,7 +41,7 @@ const AskButton = styled.button`
 
 const SubmitButton = styled.button`
   margin-right: 10px;
-  background-color: #ff6d6d;
+  background-color: #131d52;
   color: white;
   border: none;
   cursor: pointer;
@@ -50,7 +50,8 @@ const SubmitButton = styled.button`
   border-radius: 2px;
 
   &:hover {
-    background-color: #343a40;
+    background-color: #98c4e3;
+    color:#333;
     transition: background-color 0.2s ease-in;
   }
 `;
@@ -153,7 +154,7 @@ function MainPage() {
       <div className="page-title" style={{ display: "flex", height:'320px' }}>
         <div style={{ flex: 1 }}>
           <div>
-            <h3 style={{ margin: 90, marginTop: 60, marginBottom: 20 }}>
+            <h3 style={{ margin: 90, marginTop: 60, marginBottom: 20, color: '#fff' }}>
               Welcome to Ask me
             </h3>
             <p
@@ -209,14 +210,14 @@ function MainPage() {
             <AskBox
               placeholder="Ask a question and you will be sure to find an answer!"
               style={{
-                backgroundColor: 'rgba(253, 233, 233, 0.75)',
+                backgroundColor: 'aliceblue',
                 borderWidth: 0,
                 height: "100%",
                 width: "90%",
                 resize: "none",
                 padding: "15px",
                 boxSizing: "border-box",
-                color:'#ff6b6b'
+                color:'#131e56'
               }}
             />
             <SubmitButton

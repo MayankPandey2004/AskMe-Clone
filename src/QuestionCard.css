@@ -1,6 +1,6 @@
 .question-card {
     display: flex;
-    background-color: #fffef7;
+    background-color: aliceblue;
     border: 1px solid #e0e0e0;
     border-radius: 3px;
     padding: 20px;
@@ -45,7 +45,7 @@
   }
   
   .status {
-    color: #ff6b6b;
+    color: #131e56;
   }
   
   .stars::before {

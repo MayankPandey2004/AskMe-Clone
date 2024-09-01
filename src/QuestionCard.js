@@ -10,7 +10,7 @@ const AskButton = styled.button`
   width: 30%;
   padding: 10px;
   margin-right: 10px;
-  background-color: #ff6b6b;
+  background-color: #131e56;
   color: white;
   border: none;
   cursor: pointer;
@@ -18,7 +18,8 @@ const AskButton = styled.button`
   font-size: 14px;
 
   &:hover {
-    background-color: #343a40;
+    background-color: #98c4e3;
+    color: #333;
     transition: background-color 0.2s ease-in;
   }
 `
@@ -31,7 +32,7 @@ const QuestionButton = styled.div`
   justify-content: center;
   align-items: center;
   height: 20px;
-  background-color: #ff6b6b;
+  background-color: #131e56;
   color: white;
   border: none;
   cursor: pointer;
@@ -40,7 +41,7 @@ const QuestionButton = styled.div`
 
 const QuestionTitle = styled.p`
   &:hover{
-    color: #ff6b6b;
+    color: #131e56;
     cursor: pointer;
   }
 `

@@ -19,18 +19,18 @@ const NavList = styled.ul`
   padding: 0;
   margin-left: 40px;
   display: flex;
-  border-bottom: 2px solid #ff6b6b;
+  border-bottom: 2px solid #131e56;
 `;
 
 const NavItem = styled.li`
   padding: 10px 20px;
   cursor: pointer;
   font-weight: ${props => props.active ? 'bold' : 'normal'};
-  background-color: ${props => props.active ? '#ff6b6b' : 'transparent'};
+  background-color: ${props => props.active ? '#131e56' : 'transparent'};
   color: ${props => props.active ? 'white' : 'black'};
 
   &:hover {
-    background-color: ${props => props.active ? '#ff6b6b' : '#ffeded'};
+    background-color: ${props => props.active ? '#131e56' : '#98c4e3'};
   }
 `;
 
@@ -108,7 +108,7 @@ function QuestionNav() {
           type="text"
           placeholder="Search here ..."
           className='search-input'
-          style={{ backgroundColor: 'transparent', color: '#ff6b6b' }}
+          style={{ backgroundColor: 'transparent', color: '#131e56' }}
         />
       </div>
       </NavList>

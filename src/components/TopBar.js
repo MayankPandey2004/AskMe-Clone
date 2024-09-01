@@ -9,6 +9,7 @@ import UserImage from '../assets/profilephoto.png'
 import useAuth from '../hooks/useAuth';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoMdPerson } from 'react-icons/io';
+import '../TopBar.css';
 
 const LeftSectionButton = styled.button`
   text-decoration: none;
@@ -26,7 +27,7 @@ const LeftSectionButton = styled.button`
 
 const ProfileButton = styled.button`
   text-decoration: none;
-  color: #ff6b6b;
+  color: #98c4e3;
   background: none;
   border: none;
   cursor: pointer;
