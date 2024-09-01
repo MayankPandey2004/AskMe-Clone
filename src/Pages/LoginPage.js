@@ -5,7 +5,7 @@ import axios from "axios";
 import { FaInfoCircle } from "react-icons/fa";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import Background from "../assets/LoginBack.png";
+import Background from "../assets/LoginBack.jpeg";
 import { FcGoogle } from "react-icons/fc";
 
 const Container = styled.div`
@@ -13,12 +13,15 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background: linear-gradient(90deg, rgba(14,21,59,1) 35%, rgba(106,133,182,1) 100%);
 `;
 
 const Form = styled.form`
   padding: 20px;
   width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const Input = styled.input`
@@ -27,23 +30,32 @@ const Input = styled.input`
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #131d52;
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
   &:hover {
-    background-color: #e55b5b;
+    background-color: #4a5b8c;
+    transform: scale(0.95);
   }
 
   &:disabled {
     background-color: #cccccc;
     color: #666666;
+    transform: scale(1);
     cursor: not-allowed;
   }
 `;
@@ -52,26 +64,30 @@ const GoogleButton = styled.button`
   width: 100%;
   padding: 10px;
   background-color: #fff;
-  color: gray;
+  color: 98c4e3;
   font-weight: 500;
-  border-color: gray;
+  border-color: 98c4e3;
   border-width: 0.2px;
   border-radius: 10px;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
-    scale: 0.9;
-    transition: scale 0.3s ease-in-out;
+    transform: scale(0.95);
   }
 `;
 
 const ErrorMessage = styled.div`
-  color: white;
+  color: #131d52;
+  background-color: #ffe6e6;
+  padding: 5px 10px;
+  border-radius: 4px;
   margin-top: 5px;
+  font-size: 14px;
 `;
 
 const SignUpText = styled.div`
-  color: gray;
+  color: 98c4e3;
   font-size: 15px;
   font-weight: 300;
   margin-top: 10px;
@@ -84,27 +100,33 @@ const PageSection = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
+  height: 100vh;
+  background: background: linear-gradient(90deg, rgba(34,44,101,1) 20%, rgba(57,82,171,1) 42%, rgba(71,98,171,1) 64%);
+
 `;
 
-const SignUpLink = styled.a`
-  color: #ff6b6b;
+const SignUpLink = styled.p`
+  color: #131d52;
+  text-decoration: none;
+  transition: color 0.3s, text-decoration 0.3s;
 
   &:hover {
-    color: gray;
+    color: 98c4e3;
+    text-decoration: underline;
   }
 `;
 
 const Divider = styled.div`
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  margin: 10px 0px 20px 0px;
   width: 100%;
 
   &::before,
   &::after {
     content: "";
     flex: 1;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
     margin: 0 10px;
   }
 `;
@@ -193,7 +215,7 @@ function LoginPage() {
 
   return (
     <Container>
-      <PageSection style={{ flex: 1 }}>
+      <PageSection style={{ flex: 1.4 }}>
         <img
           src={Background}
           alt="login-image"
@@ -209,7 +231,7 @@ function LoginPage() {
           >
             {errMsg}
           </p>
-          <h2 style={{ fontSize: 27, color: "#ff6b6b" }}>Login</h2>
+          <h2 style={{ fontSize: 27, color: "#131d52" }}>Login</h2>
           <Input
             type="text"
             id="username"
@@ -273,7 +295,7 @@ function LoginPage() {
             <div></div>
             <br />
             <span className="line">
-              <SignUpLink href="/signup">Create an account</SignUpLink>
+              <SignUpLink onClick={()=>navigate("/signup", { state: { fromLogin: true } })} >Create an account</SignUpLink>
             </span>
           </SignUpText>
           <Divider>

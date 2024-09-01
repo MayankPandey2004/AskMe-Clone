@@ -4,7 +4,7 @@ import axios from "../api/Axios";
 import { FaInfoCircle } from "react-icons/fa";
 import "../App.css";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -68,6 +68,7 @@ const SIGNUP_URL = "/signup";
 
 function SignUpPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -85,7 +86,8 @@ function SignUpPage() {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
+  const fromLogin = location.state?.fromLogin || false; 
 
   useEffect(() => {
     userRef.current.focus();
@@ -118,14 +120,14 @@ function SignUpPage() {
         const data = await response.json();
         console.log(data);
         const accessToken = data.accessToken;
-        const user_id = data.user_id;
+        const user_id = data?.user_id || false;
         const user = data.user_name;
         const pwd = data.password;
         setAuth({ user, pwd, user_id, accessToken });
         setUser("");
         setPwd("");
-        console.log(auth.user_id);
-        if (data.user_id!==0) {
+        console.log(user_id);
+        if (user_id && !fromLogin) { // Check if not from the login page
           navigate("/");
         }
       } catch (e) {
@@ -134,7 +136,7 @@ function SignUpPage() {
     };
 
     getApiData();
-  }, [setAuth, auth, navigate]);
+  }, [setAuth, fromLogin, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
