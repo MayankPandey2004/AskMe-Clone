@@ -32,6 +32,7 @@ const MainNav = () => {
             role="button" 
             className={`nav-item ${activeTab === tab.path ? 'active' : ''}`}
             onClick={() => setActiveTab(tab.path)}
+
           >
             <li
               className='nav-list-item'
@@ -39,7 +40,7 @@ const MainNav = () => {
                 padding: 10,
                 borderRadius: 2,
                 fontSize: 17,
-                backgroundColor: activeTab === tab.path ? '#98c4e3' : 'transparent',
+                backgroundColor: activeTab === tab.path ? '#131d52' : 'transparent',
                 color: activeTab === tab.path ? 'white' : 'black',
               }}
             >

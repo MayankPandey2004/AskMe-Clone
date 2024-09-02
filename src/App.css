@@ -32,7 +32,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: #f4f4f4;
   color: #333;
   padding: 10px 20px;
 }
@@ -55,6 +55,9 @@
   color: #333;
 }
 
+.nav-item:hover{
+  background-color: #98c4e3;
+}
 .dropdown-menu {
   display: block;
   position: absolute;
