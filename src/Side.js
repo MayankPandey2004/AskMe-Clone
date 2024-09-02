@@ -60,7 +60,7 @@ const QuestionHeader = styled.div`
   cursor: pointer;
 
   &:hover {
-    color: #ff7f7f;
+    color: #4eb5ff;
     transition: color 0.2s ease-in;
   }
 `;
