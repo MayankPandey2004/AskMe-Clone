@@ -55,7 +55,7 @@
   color: #333;
 }
 
-.nav-item:hover{
+.nav-item:hover {
   background-color: #98c4e3;
 }
 .dropdown-menu {
@@ -71,7 +71,7 @@
 }
 
 .nav-list-item:hover .dropdown-menu {
-  max-height: 200px; 
+  max-height: 200px;
   visibility: visible;
 }
 
@@ -80,10 +80,9 @@
   color: black;
 }
 
-.nav-list-item:hover{
+.nav-list-item:hover {
   background-color: #4eb5ff;
-
-} 
+}
 
 .page-title {
   background-color: #131d52;
@@ -144,7 +143,7 @@ input:focus {
   display: flex;
 }
 
-.NavList{
+.NavList {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -152,30 +151,30 @@ input:focus {
   border-bottom: 2px solid #131d52;
 }
 
-.NavItem{
+.NavItem {
   padding: 10px 20px;
   cursor: pointer;
-  background-color:'#131d52';
-  color: 'black'
-};
-
-.NavItem:hover {
-    background-color: '#ffeded';
+  background-color: "#131d52";
+  color: "black";
 }
 
-.NavContainer{
+.NavItem:hover {
+  background-color: "#ffeded";
+}
+
+.NavContainer {
   font-family: Arial, sans-serif;
   margin-bottom: 20px;
   margin-top: 30px;
-  margin-left:v30px;
+  margin-left: 30px;
 }
 
 .search-login {
   border-width: 0;
-  background-color: #777C81;
+  background-color: #777c81;
   margin-top: 10px;
   border-radius: 2px;
-  border-style:inset;
+  border-style: inset;
   color: #fff;
   opacity: 70%;
 }
@@ -184,7 +183,6 @@ input:focus {
   border-width: 2px;
   border-color: #131d52;
   transition: border-color 0.3s ease-in;
-
 }
 
 .search-login::placeholder {
@@ -214,4 +212,77 @@ input:focus {
   border-radius: 4px;
   background-color: #131d52;
   color: #333;
+}
+
+.center-align {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title-para {
+  color: white;
+  font-weight: "300";
+  margin: 90px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-top: "5%";
+}
+
+.title-heading {
+  margin: 90px; 
+  margin-top: 60px; 
+  margin-bottom: 10px; 
+  color: #fff; 
+}
+
+.title-button {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1250px) {
+  .title-para {
+    color: white;
+    margin-left: 5%;
+    margin-right: 5%; 
+    font-weight: "300";
+    margin-top: "5%";
+  }
+
+  .title-heading {
+    margin-left: 5%; 
+    margin-top: 2%;
+    margin-bottom: 20; 
+    color: #fff; 
+  }
+
+  .title-button {
+    display: none;
+  }
+
+  .page-title {
+    flex-direction: column;
+    height: 450px;
+  }
+
+  .image-background {
+    height: 300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image-background textarea {
+    height: auto;
+    width: 100%;
+  }
+
+  .image-background button {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+
+  .side {
+    display: none;
+  }
 }

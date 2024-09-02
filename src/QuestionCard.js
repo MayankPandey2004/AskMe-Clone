@@ -50,7 +50,7 @@ const QuestionCard = ({ questions }) => {
   const navigate = useNavigate();
   
   return(
-  <>
+  <div style={{flex:1}}>
     {questions.map((question, index) => (
       <div className="question-card" style={{ marginLeft: 40, padding: 30, paddingBottom: 10, flexDirection: 'column' }}>
       <div className="question-content">
@@ -75,7 +75,7 @@ const QuestionCard = ({ questions }) => {
       </div>
     </div>
     ))}
-  </>
+  </div>
   )
 };
 

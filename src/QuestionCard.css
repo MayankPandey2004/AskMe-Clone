@@ -106,3 +106,9 @@
     border-radius: 4px;
     font-size: 12px;
   }
+
+  @media (max-width: 1250px) {
+    .question-card {
+      width: 90vw;
+    }
+  }

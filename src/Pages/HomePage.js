@@ -151,20 +151,14 @@ function MainPage() {
         username={isLoggedIn ? result.user_info.username : "User"}
       />
       <MainNav />
-      <div className="page-title" style={{ display: "flex", height:'320px' }}>
-        <div style={{ flex: 1 }}>
+      <div className="page-title" style={{ display: "flex"}}>
+        <div style={{ flex: 1}}>
           <div>
-            <h3 style={{ margin: 90, marginTop: 60, marginBottom: 20, color: '#fff' }}>
+            <h3 className="title-heading">
               Welcome to Ask me
             </h3>
             <p
-              style={{
-                color: "white",
-                fontWeight: "300",
-                margin: 90,
-                marginBottom: 20,
-                marginTop: 20,
-              }}
+              className="title-para"
             >
               Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus
               at elit quis urna adipiscing iaculis. Curabitur vitae velit in
@@ -180,8 +174,8 @@ function MainPage() {
                 marginTop: 20,
               }}
             >
-              <AskButton>About Us</AskButton>
-              <AskButton onClick={() => navigate("/askquestion")}>
+              <AskButton className="title-button" >About Us</AskButton>
+              <AskButton className="title-button" onClick={() => navigate("/askquestion")}>
                 Ask Question
               </AskButton>
             </div>
@@ -235,7 +229,7 @@ function MainPage() {
       </div>
       <div className="thirdbar">
         <QandABar />
-        <Side />
+        <div className="side"><Side/></div>
       </div>
     </div>
   );

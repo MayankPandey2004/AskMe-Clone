@@ -105,7 +105,7 @@ function QuestionNav() {
         <div className="right-section" style={{flex:1, display:'flex', justifyContent:'flex-end'}}>
       </div>
       </NavList>
-      <QuestionCard questions={questions} />
+      <QuestionCard questions={questions}/>
     </NavContainer>
   );
 }
