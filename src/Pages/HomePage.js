@@ -182,13 +182,15 @@ function MainPage() {
           </div>
         </div>
         <div
-          style={{ flex: 1.75, alignItems: "flex-end", position: "relative" }}
+          style={{ flex: 1.75, alignItems: "flex-end", position: "relative", display:'flex', justifyContent:'center' }}
         >
           <div
             style={{
               position: "relative",
               height: "100%",
               width: "100%",
+              maxWidth: "950px",
+              alignSelf:'center',
               backgroundImage: `url(${ImageUrl})`,
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
@@ -197,8 +199,8 @@ function MainPage() {
               paddingTop:"85px",
               display:'flex',
               justifyContent:'center',
-              alignItems:'center'
-              
+              alignItems:'center',
+              flex:1
             }}
           >
             <AskBox

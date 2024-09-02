@@ -275,6 +275,7 @@ input:focus {
   .image-background textarea {
     height: auto;
     width: 100%;
+    max-width: 200px;
   }
 
   .image-background button {
