@@ -18,7 +18,7 @@ const AskButton = styled.button`
   width: 30%;
   padding: 10px;
   margin-right: 10px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: white;
   border: none;
   cursor: pointer;
@@ -39,7 +39,7 @@ const QuestionButton = styled.div`
   justify-content: center;
   align-items: center;
   height: 20px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: white;
   border: none;
   cursor: pointer;

@@ -22,7 +22,7 @@ const CardContainer = styled.div`
 const CardTitle = styled.div`
   display: flex;
   padding: 10px;
-  color: #ff6b6b;
+  color: #131d52;
   font-size: 22px;
   font-weight: 500;
   justify-content: flex-start;
@@ -34,10 +34,10 @@ const Input = styled.input`
   margin: 10px 0;
   border: 0.5px solid #ddd;
   border-radius: 4px;
-  color: #ff6b6b;
+  color: #131d52;
 
   &:focus {
-    border-color: #ff6b6b;
+    border-color: #131d52;
     transition: border-color 0.2s ease-in-out;
   }
 `;
@@ -59,10 +59,10 @@ const Select = styled.select`
   margin: 10px 0;
   border: 0.5px solid #ddd;
   border-radius: 4px;
-  color: #ff6b6b;
+  color: #131d52;
 
   &:focus {
-    border-color: #ff6b6b;
+    border-color: #131d52;
     transition: border-color 0.2s ease-in-out;
   }
 `;
@@ -78,10 +78,10 @@ const CustomCheckbox = styled.div`
   margin: 10px 0;
   border: 0.5px solid #ddd;
   border-radius: 4px;
-  color: #ff6b6b;
+  color: #131d52;
 
   &:focus {
-    border-color: #ff6b6b;
+    border-color: #131d52;
     transition: border-color 0.2s ease-in-out;
   }
 `;
@@ -94,11 +94,11 @@ const Textarea = styled.textarea`
   margin: 10px 0;
   border: 0.5px solid #ddd;
   border-radius: 4px;
-  color: #ff6b6b;
+  color: #131d52;
   outline: none;
   resize: none;
   &:focus {
-    border-color: #ff6b6b;
+    border-color: #131d52;
     transition: border-color 0.2s ease-in-out;
   }
 `;
@@ -108,7 +108,7 @@ const AskButton = styled.button`
   margin-top: 20px;
   padding: 10px;
   margin-right: 10px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: white;
   border: none;
   cursor: pointer;

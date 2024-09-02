@@ -23,11 +23,11 @@ const Textarea = styled.textarea`
   margin: 10px 0;
   border: 0.5px solid #ddd;
   border-radius: 4px;
-  color: #ff6b6b;
+  color: #131d52;
   outline: none;
   resize: none;
   &:focus {
-    border-color: #ff6b6b;
+    border-color: #131d52;
     transition: border-color 0.2s ease-in-out;
   }
 `;
@@ -37,7 +37,7 @@ const AskButton = styled.button`
   margin-top: 20px;
   padding: 10px;
   margin-right: 10px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: white;
   border: none;
   cursor: pointer;
@@ -53,7 +53,7 @@ const AskButton = styled.button`
 const AnswerTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 500;
-  color: #ff6b6b;
+  color: #131d52;
   align-self: flex-start;
   width: 100%;
 `;

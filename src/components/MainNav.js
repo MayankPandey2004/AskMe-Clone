@@ -1,55 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Logo from '../assets/logo.png';
 import '../App.css';
+import { Link, useLocation } from 'react-router-dom';
 
 const MainNav = () => {
-  const tabs = ["Home", "Ask Question", "Questions", "Users", "Contact Us"];
+  const [activeTab, setActiveTab] = useState('');
+  const location = useLocation();
+
+  React.useEffect(() => {
+    setActiveTab(location.pathname);
+  }, [location.pathname]);
+
+  const tabs = [
+    { name: "Home", path: "/" },
+    { name: "Ask Question", path: "/askquestion" },
+    { name: "Questions", path: "/question" },
+    { name: "Users", path: "/profile" },
+    { name: "Contact Us", path: "/contact" },
+  ];
 
   return (
     <div className="main-nav">
       <div className="logo">
-        <span style={{ fontSize: '36px' }}>?</span>ASK me
+        <img src={Logo} alt='Logo-img' style={{ height: 65, overflow: 'hidden', scale: '1.5' }} />
       </div>
       <ul className="nav-list">
-        <a href="/" role="button" className="nav-item">
-          <li
-            className='nav-list-item'
-            style={{ padding: 10, borderRadius: 2 }}
+        {tabs.map((tab, index) => (
+          <Link 
+            to={tab.path} 
+            key={index} 
+            role="button" 
+            className={`nav-item ${activeTab === tab.path ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.path)}
           >
-            {tabs[0]}
-          </li>
-        </a>
-        <a href="/askquestion" role="button" className="nav-item">
-          <li
-            className='nav-list-item'
-            style={{ padding: 10, borderRadius: 2 }}
-          >
-            {tabs[1]}
-          </li>
-        </a>
-        <a href="/question" role="button" className="nav-item">
-          <li
-            className='nav-list-item'
-            style={{ padding: 10, borderRadius: 2 }}
-          >
-            {tabs[2]}
-          </li>
-        </a>
-        <a href="/profile" role="button" className="nav-item">
-          <li
-            className='nav-list-item'
-            style={{ padding: 10, borderRadius: 2 }}
-          >
-            {tabs[3]}
-          </li>
-        </a>
-        <a href="/contact" role="button" className="nav-item">
-          <li
-            className='nav-list-item'
-            style={{ padding: 10, borderRadius: 2 }}
-          >
-            {tabs[4]}
-          </li>
-        </a>
+            <li
+              className='nav-list-item'
+              style={{
+                padding: 10,
+                borderRadius: 2,
+                fontSize: 17,
+                backgroundColor: activeTab === tab.path ? '#98c4e3' : 'transparent',
+                color: activeTab === tab.path ? 'white' : 'black',
+              }}
+            >
+              {tab.name}
+            </li>
+          </Link>
+        ))}
       </ul>
     </div>
   );

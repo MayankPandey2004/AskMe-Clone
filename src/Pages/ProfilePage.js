@@ -27,7 +27,7 @@ const ProfileContainer = styled.div`
 const AskButton = styled.button`
   width: 150px;
   padding: 10px;
-  background-color: #ff6b6b;
+  background-color: #131d52;
   color: white;
   border: none;
   border-radius: 4px;
@@ -53,7 +53,7 @@ const QuestionButton = styled.button`
   margin-top: 20px;
 
   &:hover {
-    background-color: #ff6b6b;
+    background-color: #131d52;
     transition: background-color 0.2s ease-in;
   }
 `;
@@ -69,7 +69,7 @@ const ProfileItem = styled.div`
 const ProfileTitle = styled.h2`
   font-size: 2em;
   font-weight: bold;
-  color: #ff6b6b;
+  color: #131d52;
   align-self: flex-start;
   width: 100%;
 `;

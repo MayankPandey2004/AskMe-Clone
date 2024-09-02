@@ -7,7 +7,7 @@ import AnswerLikeButton from "./components/AnswerLikeButton";
 const AnswerTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 500;
-  color: #ff6b6b;
+  color: #131d52;
   align-self: flex-start;
   width: 100%;
 `;

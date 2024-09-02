@@ -32,8 +32,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #343a40;
-  color: white;
+  background-color: #fff;
+  color: #333;
   padding: 10px 20px;
 }
 
@@ -52,7 +52,7 @@
 .nav-item {
   cursor: pointer;
   text-decoration: none;
-  color: white;
+  color: #333;
 }
 
 .dropdown-menu {

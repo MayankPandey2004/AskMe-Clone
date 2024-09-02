@@ -101,7 +101,7 @@ function Side() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState();
   const [answers, setAnswers] = useState();
-  const [category, setCategory] = useState([]);
+
   const [tags, setTags] = useState([]);
   const [users, setUsers] = useState();
   const [recQuestions, setRecQuestions] = useState([]);
@@ -121,7 +121,6 @@ function Side() {
         setAnswers(result.stat.answers);
         setUsers(result.stat.users);
         setTags(result?.tags);
-        setCategory(result?.category);
         setRecQuestions(result?.recent_questions);
         setIsLoading(false);
       } catch (e) {
@@ -138,9 +137,6 @@ function Side() {
     navigate(`/search`, { state: { tname } });
   };
 
-  const handleCatSearch = (cname) => {
-    navigate(`/search`, { state: { cname } });
-  };
 
   if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <l-line-spinner
@@ -170,15 +166,6 @@ function Side() {
             <StatItem>
               Users ({users})
             </StatItem>
-        </Section>
-      </Container>
-      <Container>
-        <Section>
-          <Title>Categories</Title>
-          <hr />
-          {Array.isArray(category) && category?.map((cat, index) => (
-            <Tag key={index} style={{marginBottom: '5px'}} onClick={()=>handleCatSearch(cat.Cname)}>{cat.Cname}</Tag>
-          ))}
         </Section>
       </Container>
       <Container>

@@ -13,7 +13,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(90deg, rgba(14,21,59,1) 35%, rgba(106,133,182,1) 100%);
+  background: linear-gradient(90deg, rgba(12,20,57,1) 20%, rgba(21,33,88,1) 59%, rgba(24,49,112,1) 90%);
 `;
 
 const Form = styled.form`
@@ -101,7 +101,7 @@ const PageSection = styled.div`
   align-items: center;
   flex: 1;
   height: 100vh;
-  background: background: linear-gradient(90deg, rgba(34,44,101,1) 20%, rgba(57,82,171,1) 42%, rgba(71,98,171,1) 64%);
+  background: linear-gradient(90deg, rgba(12,20,57,1) 20%, rgba(21,33,88,1) 59%, rgba(24,49,112,1) 90%);
 
 `;
 
