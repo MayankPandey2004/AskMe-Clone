@@ -2,19 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { lineSpinner } from 'ldrs';
+import './App.css';
 
 lineSpinner.register()
-
-const Container = styled.div`
-  font-family: Arial, sans-serif;
-  width: 300px;
-  margin: 15px auto;
-  background-color: #fff;
-  padding: 20px;
-  padding-bottom: 0px;
-  margin-left: 50px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-`;
 
 const Section = styled.div`
   margin-bottom: 20px;
@@ -95,6 +85,10 @@ const AskButton = styled.button`
     color: #333;
     transition: background-color 0.2s ease-in;
   }
+
+  @media (max-width: 1250px) {
+    width: 100%;
+  }
 `;
 
 function Side() {
@@ -153,7 +147,7 @@ function Side() {
       <AskButton onClick={() => navigate("/askquestion")}>
         Ask A Question
       </AskButton>
-      <Container>
+      <div className="SideContainer" >
         <Section>
           <Title>Stats</Title>
           <hr />
@@ -167,8 +161,8 @@ function Side() {
               Users ({users})
             </StatItem>
         </Section>
-      </Container>
-      <Container>
+      </div>
+      <div className="SideContainer">
         <Section>
           <Title>Tags</Title>
           <hr />
@@ -176,8 +170,8 @@ function Side() {
             <Tag key={index} style={{marginBottom: '5px'}} onClick={()=>handleTagSearch(tag.Tname)}>{tag.Tname}</Tag>
           ))}
         </Section>
-      </Container>
-      <Container>
+      </div>
+      <div className="SideContainer">
         <Section>
           <Title>Recent Questions</Title>
           <hr />
@@ -190,7 +184,7 @@ function Side() {
             </div>
           ))}
         </Section>
-      </Container>
+      </div>
     </div>
   );
 }

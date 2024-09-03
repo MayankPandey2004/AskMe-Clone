@@ -22,6 +22,10 @@ const AskButton = styled.button`
     color: #333;
     transition: background-color 0.2s ease-in;
   }
+  
+  @media (max-width: 800px) {
+    font-size: 11px;
+  }
 `
 
 const QuestionButton = styled.div`

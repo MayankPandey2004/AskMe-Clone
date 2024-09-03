@@ -12,12 +12,14 @@ const NavContainer = styled.nav`
   margin-bottom: 20px;
   margin-top: 30px;
   margin: 30px;
+  margin-left: 0;
 `;
 
 const NavList = styled.ul`
   list-style-type: none;
   padding: 0;
-  margin-left: 40px;
+  margin-left: 5%;
+  margin-right: 5%;
   display: flex;
   border-bottom: 2px solid #131e56;
 `;
