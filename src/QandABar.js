@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import { lineSpinner } from 'ldrs';
+import './App.css';
 import useAuth from './hooks/useAuth';
 // import { AiOutlineSearch } from "react-icons/ai";
 
@@ -36,7 +37,21 @@ const NavItem = styled.li`
   }
 `;
 
-function QuestionNav() {
+const DropdownButton = styled.button`
+  display: none;
+
+  @media (max-width: 1250px) {
+    display: block;
+    background-color: #131d52;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+`;
+
+function QuestionNav({toggleDropdown}) {
   const [activeTab, setActiveTab] = useState('Recent Questions');
   const tabs = ["Recent Questions", "Most Answered", "No Answers"];
   const [isLoading, setIsLoading] = useState(true);
@@ -105,6 +120,9 @@ function QuestionNav() {
           </NavItem>
         ))}
         <div className="right-section" style={{flex:1, display:'flex', justifyContent:'flex-end'}}>
+          <DropdownButton onClick={toggleDropdown} className="topbar-dropdown-button">
+            Menu
+          </DropdownButton>
       </div>
       </NavList>
       <QuestionCard questions={questions}/>

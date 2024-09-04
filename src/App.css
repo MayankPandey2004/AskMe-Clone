@@ -294,12 +294,6 @@ input:focus {
     margin-bottom: 10px;
   }
 
-  .side {
-    width: 100%;
-    justify-content: center;
-    display: flex;
-  }
-
   .thirdbar {
     display: flex;
     flex-direction: column;
@@ -307,12 +301,37 @@ input:focus {
 
   .SideContainer {
     font-family: Arial, sans-serif;
-    width: 100%;
+    width: 80%;
     margin: 15px auto;
     background-color: #fff;
     padding: 20px;
     padding-bottom: 0px;
-    margin-left: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .topbar-dropdown-button {
+    display: block;
+    background-color: #131d52;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .dropdown-content {
+    background-color: rgba(23, 52, 146, 0.5);
+    border-radius: 20px;
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: 1;
+    width: 40%;
+    top: 500px;
+    left: 10px;
+    padding-bottom: 20px;
+  }
+
+  .dropdown-content.show {
+    display: block;
   }
 }

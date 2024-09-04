@@ -7,7 +7,7 @@ import './App.css';
 lineSpinner.register()
 
 const Section = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 20px
 `;
 
 const Title = styled.h2`
@@ -87,7 +87,7 @@ const AskButton = styled.button`
   }
 
   @media (max-width: 1250px) {
-    width: 100%;
+    width: 80%;
   }
 `;
 
