@@ -12,17 +12,20 @@ const NavContainer = styled.nav`
   font-family: Arial, sans-serif;
   margin-bottom: 20px;
   margin-top: 30px;
-  margin: 30px;
   margin-left: 0;
+
 `;
 
 const NavList = styled.ul`
   list-style-type: none;
   padding: 0;
   margin-left: 5%;
-  margin-right: 5%;
   display: flex;
   border-bottom: 2px solid #131e56;
+
+  @media (max-width: 1250px) {
+    margin-right: 6%;
+  }
 `;
 
 const NavItem = styled.li`
@@ -42,6 +45,7 @@ const DropdownButton = styled.button`
 
   @media (max-width: 1250px) {
     display: block;
+    left:20px;
     background-color: #131d52;
     color: white;
     padding: 10px;
@@ -123,7 +127,7 @@ function QuestionNav({toggleDropdown}) {
           <DropdownButton onClick={toggleDropdown} className="topbar-dropdown-button">
             Menu
           </DropdownButton>
-      </div>
+        </div>
       </NavList>
       <QuestionCard questions={questions}/>
     </NavContainer>

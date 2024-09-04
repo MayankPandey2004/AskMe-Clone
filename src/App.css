@@ -319,17 +319,29 @@ input:focus {
     margin-left: auto;
   }
 
-  .dropdown-content {
-    background-color: rgba(23, 52, 146, 0.5);
-    border-radius: 20px;
-    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    z-index: 1;
-    width: 40%;
-    top: 500px;
-    left: 10px;
-    padding-bottom: 20px;
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
+  
+.dropdown-content {
+  animation: slideIn 0.3s ease-out;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 35%;
+  min-width: 250px;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
 
   .dropdown-content.show {
     display: block;

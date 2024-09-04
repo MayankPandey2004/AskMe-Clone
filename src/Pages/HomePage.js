@@ -252,7 +252,7 @@ function MainPage() {
         <QandABar toggleDropdown={toggleDropdown}/>
         {windowWidth <= 1250 ? (
         dropdownVisible && (
-          <div className="dropdown-content">
+          <div className={`dropdown-content ${dropdownVisible ? 'open' : 'close'}`}>
             <Side />
           </div>
         )

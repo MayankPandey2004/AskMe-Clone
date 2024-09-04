@@ -88,6 +88,8 @@ const AskButton = styled.button`
 
   @media (max-width: 1250px) {
     width: 80%;
+    margin-left: 0px;
+    align-self: center;
   }
 `;
 
