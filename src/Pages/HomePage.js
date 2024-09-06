@@ -65,8 +65,6 @@ function MainPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { auth, setAuth } = useAuth();
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const getApiData = async () => {
@@ -111,17 +109,6 @@ function MainPage() {
     }
   }, [showProfile]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  
   if (isLoading)
     return (
       <div
@@ -146,12 +133,6 @@ function MainPage() {
   const login = () => {
     navigate("/login");
   };
-
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
-
-  
 
   const profile = () => {
     setShowProfile(!showProfile);
@@ -249,16 +230,8 @@ function MainPage() {
         </div>
       </div>
       <div className="thirdbar">
-        <QandABar toggleDropdown={toggleDropdown}/>
-        {windowWidth <= 1250 ? (
-        dropdownVisible && (
-          <div className={`dropdown-content ${dropdownVisible ? 'open' : 'close'}`}>
-            <Side />
-          </div>
-        )
-      ) : (
-        <Side />
-      )}
+        <QandABar/>
+        <div className="SideView"><Side /></div>
       </div>
     </div>
   );

@@ -69,9 +69,9 @@ const QuestionDate = styled.div`
 `;
 
 const AskButton = styled.button`
-  width: 300px;
+  width: 80%;
   padding: 10px;
-  margin-left: 50px;
+  max-width: 350px;
   background-color: #131e56;
   color: white;
   border: none;
@@ -87,7 +87,6 @@ const AskButton = styled.button`
   }
 
   @media (max-width: 1250px) {
-    width: 80%;
     margin-left: 0px;
     align-self: center;
   }
@@ -145,7 +144,7 @@ function Side() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems:'center'}}>
       <AskButton onClick={() => navigate("/askquestion")}>
         Ask A Question
       </AskButton>

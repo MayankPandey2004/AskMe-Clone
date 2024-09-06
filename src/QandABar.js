@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import QuestionCard from './QuestionCard';
-import { lineSpinner } from 'ldrs';
-import './App.css';
-import useAuth from './hooks/useAuth';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import QuestionCard from "./QuestionCard";
+import { lineSpinner } from "ldrs";
+import "./App.css";
+import useAuth from "./hooks/useAuth";
+import { AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 // import { AiOutlineSearch } from "react-icons/ai";
 
 lineSpinner.register();
@@ -12,56 +14,36 @@ const NavContainer = styled.nav`
   font-family: Arial, sans-serif;
   margin-bottom: 20px;
   margin-top: 30px;
-  margin-left: 0;
-
 `;
 
 const NavList = styled.ul`
   list-style-type: none;
   padding: 0;
-  margin-left: 5%;
   display: flex;
   border-bottom: 2px solid #131e56;
-
-  @media (max-width: 1250px) {
-    margin-right: 6%;
-  }
 `;
 
 const NavItem = styled.li`
   padding: 10px 20px;
   cursor: pointer;
-  font-weight: ${props => props.active ? 'bold' : 'normal'};
-  background-color: ${props => props.active ? '#131e56' : 'transparent'};
-  color: ${props => props.active ? 'white' : 'black'};
+  font-weight: ${(props) => (props.active ? "bold" : "normal")};
+  background-color: ${(props) => (props.active ? "#131e56" : "transparent")};
+  color: ${(props) => (props.active ? "white" : "black")};
 
   &:hover {
-    background-color: ${props => props.active ? '#131e56' : '#98c4e3'};
+    background-color: ${(props) => (props.active ? "#131e56" : "#98c4e3")};
   }
 `;
 
-const DropdownButton = styled.button`
-  display: none;
-
-  @media (max-width: 1250px) {
-    display: block;
-    left:20px;
-    background-color: #131d52;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  }
-`;
-
-function QuestionNav({toggleDropdown}) {
-  const [activeTab, setActiveTab] = useState('Recent Questions');
+function QuestionNav({ toggleDropdown }) {
+  const [activeTab, setActiveTab] = useState("Recent Questions");
   const tabs = ["Recent Questions", "Most Answered", "No Answers"];
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState(null);
   const { auth } = useAuth();
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const getApiData = async () => {
@@ -74,13 +56,13 @@ function QuestionNav({toggleDropdown}) {
         }
         const result = await response.json();
         switch (activeTab) {
-          case 'Recent Questions':
+          case "Recent Questions":
             setQuestions(result.recent_questions);
             break;
-          case 'Most Answered':
+          case "Most Answered":
             setQuestions(result.most_answered);
             break;
-          case 'No Answers':
+          case "No Answers":
             setQuestions(result.no_answered);
             break;
           default:
@@ -98,16 +80,35 @@ function QuestionNav({toggleDropdown}) {
     getApiData();
   }, [activeTab, auth.user_id]);
 
-  if (isLoading) return (
-    <div style={{ width: "67vw", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <l-line-spinner
-        size="40"
-        stroke="3"
-        speed="1"
-        color="#333"
-      ></l-line-spinner>
-    </div>
-  );
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/search`, { state: { searchQuery } });
+    }
+  };
+
+  const handleSearchClick = () => {
+    navigate(`/search`, { state: { searchQuery } });
+  };
+
+  if (isLoading)
+    return (
+      <div
+        style={{
+          width: "67vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <l-line-spinner
+          size="40"
+          stroke="3"
+          speed="1"
+          color="#333"
+        ></l-line-spinner>
+      </div>
+    );
 
   if (error) return <div>Error: {error}</div>;
 
@@ -123,13 +124,29 @@ function QuestionNav({toggleDropdown}) {
             {tab}
           </NavItem>
         ))}
-        <div className="right-section" style={{flex:1, display:'flex', justifyContent:'flex-end'}}>
-          <DropdownButton onClick={toggleDropdown} className="topbar-dropdown-button">
-            Menu
-          </DropdownButton>
+        <div
+          className="right-section"
+          style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <AiOutlineSearch
+              color="black"
+              onClick={handleSearchClick}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+          <input
+            type="text"
+            placeholder="Search here ..."
+            className="search-input"
+            style={{ backgroundColor: "transparent", color: "black" }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
+          />
         </div>
       </NavList>
-      <QuestionCard questions={questions}/>
+      <QuestionCard questions={questions} />
     </NavContainer>
   );
 }

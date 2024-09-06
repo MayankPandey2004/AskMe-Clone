@@ -56,7 +56,7 @@ const QuestionCard = ({ questions }) => {
   return(
   <div style={{flex:1}}>
     {questions.map((question, index) => (
-      <div className="question-card" style={{ marginLeft: 40, padding: 30, paddingBottom: 10, flexDirection: 'column' }}>
+      <div className="question-card" style={{ padding: 30, paddingBottom: 10, flexDirection: 'column' }}>
       <div className="question-content">
         <div style={{ display:'flex', justifyContent:'space-between'}}>
           <div style={{display:'flex'}}>

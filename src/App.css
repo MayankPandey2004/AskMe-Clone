@@ -100,6 +100,7 @@
 
 .thirdbar {
   display: flex;
+  justify-content: center;
 }
 
 .search-input {
@@ -243,14 +244,83 @@ input:focus {
 
 .SideContainer {
   font-family: Arial, sans-serif;
-  width: 300px;
+  width: 80%;
+  max-width: 350px;
   margin: 15px auto;
   background-color: #fff;
   padding: 20px;
   padding-bottom: 0px;
-  margin-left: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+
+.topbar-dropdown-button {
+  display: block;
+  background-color: #131d52;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.dropdown-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 35%;
+  min-width: 350px;
+  max-width: 400px;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-100%);
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.dropdown-content.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.dropdown-content.close {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-100%);
+}
+
 
 @media (max-width: 1250px) {
   .title-para {
@@ -296,7 +366,7 @@ input:focus {
 
   .thirdbar {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
   }
 
   .SideContainer {
@@ -309,41 +379,7 @@ input:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  .topbar-dropdown-button {
-    display: block;
-    background-color: #131d52;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    margin-left: auto;
-  }
-
-  @keyframes slideIn {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-  
-.dropdown-content {
-  animation: slideIn 0.3s ease-out;
-  position: fixed; 
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 35%;
-  min-width: 250px;
-  background-color: #fff;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); 
-  z-index: 1000; 
-  overflow-y: auto; 
-  overflow-x: hidden;
-}
-
-  .dropdown-content.show {
-    display: block;
+  .SideView {
+    display: none;
   }
 }
