@@ -167,7 +167,7 @@ function Side() {
         <Section>
           <Title>Tags</Title>
           <hr />
-          {Array.isArray(tags) && tags.map((tag, index) => (
+          {Array.isArray(tags) && tags.splice(0,10).map((tag, index) => (
             <Tag key={index} style={{marginBottom: '5px'}} onClick={()=>handleTagSearch(tag.Tname)}>{tag.Tname}</Tag>
           ))}
         </Section>

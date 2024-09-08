@@ -207,12 +207,12 @@ function AskQuestion() {
               </div>
 
               <div style={{ display: "flex" }}>
-                <Label htmlFor="category" style={{ marginBottom: 30 }}>
+                <Label htmlFor="questionType" style={{ marginBottom: 30 }}>
                   Category{" "}
                   <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
                 <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
-                  <Select defaultValue={"Select a Category"} id="category">
+                  <Select defaultValue={"Select a Category"} id="questionType">
                     <option value="Select a Category">Select a Category</option>
                     <option value="Analytics">Analytics</option>
                     <option value="Company">Company</option>
