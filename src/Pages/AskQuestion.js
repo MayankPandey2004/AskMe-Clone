@@ -138,16 +138,16 @@ function AskQuestion() {
     e.preventDefault();
     
     const formData = new FormData();
-    formData.append("user_id",Number(auth.user_id));
+    formData.append("user_id", auth.user_id);  // Ensure auth.user_id is already a number
     formData.append("question_title", e.target.title.value);
     formData.append("tags", e.target.tags.value);
     formData.append("question_type", e.target.questionType.value);
     formData.append("details", e.target.details.value);
-
+  
     if (file) {
       formData.append("image_file", file);
     }
-
+  
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
@@ -156,8 +156,6 @@ function AskQuestion() {
       const response = await fetch("http://localhost:8080/addquestion", {
         method: "POST",
         body: formData,
-        headers: {
-        },
       });
   
       if (!response.ok) {
@@ -170,6 +168,7 @@ function AskQuestion() {
       console.error("Error submitting the form:", error);
     }
   };
+  
   
 
   return (
