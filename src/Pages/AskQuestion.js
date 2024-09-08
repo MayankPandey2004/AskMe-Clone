@@ -3,7 +3,7 @@ import MainNav from "../components/MainNav";
 import TopBar from "../components/TopBar";
 import styled from "styled-components";
 import Side from "../Side";
-import { FaCheck } from "react-icons/fa";
+// import { FaCheck } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import '../App.css';
 
@@ -69,24 +69,24 @@ const Select = styled.select`
   }
 `;
 
-const CustomCheckbox = styled.div`
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.03);
-  margin: 10px 0;
-  border: 0.5px solid #ddd;
-  border-radius: 4px;
-  color: #131d52;
+// const CustomCheckbox = styled.div`
+//   width: 30px;
+//   height: 30px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 8px;
+//   background-color: rgba(0, 0, 0, 0.03);
+//   margin: 10px 0;
+//   border: 0.5px solid #ddd;
+//   border-radius: 4px;
+//   color: #131d52;
 
-  &:focus {
-    border-color: #131d52;
-    transition: border-color 0.2s ease-in-out;
-  }
-`;
+//   &:focus {
+//     border-color: #131d52;
+//     transition: border-color 0.2s ease-in-out;
+//   }
+// `;
 
 const Textarea = styled.textarea`
   width: 100%;
@@ -125,7 +125,7 @@ const AskButton = styled.button`
 `;
 
 function AskQuestion() {
-  const [isSelected, setIsSelected] = useState(false);
+  // const [isSelected, setIsSelected] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { auth } = useAuth();
   const [file, setFile] = useState(null);
@@ -138,10 +138,10 @@ function AskQuestion() {
     e.preventDefault();
     
     const formData = new FormData();
-    formData.append("user_id",auth.id);
+    formData.append("user_id",auth.user_id);
     formData.append("title", e.target.title.value);
     formData.append("tags", e.target.tags.value);
-    formData.append("poll", isSelected ? "true" : "false");
+    formData.append("question_type", e.target.questionType.value);
     formData.append("details", e.target.details.value);
 
     if (file) {
@@ -213,12 +213,9 @@ function AskQuestion() {
                 </Label>
                 <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
                   <Select defaultValue={"Select a Category"} id="questionType">
-                    <option value="Select a Category">Select a Category</option>
-                    <option value="Analytics">Analytics</option>
-                    <option value="Company">Company</option>
-                    <option value="Language">Language</option>
-                    <option value="Management">Management</option>
-                    <option value="Programmers">Programmers</option>
+                    <option value="Select a Category">Select a Question Type</option>
+                    <option value="Question">Question</option>
+                    <option value="Poll">Poll</option>
                   </Select>
                   <p style={{ fontSize: 11 }}>
                     Please choose the appropriate category so others can easily
@@ -240,7 +237,7 @@ function AskQuestion() {
                 </div>
               </div>
 
-              <div style={{ display: "flex" }}>
+              {/* <div style={{ display: "flex" }}>
                 <Label htmlFor="poll">Poll</Label>
                 <div style={{ display: "flex", flex: 5 }}>
                   <CustomCheckbox onClick={() => setIsSelected(!isSelected)}>
@@ -253,7 +250,7 @@ function AskQuestion() {
                     </span>
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               <div style={{ display: "flex" }}>
                 <Label htmlFor="details">
