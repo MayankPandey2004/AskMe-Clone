@@ -140,7 +140,6 @@ function AskQuestion() {
     const formData = new FormData();
 
     formData.append("title", e.target.title.value);
-    formData.append("category", e.target.category.value);
     formData.append("tags", e.target.tags.value);
     formData.append("poll", isSelected ? "true" : "false");
     formData.append("details", e.target.details.value);
@@ -154,7 +153,7 @@ function AskQuestion() {
     }
   
     try {
-      const response = await fetch("http://localhost:8080/user_question", {
+      const response = await fetch("http://localhost:8080/addquestion", {
         method: "POST",
         body: formData,
         headers: {
