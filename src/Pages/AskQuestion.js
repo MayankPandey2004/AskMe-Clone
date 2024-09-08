@@ -208,7 +208,7 @@ function AskQuestion() {
 
               <div style={{ display: "flex" }}>
                 <Label htmlFor="questionType" style={{ marginBottom: 30 }}>
-                  Category{" "}
+                  Question Type
                   <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
                 <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
