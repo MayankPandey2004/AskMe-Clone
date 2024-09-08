@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Side from "../Side";
 import { FaCheck } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
+import '../App.css';
 
 const CardContainer = styled.div`
   display: flex;
@@ -27,6 +28,7 @@ const CardTitle = styled.div`
   font-weight: 500;
   justify-content: flex-start;
 `;
+
 const Input = styled.input`
   width: 100%;
   padding: 8px;
@@ -97,6 +99,7 @@ const Textarea = styled.textarea`
   color: #131d52;
   outline: none;
   resize: none;
+
   &:focus {
     border-color: #131d52;
     transition: border-color 0.2s ease-in-out;
@@ -125,8 +128,53 @@ function AskQuestion() {
   const [isSelected, setIsSelected] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { auth } = useAuth();
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData();
+
+    formData.append("title", e.target.title.value);
+    formData.append("category", e.target.category.value);
+    formData.append("tags", e.target.tags.value);
+    formData.append("poll", isSelected ? "true" : "false");
+    formData.append("details", e.target.details.value);
+
+    if (file) {
+      formData.append("image", file);
+    }
+
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+  
+    try {
+      const response = await fetch("http://localhost:8080/user_question", {
+        method: "POST",
+        body: formData,
+        headers: {
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to submit the form");
+      }
+  
+      const result = await response.json();
+      console.log("Form submitted successfully:", result);
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    }
+  };
+  
+
   return (
-    <div style={{backgroundColor:'#fff'}}>
+    <div style={{ backgroundColor: "#fff" }}>
       <TopBar
         isLoggedIn={true}
         showProfile={showProfile}
@@ -139,36 +187,33 @@ function AskQuestion() {
         username={auth.username}
       />
       <MainNav />
-      <div style={{ display: "flex" }}>
-        <div style={{marginLeft:'50px'}}>
+      <div style={{ display: "flex", justifyContent: "center", paddingLeft: "40px" }}>
+        <div style={{ flex: 1.5 }}>
           <CardContainer>
             <CardTitle>Ask Question</CardTitle>
             <hr style={{ marginTop: 0, color: "gray" }} />
-            <form>
+            <form onSubmit={handleSubmit}>
               <div style={{ display: "flex" }}>
                 <Label htmlFor="title" style={{ marginBottom: 30 }}>
                   Question Title{" "}
                   <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
-                <div
-                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
-                >
+                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
                   <Input type="text" id="title" />
                   <p style={{ fontSize: 11 }}>
                     Please choose an appropriate title for the question to
-                    answer it even easier .
+                    answer it even easier.
                   </p>
                 </div>
               </div>
+
               <div style={{ display: "flex" }}>
-                <Label htmlFor="title" style={{ marginBottom: 30 }}>
+                <Label htmlFor="category" style={{ marginBottom: 30 }}>
                   Category{" "}
                   <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
-                <div
-                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
-                >
-                  <Select defaultValue={"Select a Category"}>
+                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
+                  <Select defaultValue={"Select a Category"} id="category">
                     <option value="Select a Category">Select a Category</option>
                     <option value="Analytics">Analytics</option>
                     <option value="Company">Company</option>
@@ -182,47 +227,57 @@ function AskQuestion() {
                   </p>
                 </div>
               </div>
+
               <div style={{ display: "flex" }}>
-                <Label htmlFor="title" style={{ marginBottom: 30 }}>
+                <Label htmlFor="tags" style={{ marginBottom: 30 }}>
                   Tags
                 </Label>
-                <div
-                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
-                >
-                  <Input type="text" id="title" />
+                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
+                  <Input type="text" id="tags" />
                   <p style={{ fontSize: 11 }}>
-                    Please choose suitable Keywords Ex :{" "}
-                    <span style={{ color: "#BCBEBF" }}>question , poll</span> .
+                    Please choose suitable keywords. Ex:{" "}
+                    <span style={{ color: "#BCBEBF" }}>question, poll</span>.
                   </p>
                 </div>
               </div>
+
               <div style={{ display: "flex" }}>
-                <Label htmlFor="title">Poll</Label>
+                <Label htmlFor="poll">Poll</Label>
                 <div style={{ display: "flex", flex: 5 }}>
                   <CustomCheckbox onClick={() => setIsSelected(!isSelected)}>
                     {isSelected && <FaCheck />}
                   </CustomCheckbox>
                   <p style={{ fontSize: 12, marginTop: 15, marginLeft: 10 }}>
-                    This question is a poll ?{" "}
+                    This question is a poll?{" "}
                     <span style={{ color: "#BCBEBF" }}>
-                      If you want to be doing a poll click here
+                      If you want to create a poll, click here.
                     </span>
                   </p>
                 </div>
               </div>
+
               <div style={{ display: "flex" }}>
-                <Label htmlFor="title">
+                <Label htmlFor="details">
                   Details <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
                 <div style={{ display: "flex", flex: 5 }}>
-                  <Textarea />
+                  <Textarea id="details" />
                 </div>
               </div>
+
+              <div style={{ display: "flex" }}>
+                <Label htmlFor="photo">Upload Photo</Label>
+                <div style={{ display: "flex", flex: 5 }}>
+                  <Input type="file" id="photo" onChange={handleFileChange} />
+                  {file && <p style={{ fontSize: 12, marginTop: 15 }}>{file.name}</p>}
+                </div>
+              </div>
+
+              <AskButton type="submit">Publish Your Question</AskButton>
             </form>
-            <AskButton>Publish Your Question</AskButton>
           </CardContainer>
         </div>
-        <div style={{ marginRight: 50 }}>
+        <div style={{ flex: 1 }} className="SideView">
           <Side />
         </div>
       </div>
