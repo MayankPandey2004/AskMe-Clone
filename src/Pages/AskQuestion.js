@@ -138,7 +138,7 @@ function AskQuestion() {
     e.preventDefault();
     
     const formData = new FormData();
-    formData.append("user_id",auth.user_id);
+    formData.append("user_id",parseInt(auth.user_id));
     formData.append("title", e.target.title.value);
     formData.append("tags", e.target.tags.value);
     formData.append("question_type", e.target.questionType.value);
@@ -212,8 +212,8 @@ function AskQuestion() {
                   <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
                 <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
-                  <Select defaultValue={"Select a Category"} id="questionType">
-                    <option value="Select a Category">Select a Question Type</option>
+                  <Select defaultValue={"Select a Question Type"} id="questionType">
+                    <option value="Select a Question Type">Select a Question Type</option>
                     <option value="Question">Question</option>
                     <option value="Poll">Poll</option>
                   </Select>
