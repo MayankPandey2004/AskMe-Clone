@@ -138,7 +138,7 @@ function AskQuestion() {
     e.preventDefault();
     
     const formData = new FormData();
-
+    formData.append("user_id",auth.id);
     formData.append("title", e.target.title.value);
     formData.append("tags", e.target.tags.value);
     formData.append("poll", isSelected ? "true" : "false");
