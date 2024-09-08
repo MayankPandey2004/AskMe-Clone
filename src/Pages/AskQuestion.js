@@ -139,13 +139,13 @@ function AskQuestion() {
     
     const formData = new FormData();
     formData.append("user_id",parseInt(auth.user_id));
-    formData.append("title", e.target.title.value);
+    formData.append("question_title", e.target.title.value);
     formData.append("tags", e.target.tags.value);
     formData.append("question_type", e.target.questionType.value);
     formData.append("details", e.target.details.value);
 
     if (file) {
-      formData.append("image", file);
+      formData.append("image_file", file);
     }
 
     for (let [key, value] of formData.entries()) {
