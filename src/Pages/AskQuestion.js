@@ -138,7 +138,7 @@ function AskQuestion() {
     e.preventDefault();
     
     const formData = new FormData();
-    formData.append("user_id",parseInt(auth.user_id));
+    formData.append("user_id",Number(auth.user_id));
     formData.append("question_title", e.target.title.value);
     formData.append("tags", e.target.tags.value);
     formData.append("question_type", e.target.questionType.value);
