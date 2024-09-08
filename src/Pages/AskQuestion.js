@@ -5,13 +5,16 @@ import styled from "styled-components";
 import Side from "../Side";
 // import { FaCheck } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
-import '../App.css';
+import AutoComplete from "../components/AutoComplete";
+import "../App.css";
 
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 900px;
+  padding-bottom: 0px;
+  width: 100%;
+  height: 87%;
   background-color: white;
   color: #333;
   border-radius: 2px;
@@ -136,40 +139,38 @@ function AskQuestion() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
-    formData.append("user_id", auth.user_id);  // Ensure auth.user_id is already a number
+    formData.append("user_id", auth.user_id);
     formData.append("question_title", e.target.title.value);
     formData.append("tags", e.target.tags.value);
     formData.append("question_type", e.target.questionType.value);
     formData.append("details", e.target.details.value);
-  
+
     if (file) {
       formData.append("image_file", file);
     }
-  
+
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
-  
+
     try {
       const response = await fetch("http://localhost:8080/addquestion", {
         method: "POST",
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to submit the form");
       }
-  
+
       const result = await response.json();
       console.log("Form submitted successfully:", result);
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
   };
-  
-  
 
   return (
     <div style={{ backgroundColor: "#fff" }}>
@@ -185,8 +186,14 @@ function AskQuestion() {
         username={auth.username}
       />
       <MainNav />
-      <div style={{ display: "flex", justifyContent: "center", paddingLeft: "40px" }}>
-        <div style={{ flex: 1.5 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          paddingLeft:'2%',
+        }}
+      >
+        <div style={{ flex: 1.75 , display:'flex', justifyContent:'center' }}>
           <CardContainer>
             <CardTitle>Ask Question</CardTitle>
             <hr style={{ marginTop: 0, color: "gray" }} />
@@ -196,7 +203,9 @@ function AskQuestion() {
                   Question Title{" "}
                   <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
-                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
+                <div
+                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
+                >
                   <Input type="text" id="title" />
                   <p style={{ fontSize: 11 }}>
                     Please choose an appropriate title for the question to
@@ -210,9 +219,16 @@ function AskQuestion() {
                   Question Type
                   <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
-                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
-                  <Select defaultValue={"Select a Question Type"} id="questionType">
-                    <option value="Select a Question Type">Select a Question Type</option>
+                <div
+                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
+                >
+                  <Select
+                    defaultValue={"Select a Question Type"}
+                    id="questionType"
+                  >
+                    <option value="Select a Question Type">
+                      Select a Question Type
+                    </option>
                     <option value="Question">Question</option>
                     <option value="Poll">Poll</option>
                   </Select>
@@ -227,8 +243,10 @@ function AskQuestion() {
                 <Label htmlFor="tags" style={{ marginBottom: 30 }}>
                   Tags
                 </Label>
-                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
-                  <Input type="text" id="tags" />
+                <div
+                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
+                >
+                  <AutoComplete />
                   <p style={{ fontSize: 11 }}>
                     Please choose suitable keywords. Ex:{" "}
                     <span style={{ color: "#BCBEBF" }}>question, poll</span>.
@@ -251,8 +269,8 @@ function AskQuestion() {
                 </div>
               </div> */}
 
-              <div style={{ display: "flex" }}>
-                <Label htmlFor="details">
+              <div style={{ display: "flex", alignItems: "flex-start" }}>
+                <Label htmlFor="details" style={{ marginTop: 15 }}>
                   Details <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
                 <div style={{ display: "flex", flex: 5 }}>
@@ -260,11 +278,30 @@ function AskQuestion() {
                 </div>
               </div>
 
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex", justifyContent:'flex-start', marginTop:10}}>
                 <Label htmlFor="photo">Upload Photo</Label>
-                <div style={{ display: "flex", flex: 5 }}>
-                  <Input type="file" id="photo" onChange={handleFileChange} />
-                  {file && <p style={{ fontSize: 12, marginTop: 15 }}>{file.name}</p>}
+                <div style={{ display: "flex", justifyContent:'flex-start', flex: 3.85 }}>
+                  <input
+                    type="file"
+                    id="photo"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                  <label
+                    htmlFor="photo"
+                    style={{
+                      backgroundColor: "#131d52",
+                      color: "#fff",
+                      padding: "8px 16px",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Choose File
+                  </label>
+                </div>
+                <div style={{flex:1, display:'flex', alignItems:'center'}}>
+                {file && <p style={{ fontSize: 12, marginBottom: '0px' }}>{file.name}</p>}
                 </div>
               </div>
 
@@ -272,7 +309,7 @@ function AskQuestion() {
             </form>
           </CardContainer>
         </div>
-        <div style={{ flex: 1 }} className="SideView">
+        <div style={{ flex: 0.75 }} className="SideView">
           <Side />
         </div>
       </div>

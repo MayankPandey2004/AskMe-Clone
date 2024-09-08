@@ -246,7 +246,7 @@ input:focus {
   font-family: Arial, sans-serif;
   width: 80%;
   max-width: 350px;
-  margin: 15px auto;
+  margin: 15px;
   background-color: #fff;
   padding: 20px;
   padding-bottom: 0px;
@@ -276,6 +276,51 @@ input:focus {
     visibility: hidden;
   }
 }
+
+.AutoCompleteContainer {
+  width: 100%;
+  padding: 3px;
+  background-color: rgba(0, 0, 0, 0.03);
+  margin: 10px 0;
+  border: 0.5px solid #ddd;
+  border-radius: 4px;
+  color: #131d52;
+
+  &:focus {
+    border-color: #131d52;
+    transition: border-color 0.2s ease-in-out;
+  }
+}
+
+.AutoCompleteContainer input {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.AutoCompleteContainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  width: 400px;
+  background-color: white;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.AutoCompleteContainer li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.AutoCompleteContainer li:hover {
+  background-color: #f0f0f0;
+}
+
 
 @keyframes slideIn {
   from {
