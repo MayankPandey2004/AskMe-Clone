@@ -50,34 +50,35 @@ function AddAnswerPage() {
   const [showProfile, setShowProfile] = useState(false);
   const location = useLocation();
   const { questionId } = location.state || {};
-  const [question, setQuestion] = useState([]);
+  const [question, setQuestion] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [answers, setAnswers] = useState([]);
   const { auth } = useAuth();
+  const [imageURL, setImageURL] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuestionsAnswers = async () => {
       try {
-        const url = `http://localhost:8080/answers?question_id=${questionId}&user_id=${auth.user_id}`;
-        const response = await fetch(url, {
-          credentials: "include",
-        });
-        if (!response) {
+        const url = `http://localhost:8080/answers?user_id=${auth.user_id}&&question_id=${questionId}`;
+        const response = await fetch(url, { credentials: "include" });
+        if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
         setQuestion(result.questions);
         setAnswers(result.answers);
         setIsLoading(false);
+        setImageURL(result?.questions.image_file || "");
       } catch (e) {
-        console.error("An error occurred while fetching the question data: ");
+        console.error("An error occurred while fetching the question data: ", e);
         setError(e.message);
       }
     };
     fetchQuestionsAnswers();
-  }, [auth.user_id,questionId]);
+  }, [auth.user_id, questionId]);
+
   if (isLoading)
     return (
       <div
@@ -111,7 +112,6 @@ function AddAnswerPage() {
         navigate={navigate}
       />
       <MainNav />
-
       <div style={{ display: "flex" }}>
         <div>
           <div
@@ -135,12 +135,13 @@ function AddAnswerPage() {
                       height: 40,
                       width: 40,
                       backgroundColor: "lightgray",
+                      overflow: "hidden",
                     }}
                   >
                     <img
                       src={UserImage}
                       alt="profile-photo"
-                      style={{ height: 40, width: 40 }}
+                      style={{ height: 40, width: 40, objectFit: "cover" }}
                     />
                   </div>
                   <p
@@ -159,26 +160,35 @@ function AddAnswerPage() {
                   Question
                 </QuestionButton>
               </div>
-              <p
-                style={{ fontSize: 18, fontWeight: "600", marginBottom: 10 }}>
+              <p style={{ fontSize: 18, fontWeight: "600", marginBottom: 10 }}>
                 {question.question}
               </p>
-              <p style={{ fontSize: 16 }}>{question.discription}</p>
+              <p style={{ fontSize: 16 }}>{question.description}</p>
             </div>
-            <hr />
+
+            {imageURL && (
+              <div style={{ margin: "20px" }}>
+                <img
+                  src={`data:image/png;base64,${imageURL}`}
+                  alt="Question-Image"
+                  style={{ width: "90%", height: "auto", objectFit: "contain" }}
+                />
+                
+              </div>
+            )}
+            <hr/>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <AskButton>Add Answer to the Question</AskButton>
               <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
-                <QuestionLikeButton question={question}/>
+                <QuestionLikeButton question={question} />
               </div>
             </div>
           </div>
           <AnswerCard answers={answers} />
-          <LeaveAnswerCard/>
+          <LeaveAnswerCard />
         </div>
         <Side />
       </div>
-      
     </div>
   );
 }
