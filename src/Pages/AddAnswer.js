@@ -11,6 +11,8 @@ import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import LeaveAnswerCard from "./LeaveAnswerCard";
 import QuestionLikeButton from "../components/QuestionLikeButton";
+import Poll from "../components/Poll";
+import { FaPollH } from "react-icons/fa";
 
 lineSpinner.register();
 
@@ -56,6 +58,7 @@ function AddAnswerPage() {
   const [answers, setAnswers] = useState([]);
   const { auth } = useAuth();
   const [imageURL, setImageURL] = useState("");
+  const [type, setType] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,6 +73,7 @@ function AddAnswerPage() {
         setQuestion(result.questions);
         setAnswers(result.answers);
         setIsLoading(false);
+        setType(result?.question.type);
         setImageURL(result?.questions.image_file || "");
       } catch (e) {
         console.error("An error occurred while fetching the question data: ", e);
@@ -156,13 +160,20 @@ function AddAnswerPage() {
                   </p>
                 </div>
                 <QuestionButton>
-                  <AiFillQuestionCircle style={{ marginRight: 2 }} />
-                  Question
+                  {type===1?<><AiFillQuestionCircle style={{ marginRight: 2 }} />
+                  Question</>:<><FaPollH />Poll</>}
                 </QuestionButton>
               </div>
+              {type===1?
+              <>
               <p style={{ fontSize: 18, fontWeight: "600", marginBottom: 10 }}>
                 {question.question}
               </p>
+                </>
+                  :
+                  <div style={{flex:1, display:'flex', justifyContent:'center'}}>
+                  <Poll question={question.question}/>
+                  </div>}
               <p style={{ fontSize: 16 }}>{question.description}</p>
             </div>
 
