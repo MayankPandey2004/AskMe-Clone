@@ -73,7 +73,7 @@ function AddAnswerPage() {
         setQuestion(result.questions);
         setAnswers(result.answers);
         setIsLoading(false);
-        setType(result?.question.type);
+        setType(result?.questions.type);
         setImageURL(result?.questions.image_file || "");
       } catch (e) {
         console.error("An error occurred while fetching the question data: ", e);
