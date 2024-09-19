@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import QuestionCard from "./QuestionCard";
 import { lineSpinner } from "ldrs";
 import "./App.css";
@@ -9,6 +9,15 @@ import { useNavigate } from "react-router-dom";
 // import { AiOutlineSearch } from "react-icons/ai";
 
 lineSpinner.register();
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const NavContainer = styled.nav`
   font-family: Arial, sans-serif;
@@ -29,10 +38,16 @@ const NavItem = styled.li`
   font-weight: ${(props) => (props.active ? "bold" : "normal")};
   background-color: ${(props) => (props.active ? "#131e56" : "transparent")};
   color: ${(props) => (props.active ? "white" : "black")};
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
     background-color: ${(props) => (props.active ? "#131e56" : "#98c4e3")};
+    color: ${(props) => (props.active ? "white" : "black")};
   }
+`;
+
+const QuestionCardContainer = styled.div`
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 function QuestionNav({ toggleDropdown }) {
@@ -94,8 +109,8 @@ function QuestionNav({ toggleDropdown }) {
     return (
       <div
         style={{
-          width: "67vw",
-          height: "100vh",
+          width: "60vw",
+          height: "50vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -146,7 +161,9 @@ function QuestionNav({ toggleDropdown }) {
           />
         </div>
       </NavList>
-      <QuestionCard questions={questions} />
+      <QuestionCardContainer>
+        <QuestionCard questions={questions} />
+      </QuestionCardContainer>
     </NavContainer>
   );
 }
