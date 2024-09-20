@@ -119,6 +119,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const { auth } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
+  const [joinDate, setJoinDate] = useState();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -130,6 +131,7 @@ const ProfilePage = () => {
         }
         const result = await response.json();
         setProfile(result.user_info);
+        setJoinDate(result.join_date);
         setIsLoading(false);
       } catch (e) {
         setError(e.message);
@@ -141,7 +143,7 @@ const ProfilePage = () => {
   }, [auth.user_id]);
 
   const handleEditProfile = () => {
-    setIsEditing(true); 
+    setIsEditing(true);
   };
 
   const handleSaveProfile = async () => {
@@ -166,6 +168,9 @@ const ProfilePage = () => {
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
+
+  const epochTimestamp = joinDate;
+  const date = new Date(epochTimestamp * 1000);
 
   if (isLoading)
     return (
@@ -209,17 +214,17 @@ const ProfilePage = () => {
             </ProfileTitle>
             <ProfileContent>
               <div>
-              <ProfileImage>
-                <img src={UserImage} alt="Profile" />
-              </ProfileImage>
-              {isEditing ? (
+                <ProfileImage>
+                  <img src={UserImage} alt="Profile" />
+                </ProfileImage>
+                {isEditing ? (
                   <AskButton onClick={handleSaveProfile}>Save</AskButton>
                 ) : (
                   <AskButton onClick={handleEditProfile}>
                     Edit Profile
                   </AskButton>
                 )}
-                </div>
+              </div>
               <ProfileDetails>
                 <ProfileItem>
                   {isEditing ? (
@@ -238,6 +243,48 @@ const ProfilePage = () => {
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <label style={{ fontSize: 13 }}>City:</label>
+                      <Input
+                        name="city"
+                        value={profile.city}
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                      <label style={{ fontSize: 13 }}>Country:</label>
+                      <Input
+                        name="country"
+                        value={profile.country}
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                      <label style={{ fontSize: 13 }}>About:</label>
+                      <Input
+                        name="about"
+                        value={profile.about}
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                      <label style={{ fontSize: 13 }}>LinkedIn:</label>
+                      <Input
+                        name="linkedin"
+                        value={profile.linkedin}
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                      <label style={{ fontSize: 13 }}>Twitter:</label>
+                      <Input
+                        name="twitter"
+                        value={profile.twitter}
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                      <label style={{ fontSize: 13 }}>Facebook:</label>
+                      <Input
+                        name="facebook"
+                        value={profile.facebook}
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
                     </div>
                   ) : (
                     <div>
@@ -247,11 +294,45 @@ const ProfilePage = () => {
                       </p>
                       <p>
                         Username:{" "}
-                        <span style={{ color: "gray" }}>{profile.username}</span>
+                        <span style={{ color: "gray" }}>
+                          {profile.username}
+                        </span>
                       </p>
                       <p>
                         Email:{" "}
                         <span style={{ color: "gray" }}>{profile.email}</span>
+                      </p>
+                      <p>
+                        Joined At:{" "}
+                        <span style={{ color: "gray" }}>{date.toString()}</span>
+                      </p>
+                      <p>
+                        City:{" "}
+                        <span style={{ color: "gray" }}>{profile.city}</span>
+                      </p>
+                      <p>
+                        Country:{" "}
+                        <span style={{ color: "gray" }}>{profile.country}</span>
+                      </p>
+                      <p>
+                        About:{" "}
+                        <span style={{ color: "gray" }}>{profile.about}</span>
+                      </p>
+                      <p>
+                        LinkedIn:{" "}
+                        <span style={{ color: "gray" }}>
+                          {profile.linkedin}
+                        </span>
+                      </p>
+                      <p>
+                        Twitter:{" "}
+                        <span style={{ color: "gray" }}>{profile.twitter}</span>
+                      </p>
+                      <p>
+                        Facebook:{" "}
+                        <span style={{ color: "gray" }}>
+                          {profile.facebook}
+                        </span>
                       </p>
                     </div>
                   )}
