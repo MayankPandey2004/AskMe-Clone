@@ -11,6 +11,9 @@ import AskQuestion from "./Pages/AskQuestion";
 import AddAnswerPage from "./Pages/AddAnswer";
 import SearchPage from "./Pages/SearchPage";
 import SavedPage from "./Pages/SavedPage";
+import MostAnswered from "./Pages/MostAnswered";
+import NoAnswered from "./Pages/NoAnwered";
+import RecentQuestion from "./Pages/RecentQuestion";
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
           <Route path="/addanswer" element={<AddAnswerPage />} />
           <Route path="/savedquestion" element={<SavedPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/mostanswered" element={<MostAnswered />} />
+          <Route path="/noanswered" element={<NoAnswered />} />
+          <Route path="/recentquestion" element={<RecentQuestion />} />
           <Route path="*" />
         </Route>
       </Routes>
