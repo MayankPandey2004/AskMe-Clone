@@ -16,12 +16,14 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
-  width: 850px;
+  width: 97%;
   background-color: #fff;
   color: #333;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 50px auto;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-right: 5%;
   margin-bottom: 20px;
 `;
 
@@ -73,6 +75,7 @@ const ProfileTitle = styled.h2`
   font-weight: bold;
   color: #131d52;
   align-self: flex-start;
+  width: 100%;
 `;
 
 const ProfileContent = styled.div`
@@ -107,17 +110,28 @@ const ErrorMessage = styled.div`
 const Input = styled.input`
   padding: 8px;
   font-size: 1em;
-  width: 100%;
+  width: 80%;
   margin-top: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
 `;
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({
+    username: "",
+    email: "",
+    city: "",
+    country: "",
+    about: "",
+    linkedin: "",
+    twitter: "",
+    facebook: "",
+    profile_image: null,
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
+  const [isEditing, setIsEditing] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
   const { auth } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
@@ -151,24 +165,40 @@ const ProfilePage = () => {
   const handleSaveProfile = async () => {
     try {
       const url = `http://localhost:8080/update_profile`;
+
+      const formData = new FormData();
+
+      for (const key in profile) {
+        formData.append(key, profile[key]);
+      }
+
+      formData.append("user_id", auth.user_id);
+
       const response = await fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(profile),
+        body: formData,
       });
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+
       setIsEditing(false);
+      setSuccessMessage("Profile updated successfully!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000);
     } catch (e) {
       setError(e.message);
     }
   };
 
   const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+    if (e.target.name === "image") {
+      setProfile({ ...profile, profile_image: e.target.files[0] }); // Handle image upload
+    } else {
+      setProfile({ ...profile, [e.target.name]: e.target.value });
+    }
   };
 
   const epochTimestamp = joinDate;
@@ -212,76 +242,121 @@ const ProfilePage = () => {
         <div style={{ flex: 2 }}>
           <ProfileContainer>
             <ProfileTitle>
+              {successMessage && (
+                <div
+                  style={{
+                    color: "green",
+                    marginBottom: "10px",
+                    fontSize: 15,
+                    fontWeight: "400",
+                  }}
+                >
+                  <i>{successMessage}</i>
+                </div>
+              )}
               About {profile.username} <hr style={{ color: "gray" }} />
             </ProfileTitle>
             <ProfileContent>
               <div>
                 <ProfileImage>
-                  <img src={UserImage} alt="Profile" />
+                  <img
+                    src={
+                      profile.profile_image
+                        ? URL.createObjectURL(profile.profile_image)
+                        : UserImage
+                    }
+                    alt="Profile"
+                  />
                 </ProfileImage>
-                {isEditing ? (
-                  <AskButton onClick={handleSaveProfile}>Save</AskButton>
+                {!isEditing ? (
+                  <>
+                    <AskButton onClick={handleEditProfile}>
+                      Edit Profile
+                    </AskButton>
+                  </>
                 ) : (
-                  <AskButton onClick={handleEditProfile}>
-                    Edit Profile
-                  </AskButton>
+                  <AskButton onClick={handleSaveProfile}>Save</AskButton>
                 )}
-                <div style={{fontSize: 16, marginTop:10, fontWeight: '600'}}>About:</div>
               </div>
               <ProfileDetails>
                 <ProfileItem>
                   {isEditing ? (
                     <div>
+                      <label style={{ fontSize: 13 }}>Profile Image:</label>
+                      <br />
+                      <Input
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={handleChange}
+                        style={{ marginTop: 0, fontSize: 14 }}
+                      />
+                      <br />
                       <label style={{ fontSize: 13 }}>Username:</label>
+                      <br />
                       <Input
                         name="username"
                         value={profile.username}
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <br />
                       <label style={{ fontSize: 13 }}>Email:</label>
+                      <br />
                       <Input
                         name="email"
                         value={profile.email}
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <br />
                       <label style={{ fontSize: 13 }}>City:</label>
+                      <br />
                       <Input
                         name="city"
                         value={profile.city}
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <br />
                       <label style={{ fontSize: 13 }}>Country:</label>
+                      <br />
                       <Input
                         name="country"
                         value={profile.country}
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <br />
                       <label style={{ fontSize: 13 }}>About:</label>
+                      <br />
                       <Input
                         name="about"
                         value={profile.about}
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <br />
                       <label style={{ fontSize: 13 }}>LinkedIn:</label>
+                      <br />
                       <Input
                         name="linkedin"
                         value={profile.linkedin}
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <br />
                       <label style={{ fontSize: 13 }}>Twitter:</label>
+                      <br />
                       <Input
                         name="twitter"
                         value={profile.twitter}
                         onChange={handleChange}
                         style={{ marginTop: 0, fontSize: 14 }}
                       />
+                      <br />
                       <label style={{ fontSize: 13 }}>Facebook:</label>
+                      <br />
                       <Input
                         name="facebook"
                         value={profile.facebook}
@@ -292,76 +367,121 @@ const ProfilePage = () => {
                   ) : (
                     <div style={{ display: "flex", width: "100%" }}>
                       <div style={{ flex: 0.85 }}>
-                        <p>
+                        <p style={{ fontSize: 17, fontWeight: "600" }}>
                           Joined at:{" "}
-                          <span style={{ color: "gray", fontSize: 17 }}>
+                          <span
+                            style={{
+                              color: "gray",
+                              fontSize: 17,
+                              fontWeight: "500",
+                            }}
+                          >
                             {date.toLocaleDateString()}
                           </span>
                         </p>
-                        <p>
+                        <p style={{ fontSize: 17, fontWeight: "600" }}>
                           Username:{" "}
-                          <span style={{ color: "gray" }}>
+                          <span
+                            style={{
+                              color: "gray",
+                              fontSize: 17,
+                              fontWeight: "500",
+                            }}
+                          >
                             {profile.username}
                           </span>
                         </p>
-                        <p>
+                        <p style={{ fontSize: 17, fontWeight: "600" }}>
                           Email:{" "}
-                          <span style={{ color: "gray" }}>{profile.email}</span>
+                          <span
+                            style={{
+                              color: "gray",
+                              fontSize: 17,
+                              fontWeight: "500",
+                            }}
+                          >
+                            {profile.email}
+                          </span>
                         </p>
                       </div>
                       <div style={{ flex: 1 }}>
-                        <p>
+                        <p style={{ fontSize: 17, fontWeight: "600" }}>
                           City:{" "}
-                          <span style={{ color: "gray" }}>{profile.city}</span>
-                        </p>
-                        <p>
-                          Country:{" "}
-                          <span style={{ color: "gray" }}>
-                            {profile.country}
+                          <span
+                            style={{
+                              color: "gray",
+                              fontSize: 17,
+                              fontWeight: "500",
+                            }}
+                          >
+                            {profile.city}
                           </span>
                         </p>
-                        <p>
-                          About:{" "}
-                          <span style={{ color: "gray" }}>{profile.about}</span>
+                        <p style={{ fontSize: 17, fontWeight: "600" }}>
+                          Country:{" "}
+                          <span
+                            style={{
+                              color: "gray",
+                              fontSize: 17,
+                              fontWeight: "500",
+                            }}
+                          >
+                            {profile.country}
+                          </span>
                         </p>
                       </div>
                     </div>
                   )}
 
-                  <div style={{ display: "flex", width: "90%" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        flex: 1,
-                        width: "50%",
-                      }}
-                    >
-                      <span
-                        style={{ cursor: "pointer" }}
-                        onClick={() => (window.location.href = "/")}
+                  {!isEditing && (
+                    <div style={{ display: "flex", width: "90%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          flex: 1,
+                          width: "50%",
+                        }}
                       >
-                        <FaLinkedinIn size={16} style={{marginRight:10}}/>
-                      </span>
+                        <span
+                          style={{ cursor: "pointer" }}
+                          onClick={() => (window.location.href = `${profile.linkedin}`)}
+                        >
+                          <FaLinkedinIn size={16} style={{ marginRight: 10 }} />
+                        </span>
 
-                      <span
-                        style={{ cursor: "pointer" }}
-                        onClick={() => (window.location.href = "/")}
-                      >
-                        <FaFacebookF size={16} style={{marginRight:10}}/>
-                      </span>
+                        <span
+                          style={{ cursor: "pointer" }}
+                          onClick={() => (window.location.href = `${profile.facebook}`)}
+                        >
+                          <FaFacebookF size={16} style={{ marginRight: 10 }} />
+                        </span>
 
-                      <span
-                        style={{ cursor: "pointer" }}
-                        onClick={() => (window.location.href = "/")}
-                      >
-                        <FaTwitter size={16} style={{marginRight:10}}/>
-                      </span>
+                        <span
+                          style={{ cursor: "pointer" }}
+                          onClick={() => (window.location.href = `${profile.twitter}`)}
+                        >
+                          <FaTwitter size={16} style={{ marginRight: 10 }} />
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </ProfileItem>
               </ProfileDetails>
             </ProfileContent>
+            {!isEditing && <div
+              style={{
+                fontSize: 17,
+                marginTop: 10,
+                fontWeight: "600",
+                marginBottom: "10px",
+              }}
+            >
+              About:{" "}
+              <span style={{ fontWeight: "500", color: "gray" }}>
+                <i>{profile.about}</i>
+              </span>
+            </div>}
           </ProfileContainer>
           <QuestionButton
             style={{ marginRight: 20, marginLeft: 50 }}
@@ -369,8 +489,14 @@ const ProfilePage = () => {
           >
             Questions Asked
           </QuestionButton>
-          <QuestionButton onClick={() => navigate("/answer")}>
+          <QuestionButton
+            style={{ marginRight: 20 }}
+            onClick={() => navigate("/answer")}
+          >
             Questions Answered
+          </QuestionButton>
+          <QuestionButton onClick={() => navigate("/answer")}>
+            Saved Questions
           </QuestionButton>
         </div>
         <div style={{ flex: 1 }}>

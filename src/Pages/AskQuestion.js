@@ -12,7 +12,7 @@ const CardContainer = styled.div`
   flex-direction: column;
   padding: 20px;
   padding-bottom: 10px;
-  width: 100%;
+  width: 95%;
   background-color: white;
   color: #333;
   border-radius: 2px;
@@ -170,7 +170,7 @@ function AskQuestion() {
   };
 
   return (
-    <div style={{ backgroundColor: "#fff" }}>
+    <div style={{ backgroundColor: "#fff", width: '100%' }}>
       <TopBar
         isLoggedIn={true}
         showProfile={showProfile}
@@ -183,8 +183,8 @@ function AskQuestion() {
         username={auth.username}
       />
       <MainNav />
-      <div style={{ display: "flex", justifyContent: "center", paddingLeft: '2%' }}>
-        <div style={{ flex: 1.75, display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: "flex", justifyContent: "space-around"}}>
+        <div style={{ flex: 2, display: 'flex', justifyContent: 'center' }}>
           <CardContainer>
             {alert && <Alert type={alert.type}>{alert.message}</Alert>}
             <CardTitle>Ask Question</CardTitle>
@@ -273,8 +273,9 @@ function AskQuestion() {
             </form>
           </CardContainer>
         </div>
-
-        <Side style={{ flex: 1 }} />
+        <div style={{ flex: 1 }}>
+        <Side  />
+        </div>
       </div>
     </div>
   );
