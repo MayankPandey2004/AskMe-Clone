@@ -183,13 +183,14 @@ function AskQuestion() {
         username={auth.username}
       />
       <MainNav />
-      <div style={{ display: "flex", justifyContent: "space-around"}}>
-        <div style={{ flex: 2, display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: "flex", justifyContent: "flex-end"}}>
+        <div style={{ flex: 2, display: 'flex', justifyContent:'flex-end' }}>
+          <div style={{width: '100%'}}>
           <CardContainer>
             {alert && <Alert type={alert.type}>{alert.message}</Alert>}
             <CardTitle>Ask Question</CardTitle>
             <hr style={{ marginTop: 0, color: "gray" }} />
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{marginBottom: '10px'}}>
               <div style={{ display: "flex" }}>
                 <Label htmlFor="title" style={{ marginBottom: 30 }}>
                   Question Title <span style={{ color: "red", marginLeft: 2 }}>*</span>
@@ -272,8 +273,9 @@ function AskQuestion() {
               <AskButton type="submit">Ask Question</AskButton>
             </form>
           </CardContainer>
+          </div>
         </div>
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 0.75 }}>
         <Side  />
         </div>
       </div>

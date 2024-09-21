@@ -13,6 +13,7 @@ import LeaveAnswerCard from "./LeaveAnswerCard";
 import QuestionLikeButton from "../components/QuestionLikeButton";
 import Poll from "../components/Poll";
 import { FaPollH } from "react-icons/fa";
+import SaveButton from "../components/Saved";
 
 lineSpinner.register();
 
@@ -192,6 +193,7 @@ function AddAnswerPage() {
               <AskButton>Add Answer to the Question</AskButton>
               <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
                 <QuestionLikeButton question={question} />
+                <SaveButton question={question}/>
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ import UserImage from './assets/profilephoto.png';
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import QuestionLikeButton from './components/QuestionLikeButton';
+import SaveButton from './components/Saved';
 
 const AskButton = styled.button`
   width: 30%;
@@ -75,6 +76,7 @@ const QuestionCard = ({ questions }) => {
         <AskButton>Add Answer to the Question</AskButton>
         <div style={{ display: 'flex', marginTop: 8, marginRight: 10 }}>
           <QuestionLikeButton question={question}/>
+          <SaveButton question={question}/>
         </div>
       </div>
     </div>

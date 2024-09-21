@@ -10,6 +10,7 @@ import AnswerPage from "./Pages/AnswersPage";
 import AskQuestion from "./Pages/AskQuestion";
 import AddAnswerPage from "./Pages/AddAnswer";
 import SearchPage from "./Pages/SearchPage";
+import SavedPage from "./Pages/SavedPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/answer" element={<AnswerPage />} />
           <Route path="/askquestion" element={<AskQuestion />} />
           <Route path="/addanswer" element={<AddAnswerPage />} />
+          <Route path="/savedquestion" element={<SavedPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" />
         </Route>
