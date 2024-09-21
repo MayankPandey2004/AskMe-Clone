@@ -203,7 +203,7 @@ function LoginPage() {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg("Login Failed");
+        setErrMsg("Invalid Credentials");
       } else {
         setErrMsg("Login Failed");
       }

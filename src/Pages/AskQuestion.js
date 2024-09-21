@@ -3,7 +3,6 @@ import MainNav from "../components/MainNav";
 import TopBar from "../components/TopBar";
 import styled from "styled-components";
 import Side from "../Side";
-// import { FaCheck } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import AutoComplete from "../components/AutoComplete";
 import "../App.css";
@@ -12,9 +11,8 @@ const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  padding-bottom: 0px;
+  padding-bottom: 10px;
   width: 100%;
-  height: 87%;
   background-color: white;
   color: #333;
   border-radius: 2px;
@@ -72,25 +70,6 @@ const Select = styled.select`
   }
 `;
 
-// const CustomCheckbox = styled.div`
-//   width: 30px;
-//   height: 30px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 8px;
-//   background-color: rgba(0, 0, 0, 0.03);
-//   margin: 10px 0;
-//   border: 0.5px solid #ddd;
-//   border-radius: 4px;
-//   color: #131d52;
-
-//   &:focus {
-//     border-color: #131d52;
-//     transition: border-color 0.2s ease-in-out;
-//   }
-// `;
-
 const Textarea = styled.textarea`
   width: 100%;
   padding: 8px;
@@ -127,11 +106,21 @@ const AskButton = styled.button`
   }
 `;
 
+const Alert = styled.div`
+  background-color: ${(props) => (props.type === "success" ? "#d4edda" : "#f8d7da")};
+  color: ${(props) => (props.type === "success" ? "#155724" : "#721c24")};
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid ${(props) => (props.type === "success" ? "#c3e6cb" : "#f5c6cb")};
+  border-radius: 4px;
+  text-align: center;
+`;
+
 function AskQuestion() {
-  // const [isSelected, setIsSelected] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { auth } = useAuth();
   const [file, setFile] = useState(null);
+  const [alert, setAlert] = useState(null); // State for alert messages
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -149,10 +138,8 @@ function AskQuestion() {
 
     if (file) {
       formData.append("image_file", file);
-    }
-
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
+    } else {
+      formData.append("image_file", "");
     }
 
     try {
@@ -167,8 +154,18 @@ function AskQuestion() {
 
       const result = await response.json();
       console.log("Form submitted successfully:", result);
+
+      // Display success alert
+      setAlert({ message: "Question submitted successfully!", type: "success" });
+
+      // Clear form fields
+      e.target.reset();
+      setFile(null);
     } catch (error) {
       console.error("Error submitting the form:", error);
+
+      // Display error alert
+      setAlert({ message: "Error submitting the form.", type: "error" });
     }
   };
 
@@ -186,55 +183,37 @@ function AskQuestion() {
         username={auth.username}
       />
       <MainNav />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          paddingLeft:'2%',
-        }}
-      >
-        <div style={{ flex: 1.75 , display:'flex', justifyContent:'center' }}>
+      <div style={{ display: "flex", justifyContent: "center", paddingLeft: '2%' }}>
+        <div style={{ flex: 1.75, display: 'flex', justifyContent: 'center' }}>
           <CardContainer>
+            {alert && <Alert type={alert.type}>{alert.message}</Alert>}
             <CardTitle>Ask Question</CardTitle>
             <hr style={{ marginTop: 0, color: "gray" }} />
             <form onSubmit={handleSubmit}>
               <div style={{ display: "flex" }}>
                 <Label htmlFor="title" style={{ marginBottom: 30 }}>
-                  Question Title{" "}
-                  <span style={{ color: "red", marginLeft: 2 }}>*</span>
+                  Question Title <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
-                <div
-                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
-                >
-                  <Input type="text" id="title" />
+                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
+                  <Input type="text" id="title" required />
                   <p style={{ fontSize: 11 }}>
-                    Please choose an appropriate title for the question to
-                    answer it even easier.
+                    Please choose an appropriate title for the question to answer it even easier.
                   </p>
                 </div>
               </div>
 
               <div style={{ display: "flex" }}>
                 <Label htmlFor="questionType" style={{ marginBottom: 30 }}>
-                  Question Type
-                  <span style={{ color: "red", marginLeft: 2 }}>*</span>
+                  Question Type<span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
-                <div
-                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
-                >
-                  <Select
-                    defaultValue={"Select a Question Type"}
-                    id="questionType"
-                  >
-                    <option value="Select a Question Type">
-                      Select a Question Type
-                    </option>
+                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
+                  <Select defaultValue={"Select a Question Type"} id="questionType" required>
+                    <option value="Select a Question Type">Select a Question Type</option>
                     <option value="Question">Question</option>
                     <option value="Poll">Poll</option>
                   </Select>
                   <p style={{ fontSize: 11 }}>
-                    Please choose the appropriate category so others can easily
-                    search your question.
+                    Please choose the appropriate category so others can easily search your question.
                   </p>
                 </div>
               </div>
@@ -243,9 +222,7 @@ function AskQuestion() {
                 <Label htmlFor="tags" style={{ marginBottom: 30 }}>
                   Tags
                 </Label>
-                <div
-                  style={{ display: "flex", flexDirection: "column", flex: 5 }}
-                >
+                <div style={{ display: "flex", flexDirection: "column", flex: 5 }}>
                   <AutoComplete />
                   <p style={{ fontSize: 11 }}>
                     Please choose suitable keywords. Ex:{" "}
@@ -254,33 +231,18 @@ function AskQuestion() {
                 </div>
               </div>
 
-              {/* <div style={{ display: "flex" }}>
-                <Label htmlFor="poll">Poll</Label>
-                <div style={{ display: "flex", flex: 5 }}>
-                  <CustomCheckbox onClick={() => setIsSelected(!isSelected)}>
-                    {isSelected && <FaCheck />}
-                  </CustomCheckbox>
-                  <p style={{ fontSize: 12, marginTop: 15, marginLeft: 10 }}>
-                    This question is a poll?{" "}
-                    <span style={{ color: "#BCBEBF" }}>
-                      If you want to create a poll, click here.
-                    </span>
-                  </p>
-                </div>
-              </div> */}
-
               <div style={{ display: "flex", alignItems: "flex-start" }}>
                 <Label htmlFor="details" style={{ marginTop: 15 }}>
                   Details <span style={{ color: "red", marginLeft: 2 }}>*</span>
                 </Label>
                 <div style={{ display: "flex", flex: 5 }}>
-                  <Textarea id="details" />
+                  <Textarea id="details" required />
                 </div>
               </div>
 
-              <div style={{ display: "flex", justifyContent:'flex-start', marginTop:10}}>
+              <div style={{ display: "flex", justifyContent: 'flex-start', marginTop: 10 }}>
                 <Label htmlFor="photo">Upload Photo</Label>
-                <div style={{ display: "flex", justifyContent:'flex-start', flex: 3.85 }}>
+                <div style={{ display: "flex", justifyContent: 'flex-start', flex: 3.85 }}>
                   <input
                     type="file"
                     id="photo"
@@ -291,27 +253,28 @@ function AskQuestion() {
                     htmlFor="photo"
                     style={{
                       backgroundColor: "#131d52",
-                      color: "#fff",
-                      padding: "8px 16px",
-                      borderRadius: "4px",
+                      color: "white",
                       cursor: "pointer",
+                      padding: "6px 10px",
+                      borderRadius: 4,
+                      marginTop: -5,
+                      marginBottom: 20,
                     }}
                   >
                     Choose File
                   </label>
-                </div>
-                <div style={{flex:1, display:'flex', alignItems:'center'}}>
-                {file && <p style={{ fontSize: 12, marginBottom: '0px' }}>{file.name}</p>}
+                  <p style={{ marginTop: 0, marginLeft: 10, fontSize: 14 }}>
+                    {file ? file.name : "No file chosen"}
+                  </p>
                 </div>
               </div>
 
-              <AskButton type="submit">Publish Your Question</AskButton>
+              <AskButton type="submit">Ask Question</AskButton>
             </form>
           </CardContainer>
         </div>
-        <div style={{ flex: 0.75 }} className="SideView">
-          <Side />
-        </div>
+
+        <Side style={{ flex: 1 }} />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Side from "../Side";
 import UserImage from "../assets/profilephoto.png";
 import useAuth from "../hooks/useAuth";
 import { lineSpinner } from "ldrs";
+import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 lineSpinner.register();
 
@@ -63,6 +64,7 @@ const ProfileItem = styled.div`
   font-size: 1.2em;
   font-weight: 500;
   align-self: flex-start;
+  width: 100%;
   margin-left: 60px;
 `;
 
@@ -71,11 +73,11 @@ const ProfileTitle = styled.h2`
   font-weight: bold;
   color: #131d52;
   align-self: flex-start;
-  width: 100%;
 `;
 
 const ProfileContent = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const ProfileImage = styled.div`
@@ -224,6 +226,7 @@ const ProfilePage = () => {
                     Edit Profile
                   </AskButton>
                 )}
+                <div style={{fontSize: 16, marginTop:10, fontWeight: '600'}}>About:</div>
               </div>
               <ProfileDetails>
                 <ProfileItem>
@@ -287,55 +290,75 @@ const ProfilePage = () => {
                       />
                     </div>
                   ) : (
-                    <div>
-                      <p>
-                        User ID:{" "}
-                        <span style={{ color: "gray" }}>{profile.user_id}</span>
-                      </p>
-                      <p>
-                        Username:{" "}
-                        <span style={{ color: "gray" }}>
-                          {profile.username}
-                        </span>
-                      </p>
-                      <p>
-                        Email:{" "}
-                        <span style={{ color: "gray" }}>{profile.email}</span>
-                      </p>
-                      <p>
-                        Joined At:{" "}
-                        <span style={{ color: "gray" }}>{date.toString()}</span>
-                      </p>
-                      <p>
-                        City:{" "}
-                        <span style={{ color: "gray" }}>{profile.city}</span>
-                      </p>
-                      <p>
-                        Country:{" "}
-                        <span style={{ color: "gray" }}>{profile.country}</span>
-                      </p>
-                      <p>
-                        About:{" "}
-                        <span style={{ color: "gray" }}>{profile.about}</span>
-                      </p>
-                      <p>
-                        LinkedIn:{" "}
-                        <span style={{ color: "gray" }}>
-                          {profile.linkedin}
-                        </span>
-                      </p>
-                      <p>
-                        Twitter:{" "}
-                        <span style={{ color: "gray" }}>{profile.twitter}</span>
-                      </p>
-                      <p>
-                        Facebook:{" "}
-                        <span style={{ color: "gray" }}>
-                          {profile.facebook}
-                        </span>
-                      </p>
+                    <div style={{ display: "flex", width: "100%" }}>
+                      <div style={{ flex: 0.85 }}>
+                        <p>
+                          Joined at:{" "}
+                          <span style={{ color: "gray", fontSize: 17 }}>
+                            {date.toLocaleDateString()}
+                          </span>
+                        </p>
+                        <p>
+                          Username:{" "}
+                          <span style={{ color: "gray" }}>
+                            {profile.username}
+                          </span>
+                        </p>
+                        <p>
+                          Email:{" "}
+                          <span style={{ color: "gray" }}>{profile.email}</span>
+                        </p>
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <p>
+                          City:{" "}
+                          <span style={{ color: "gray" }}>{profile.city}</span>
+                        </p>
+                        <p>
+                          Country:{" "}
+                          <span style={{ color: "gray" }}>
+                            {profile.country}
+                          </span>
+                        </p>
+                        <p>
+                          About:{" "}
+                          <span style={{ color: "gray" }}>{profile.about}</span>
+                        </p>
+                      </div>
                     </div>
                   )}
+
+                  <div style={{ display: "flex", width: "90%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        flex: 1,
+                        width: "50%",
+                      }}
+                    >
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => (window.location.href = "/")}
+                      >
+                        <FaLinkedinIn size={16} style={{marginRight:10}}/>
+                      </span>
+
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => (window.location.href = "/")}
+                      >
+                        <FaFacebookF size={16} style={{marginRight:10}}/>
+                      </span>
+
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => (window.location.href = "/")}
+                      >
+                        <FaTwitter size={16} style={{marginRight:10}}/>
+                      </span>
+                    </div>
+                  </div>
                 </ProfileItem>
               </ProfileDetails>
             </ProfileContent>
