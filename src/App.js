@@ -14,6 +14,7 @@ import SavedPage from "./Pages/SavedPage";
 import MostAnswered from "./Pages/MostAnswered";
 import NoAnswered from "./Pages/NoAnwered";
 import RecentQuestion from "./Pages/RecentQuestion";
+import AppFooter from "./components/AppFooter";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="*" />
         </Route>
       </Routes>
+      <AppFooter/>
     </Router>
   );
 }
