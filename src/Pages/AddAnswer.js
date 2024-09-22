@@ -198,7 +198,7 @@ function AddAnswerPage() {
             </div>
           </div>
           <AnswerCard answers={answers} />
-          <LeaveAnswerCard questions={question}/>
+          <LeaveAnswerCard question={question}/>
         </div>
         <Side />
       </div>
