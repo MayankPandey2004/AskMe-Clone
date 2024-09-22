@@ -95,7 +95,7 @@ function NoAnswered() {
         }
         const result = await response.json();
         setQuestions(result.questions);
-        setTotalQuestions(result.totalQuestions); // Assuming your API returns totalQuestions
+        setTotalQuestions(result.totalQuestions); 
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the question data: ", e);
