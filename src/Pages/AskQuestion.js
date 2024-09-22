@@ -141,7 +141,9 @@ function AskQuestion() {
     } else {
       formData.append("image_file", "");
     }
-
+for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
     try {
       const response = await fetch("http://localhost:8080/addquestion", {
         method: "POST",

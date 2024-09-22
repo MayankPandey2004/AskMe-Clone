@@ -14,8 +14,6 @@ const AnswerTitle = styled.h2`
 
 const AnswerCard = ({ answers }) => {
 
-  const imageURL = answers?.image_file || null;
-  
   return (
     <div
       className="question-card"
@@ -80,10 +78,10 @@ const AnswerCard = ({ answers }) => {
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div />
-            {imageURL && (
+            {answer.image_file && (
               <div style={{ margin: "20px" }}>
                 <img
-                  src={`data:image/png;base64,${imageURL}`}
+                  src={`data:image/png;base64,${answer.image_file}`}
                   alt="Question-Image"
                   style={{ width: "90%", height: "auto", objectFit: "contain" }}
                 />
