@@ -120,7 +120,7 @@ function AskQuestion() {
   const [showProfile, setShowProfile] = useState(false);
   const { auth } = useAuth();
   const [file, setFile] = useState(null);
-  const [alert, setAlert] = useState(null); // State for alert messages
+  const [alert, setAlert] = useState(null); 
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -155,16 +155,13 @@ function AskQuestion() {
       const result = await response.json();
       console.log("Form submitted successfully:", result);
 
-      // Display success alert
       setAlert({ message: "Question submitted successfully!", type: "success" });
 
-      // Clear form fields
       e.target.reset();
       setFile(null);
     } catch (error) {
       console.error("Error submitting the form:", error);
 
-      // Display error alert
       setAlert({ message: "Error submitting the form.", type: "error" });
     }
   };

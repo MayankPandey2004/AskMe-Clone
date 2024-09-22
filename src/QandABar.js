@@ -6,7 +6,6 @@ import "./App.css";
 import useAuth from "./hooks/useAuth";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-// import { AiOutlineSearch } from "react-icons/ai";
 
 lineSpinner.register();
 
@@ -48,6 +47,23 @@ const NavItem = styled.li`
 
 const QuestionCardContainer = styled.div`
   animation: ${fadeIn} 0.5s ease-in-out;
+`;
+
+const SeeMoreLink = styled.button`
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #131e56;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #343a40;
+    transition: background-color 0.2s ease-in-out;
+  }
 `;
 
 function QuestionNav({ toggleDropdown }) {
@@ -103,6 +119,22 @@ function QuestionNav({ toggleDropdown }) {
 
   const handleSearchClick = () => {
     navigate(`/search`, { state: { searchQuery } });
+  };
+
+  const handleSeeMore = () => {
+    switch (activeTab) {
+      case "Recent Questions":
+        navigate("/recentquestion");
+        break;
+      case "Most Answered":
+        navigate("/mostanswered");
+        break;
+      case "No Answers":
+        navigate("/noanswered");
+        break;
+      default:
+        break;
+    }
   };
 
   if (isLoading)
@@ -164,6 +196,7 @@ function QuestionNav({ toggleDropdown }) {
       <QuestionCardContainer>
         <QuestionCard questions={questions} />
       </QuestionCardContainer>
+      <SeeMoreLink onClick={handleSeeMore}>See More</SeeMoreLink>
     </NavContainer>
   );
 }

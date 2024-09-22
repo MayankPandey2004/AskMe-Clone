@@ -65,7 +65,7 @@ function RecentQuestion() {
   useEffect(() => {
     const fetchquestion = async () => {
       try {
-        const url = `http://localhost:8080/user_question?user_id=${auth.user_id}`;
+        const url = `http://localhost:8080/recent_questions?user_id=${auth.user_id}`;
         const response = await fetch(url, {
           credentials: "include",
         });
