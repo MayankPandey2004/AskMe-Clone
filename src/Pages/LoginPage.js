@@ -194,6 +194,7 @@ function LoginPage() {
       const accessToken = response?.data.accessToken;
       const user_id = response?.data?.user_id;
       const image = response?.data?.profile_image;
+      
       console.log("LOGIN: ",response.data);
       setAuth({ user, pwd, user_id, accessToken, image});
       setUser("");

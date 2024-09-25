@@ -39,7 +39,7 @@ const AskButton = styled.button`
   margin-top: 20px;
 
   &:hover {
-    background-color: #e65a5a;
+    background-color: #4eb5ff;
     transition: background-color 0.2s ease-in;
   }
 `;
@@ -47,7 +47,7 @@ const AskButton = styled.button`
 const QuestionButton = styled.button`
   width: 150px;
   padding: 10px;
-  background-color: #333;
+  background-color: #131d52;
   color: white;
   border: none;
   border-radius: 4px;
@@ -56,7 +56,7 @@ const QuestionButton = styled.button`
   margin-top: 20px;
 
   &:hover {
-    background-color: #131d52;
+    background-color: #4eb5ff;
     transition: background-color 0.2s ease-in;
   }
 `;
@@ -300,13 +300,16 @@ const ProfilePage = () => {
                 <ProfileImage>
                   <img
                     src={
-                      profile.profile_image
-                        ? URL.createObjectURL(profile.profile_image)
+                      profile.profile_image && profile.profile_image !== ""
+                        ? profile.profile_image instanceof File
+                          ? URL.createObjectURL(profile.profile_image)
+                          : `data:image/png;base64,${profile.profile_image}`
                         : UserImage
                     }
                     alt="Profile"
                   />
                 </ProfileImage>
+
                 {!isEditing ? (
                   <>
                     <AskButton onClick={handleEditProfile}>
@@ -499,9 +502,9 @@ const ProfilePage = () => {
               <div
                 style={{
                   fontSize: 17,
-                  marginTop: 10,
                   fontWeight: "600",
                   marginBottom: "10px",
+                  marginTop: "20px"
                 }}
               >
                 About:{" "}
@@ -510,22 +513,24 @@ const ProfilePage = () => {
                 </span>
               </div>
             )}
+            <div>
+              <QuestionButton
+                style={{ marginRight: 20 }}
+                onClick={() => navigate("/question")}
+              >
+                Questions Asked
+              </QuestionButton>
+              <QuestionButton
+                style={{ marginRight: 20 }}
+                onClick={() => navigate("/answer")}
+              >
+                Questions Answered
+              </QuestionButton>
+              <QuestionButton onClick={() => navigate("/saved")}>
+                Saved Questions
+              </QuestionButton>
+            </div>
           </ProfileContainer>
-          <QuestionButton
-            style={{ marginRight: 20, marginLeft: 50 }}
-            onClick={() => navigate("/question")}
-          >
-            Questions Asked
-          </QuestionButton>
-          <QuestionButton
-            style={{ marginRight: 20 }}
-            onClick={() => navigate("/answer")}
-          >
-            Questions Answered
-          </QuestionButton>
-          <QuestionButton onClick={() => navigate("/answer")}>
-            Saved Questions
-          </QuestionButton>
         </div>
         <div style={{ flex: 1 }}>
           <Side />

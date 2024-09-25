@@ -34,6 +34,7 @@ function App() {
           <Route path="/mostanswered" element={<MostAnswered />} />
           <Route path="/noanswered" element={<NoAnswered />} />
           <Route path="/recentquestion" element={<RecentQuestion />} />
+          <Route path="/saved" element={<SavedPage/>} />
           <Route path="*" />
         </Route>
       </Routes>

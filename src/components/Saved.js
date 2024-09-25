@@ -7,8 +7,6 @@ import { IoMdBookmark } from "react-icons/io";
 function SaveButton({ question }) {
   const [save, setSave] = useState(question.voted === 'save');
   const [unsave, setUnsave] = useState(question.voted === 'unsave');
-  const [saves, setSaves] = useState(question.no_save);
-  const [unsaves, setUnsaves] = useState(question.no_unsave);
   const { auth } = useAuth();
   const navigate = useNavigate();
 
@@ -34,22 +32,16 @@ function SaveButton({ question }) {
       if (vote_type === 'save') {
         if (save) {
           setSave(false);
-          setSaves(saves - 1);
         } else {
           setSave(true);
           setUnsave(false);
-          setSaves(saves + 1);
-          if (unsave) setUnsaves(unsaves - 1);
         }
       } else if (vote_type === 'unsave') {
         if (unsave) {
           setUnsave(false);
-          setUnsaves(unsaves - 1);
         } else {
           setUnsave(true);
           setSave(false);
-          setUnsaves(unsaves + 1);
-          if (save) setSaves(saves - 1);
         }
       }
 
@@ -67,9 +59,6 @@ function SaveButton({ question }) {
         size={18}
         onClick={() => handleVote(question.question_id, 'save')}
       />
-      <p style={{ color: "gray", fontSize: 16 }}>
-        {saves}
-      </p>
     </div>
   );
 }

@@ -65,7 +65,7 @@ function AddAnswerPage() {
   useEffect(() => {
     const fetchQuestionsAnswers = async () => {
       try {
-        const url = `http://localhost:8080/answers?user_id=${auth.user_id}&&question_id=${questionId}`;
+        const url = `http://localhost:8080/answers?user_id=${auth.user_id}&&question_id=${questionId}&page_no=1`;
         const response = await fetch(url, { credentials: "include" });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -73,6 +73,8 @@ function AddAnswerPage() {
         const result = await response.json();
         setQuestion(result.questions);
         setAnswers(result.answers);
+        console.log(questionId);
+
         setIsLoading(false);
         setType(result?.questions.type);
         setImageURL(result?.questions.image_file || "");
@@ -173,7 +175,7 @@ function AddAnswerPage() {
                 </>
                   :
                   <div style={{flex:1, display:'flex', justifyContent:'center'}}>
-                  <Poll question={question.question}/>
+                  <Poll question={question.question} questionId={questionId}/>
                   </div>}
               <p style={{ fontSize: 16 }}>{question.description}</p>
             </div>

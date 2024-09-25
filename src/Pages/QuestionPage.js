@@ -52,12 +52,28 @@ const QuestionTitle = styled.p`
     color: #131d52;
     cursor: pointer;
   }
-`
+`;
+
+const PaginationButton = styled.button`
+  padding: 8px 16px;
+  margin: 10px;
+  background-color: #131d52;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  &:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+`;
 
 function QuestionPage() {
-  const [question, setQuestion] = useState({});
+  const [question, setQuestion] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pageNo, setPageNo] = useState(1); // New state for page number
+  const [totalPages, setTotalPages] = useState(1); // New state for total pages
   const navigate = useNavigate();
   const { auth } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
@@ -65,15 +81,16 @@ function QuestionPage() {
   useEffect(() => {
     const fetchquestion = async () => {
       try {
-        const url = `http://localhost:8080/user_question?user_id=${auth.user_id}`;
+        const url = `http://localhost:8080/user_question?user_id=${auth.user_id}&page_no=${pageNo}`;
         const response = await fetch(url, {
           credentials: "include",
         });
-        if (!response) {
+        if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
         setQuestion(result.user_questions);
+        setTotalPages(result.total_pages); // Assuming the API returns the total number of pages
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the question data: ", e);
@@ -83,16 +100,16 @@ function QuestionPage() {
     };
 
     fetchquestion();
-  }, [auth.user_id]);
+  }, [auth.user_id, pageNo]); // Re-fetch when page number changes
 
-  if (isLoading) return <div style={{ width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <l-line-spinner
-      size="40"
-      stroke="3"
-      speed="1"
-      color="#333"
-    ></l-line-spinner>
-  </div>;
+  if (isLoading) {
+    return (
+      <div style={{ width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <l-line-spinner size="40" stroke="3" speed="1" color="#333"></l-line-spinner>
+      </div>
+    );
+  }
+
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -101,9 +118,7 @@ function QuestionPage() {
         isLoggedIn={true}
         showProfile={showProfile}
         setShowProfile={setShowProfile}
-        profile={() => {
-          navigate("/profile");
-        }}
+        profile={() => navigate("/profile")}
         login={() => {}}
         navigate={navigate}
         Logout={() => {}}
@@ -111,71 +126,77 @@ function QuestionPage() {
       <MainNav tabs={["Home", "Profile", "Questions", "Answers", "Logout"]} />
       <div style={{ display: "flex" }}>
         <div style={{ flex: 2, marginTop: 10 }}>
-          {question?.map((question,index)=>(
+          {question?.map((q, index) => (
             <div
-            className="question-card"
-            style={{
-              marginLeft: 40,
-              padding: 30,
-              paddingBottom: 10,
-              flexDirection: "column",
-              width:'65vw'
-            }}
-          >
-            <div className="question-content">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: 10,
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <div
-                    style={{
-                      borderRadius: "50%",
-                      height: 50,
-                      width: 50,
-                      backgroundColor: "lightgray",
-                    }}
-                  >
-                    <img
-                      src={UserImage}
-                      alt="profile-photo"
-                      style={{ height: 50, width: 50 }}
-                    />
+              key={index}
+              className="question-card"
+              style={{
+                marginLeft: 40,
+                padding: 30,
+                paddingBottom: 10,
+                flexDirection: "column",
+                width: '65vw',
+              }}
+            >
+              <div className="question-content">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                  }}
+                >
+                  <div style={{ display: "flex" }}>
+                    <div
+                      style={{
+                        borderRadius: "50%",
+                        height: 50,
+                        width: 50,
+                        backgroundColor: "lightgray",
+                      }}
+                    >
+                      <img src={UserImage} alt="profile-photo" style={{ height: 50, width: 50 }} />
+                    </div>
+                    <p
+                      style={{
+                        fontSize: 22,
+                        fontWeight: "400",
+                        marginTop: 10,
+                        marginLeft: 5,
+                      }}
+                    >
+                      {q.username}
+                    </p>
                   </div>
-                  <p
-                    style={{
-                      fontSize: 22,
-                      fontWeight: "400",
-                      marginTop: 10,
-                      marginLeft: 5,
-                    }}
-                  >{question.username}</p>
+                  <QuestionButton style={{ marginTop: 10 }}>
+                    <AiFillQuestionCircle style={{ marginRight: 2 }} />
+                    Question
+                  </QuestionButton>
                 </div>
-                <QuestionButton style={{ marginTop: 10 }}>
-                  <AiFillQuestionCircle style={{ marginRight: 2 }} />
-                  Question
-                </QuestionButton>
+                <QuestionTitle style={{ fontSize: 22, fontWeight: "600", marginBottom: 20 }} onClick={() => navigate('/addanswer', { state: { questionId: q.question_id } })}>
+                  <BsFillPinFill style={{ marginRight: 5 }} /> {q.question}
+                </QuestionTitle>
+                <p style={{ fontSize: 16 }}>{q.description}</p>
               </div>
-              <QuestionTitle style={{ fontSize: 22, fontWeight: "600", marginBottom: 20 }} onClick={()=>navigate('/addanswer',{ state: { questionId: question.question_id }})}>
-                <BsFillPinFill style={{ marginRight: 5 }} /> {question.question}
-              </QuestionTitle>
-              <p style={{ fontSize: 16 }}>
-                {question.discription}
-              </p>
-            </div>
-            <hr />
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <AskButton>Add Answer to the Question</AskButton>
-              <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
-                <QuestionLikeButton question={question}/>
-                <p style={{ color: "gray", fontSize: 16 }}>{question.like}</p>
+              <hr />
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <AskButton>Add Answer to the Question</AskButton>
+                <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
+                  <QuestionLikeButton question={q} />
+                  <p style={{ color: "gray", fontSize: 16 }}>{q.like}</p>
+                </div>
               </div>
             </div>
+          ))}
+          {/* Pagination Controls */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+            <PaginationButton onClick={() => setPageNo(pageNo - 1)} disabled={pageNo === 1}>
+              Previous
+            </PaginationButton>
+            <PaginationButton onClick={() => setPageNo(pageNo + 1)} disabled={pageNo === totalPages}>
+              Next
+            </PaginationButton>
           </div>
-        ))}
         </div>
 
         <div style={{ flex: 1 }}>

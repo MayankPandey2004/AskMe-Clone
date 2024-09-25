@@ -73,7 +73,7 @@ function SavedPage() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setQuestion(result.saved_questions);
+        setQuestion(result.save_questions);
         setIsLoading(false);
       } catch (e) {
         console.error("An error occurred while fetching the question data: ", e);
