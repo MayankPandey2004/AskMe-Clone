@@ -12,6 +12,7 @@ import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { lineSpinner } from 'ldrs';
 import QuestionLikeButton from "../components/QuestionLikeButton";
+import SaveButton from "../components/Saved";
 
 lineSpinner.register();
 
@@ -184,11 +185,11 @@ function QuestionPage() {
                 <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
                   <QuestionLikeButton question={q} />
                   <p style={{ color: "gray", fontSize: 16 }}>{q.like}</p>
+                  <SaveButton question={q}/>
                 </div>
               </div>
             </div>
           ))}
-          {/* Pagination Controls */}
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
             <PaginationButton onClick={() => setPageNo(pageNo - 1)} disabled={pageNo === 1}>
               Previous

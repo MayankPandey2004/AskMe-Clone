@@ -93,12 +93,14 @@ function AnswersPage() {
   }, [auth.user_id, pageNo]); // Fetch answers when pageNo changes
 
   const handleNextPage = () => {
+    window.scrollTo(0, 0);
     if (pageNo < totalPages) {
       setPageNo((prevPage) => prevPage + 1);
     }
   };
 
   const handlePreviousPage = () => {
+    window.scrollTo(0, 0);
     if (pageNo > 1) {
       setPageNo((prevPage) => prevPage - 1);
     }

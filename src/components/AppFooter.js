@@ -4,11 +4,11 @@ import styled from 'styled-components';
 const FooterContainer = styled.footer`
   background-color: #131d52;
   color: white;
-  padding: 20px;
+  padding: 40px;
   display: flex;
   justify-content: space-around;
   padding-left: 40px;
-
+  margin-top: 10px;
 `;
 
 const FooterColumn = styled.div`
@@ -51,8 +51,8 @@ function AppFooter() {
       </FooterColumn>
       <FooterColumn>
         <h4>Contact Us</h4>
-        <a href="/contact"><i>Email</i></a>
-        <a href="/support"><i>Support</i></a>
+        <a href="/feedback"><i>Feedback</i></a>
+        <a href="/contact"><i>About Us</i></a>
       </FooterColumn>
     </FooterContainer>
   );

@@ -12,6 +12,7 @@ import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { lineSpinner } from 'ldrs';
 import QuestionLikeButton from "../components/QuestionLikeButton";
+import SaveButton from "../components/Saved";
 
 lineSpinner.register();
 
@@ -107,10 +108,12 @@ function MostAnswered() {
   }, [auth.user_id, pageNo]);
 
   const handleNextPage = () => {
+    window.scrollTo(0, 0);
     setPageNo(prevPage => prevPage + 1);
   };
 
   const handlePreviousPage = () => {
+    window.scrollTo(0, 0);
     setPageNo(prevPage => (prevPage > 1 ? prevPage - 1 : 1));
   };
 
@@ -202,6 +205,7 @@ function MostAnswered() {
                 <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
                   <QuestionLikeButton question={question} />
                   <p style={{ color: "gray", fontSize: 16 }}>{question.like}</p>
+                  <SaveButton question={question}/>
                 </div>
               </div>
             </div>

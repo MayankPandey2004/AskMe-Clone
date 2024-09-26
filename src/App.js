@@ -15,10 +15,14 @@ import MostAnswered from "./Pages/MostAnswered";
 import NoAnswered from "./Pages/NoAnwered";
 import RecentQuestion from "./Pages/RecentQuestion";
 import AppFooter from "./components/AppFooter";
+import ScrollToTop from "./components/ScrollToTop";
+import FeedbackPage from "./Pages/Feedback";
+import ContactPage from "./Pages/ContactUs";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -35,6 +39,8 @@ function App() {
           <Route path="/noanswered" element={<NoAnswered />} />
           <Route path="/recentquestion" element={<RecentQuestion />} />
           <Route path="/saved" element={<SavedPage/>} />
+          <Route path="/contact" element={<ContactPage/>} />
+          <Route path="/feedback" element={<FeedbackPage/>} />
           <Route path="*" />
         </Route>
       </Routes>

@@ -12,6 +12,7 @@ import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { lineSpinner } from 'ldrs';
 import QuestionLikeButton from "../components/QuestionLikeButton";
+import SaveButton from "../components/Saved";
 
 lineSpinner.register();
 
@@ -65,7 +66,7 @@ function SavedPage() {
   useEffect(() => {
     const fetchquestion = async () => {
       try {
-        const url = `http://localhost:8080/saveQuestion`;
+        const url = `http://localhost:8080/saveQuestion?user_id=${auth.user_id}`;
         const response = await fetch(url, {
           credentials: "include",
         });
@@ -96,7 +97,7 @@ function SavedPage() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="header-container">
+    <div className="header-container" style={{marginBottom: '40px'}}>
       <TopBar
         isLoggedIn={true}
         showProfile={showProfile}
@@ -172,6 +173,7 @@ function SavedPage() {
               <div style={{ display: "flex", marginTop: 8, marginRight: 10 }}>
                 <QuestionLikeButton question={question}/>
                 <p style={{ color: "gray", fontSize: 16 }}>{question.like}</p>
+                <SaveButton question={question}/>
               </div>
             </div>
           </div>
