@@ -38,19 +38,19 @@ function AppFooter() {
   return (
     <FooterContainer>
       <FooterColumn>
-        <h4>Quick Links</h4>
+        <h4><u>Quick Links</u></h4>
         <a href="/recentquestion"><i>Recent Question</i></a>
         <a href="/mostanswered"><i>Most Answered Questions</i></a>
         <a href="/noanswered"><i>Not Answered Questions</i></a>
       </FooterColumn>
       <FooterColumn>
-        <h4>Account Links</h4>
+        <h4><u>Account Links</u></h4>
         <a href="/profile"><i>Profile</i></a>
         <a href="/question"><i>Asked Questions</i></a>
         <a href="/answer"><i>Answered Questions</i></a>
       </FooterColumn>
       <FooterColumn>
-        <h4>Contact Us</h4>
+        <h4><u>Contact Us</u></h4>
         <a href="/feedback"><i>Feedback</i></a>
         <a href="/contact"><i>About Us</i></a>
       </FooterColumn>

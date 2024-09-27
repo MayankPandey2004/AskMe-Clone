@@ -16,7 +16,7 @@ const AskButton = styled.button`
   border: none;
   cursor: pointer;
   height: 40px;
-  font-size: 14px;
+  font-size: 12px;
 
   &:hover {
     background-color: #98c4e3;
@@ -57,19 +57,19 @@ const QuestionCard = ({ questions }) => {
   return(
   <div style={{flex:1}}>
     {questions.map((question, index) => (
-      <div className="question-card" style={{ padding: 30, paddingBottom: 10, flexDirection: 'column' }}>
+      <div className="question-card" style={{ padding: 20, paddingBottom: 5, flexDirection: 'column' }}>
       <div className="question-content">
         <div style={{ display:'flex', justifyContent:'space-between'}}>
-          <div style={{display:'flex'}}>
-          <div style={{borderRadius:'50%', height:40, width:40, backgroundColor:'lightgray'}}>
-            <img src={UserImage} alt="profile-photo" style={{height:40, width:40}} />
+          <div style={{display:'flex', alignContent: 'center'}}>
+            <div style={{borderRadius:'50%', height:30, width:30, backgroundColor:'lightgray'}}>
+            <img src={UserImage} alt="profile-photo" style={{height:30, width:30}} />
           </div>
-          <p style={{ fontSize: 18, fontWeight: '400', marginTop: 5, marginLeft:5 }}>{question.username}</p>
+          <p style={{ fontSize: 16, fontWeight: '350', marginLeft:5 }}>{question.username}</p>
           </div>
           <QuestionButton><AiFillQuestionCircle style={{marginRight:2}}/>Question</QuestionButton>
         </div>
-        <QuestionTitle style={{ fontSize: 18, fontWeight: '600', marginBottom: 10 }} onClick={()=>navigate('/addanswer',{ state: { questionId: question.question_id }})}>{question.question}</QuestionTitle>
-        <p style={{ fontSize: 16 }}>{question.discription}</p>
+        <QuestionTitle style={{ fontSize: 16, fontWeight: '600', marginBottom: 10 }} onClick={()=>navigate('/addanswer',{ state: { questionId: question.question_id }})}>{question.question}</QuestionTitle>
+        <p style={{ fontSize: 14 }}>{question.discription}</p>
       </div>
       <hr />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>

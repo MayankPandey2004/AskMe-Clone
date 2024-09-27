@@ -42,6 +42,7 @@ const AskButton = styled.button`
   color: white;
   border: none;
   cursor: pointer;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   height: 40px;
   font-size: 14px;
 
@@ -54,6 +55,7 @@ const AskButton = styled.button`
 const AnswerTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 500;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   color: #131d52;
   align-self: flex-start;
   width: 100%;
@@ -66,6 +68,7 @@ const Label = styled.label`
   margin-left: 5px;
   align-items: center;
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-weight: 450;
 `;
 

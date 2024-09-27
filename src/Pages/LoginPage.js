@@ -84,11 +84,13 @@ const ErrorMessage = styled.div`
   border-radius: 4px;
   margin-top: 5px;
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 `;
 
 const SignUpText = styled.div`
   color: 98c4e3;
   font-size: 15px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-weight: 300;
   margin-top: 10px;
   display: flex;
@@ -133,6 +135,7 @@ const Divider = styled.div`
 
 const DividerText = styled.span`
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   color: #8a8a8a;
 `;
 

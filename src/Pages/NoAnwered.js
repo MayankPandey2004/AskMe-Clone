@@ -26,6 +26,7 @@ const AskButton = styled.button`
   cursor: pointer;
   height: 40px;
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
   &:hover {
     background-color: #343a40;
@@ -45,6 +46,7 @@ const QuestionButton = styled.div`
   color: white;
   border: none;
   cursor: pointer;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 12px;
 `;
 
@@ -62,6 +64,7 @@ const PaginationButton = styled.button`
   color: white;
   border: none;
   cursor: pointer;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 14px;
 
   &:disabled {

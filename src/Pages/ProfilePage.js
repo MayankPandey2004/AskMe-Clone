@@ -54,6 +54,7 @@ const QuestionButton = styled.button`
   cursor: pointer;
   font-size: 14px;
   margin-top: 20px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
   &:hover {
     background-color: #4eb5ff;
@@ -65,6 +66,7 @@ const ProfileItem = styled.div`
   margin: 10px 0;
   font-size: 1.2em;
   font-weight: 500;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   align-self: flex-start;
   width: 100%;
   margin-left: 60px;
@@ -73,6 +75,7 @@ const ProfileItem = styled.div`
 const ProfileTitle = styled.h2`
   font-size: 2em;
   font-weight: bold;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   color: #131d52;
   align-self: flex-start;
   width: 100%;
@@ -105,11 +108,13 @@ const ProfileDetails = styled.div`
 const ErrorMessage = styled.div`
   color: red;
   font-size: 1.2em;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 `;
 
 const Input = styled.input`
   padding: 8px;
   font-size: 1em;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   width: 80%;
   margin-top: 10px;
   border: 1px solid #ddd;

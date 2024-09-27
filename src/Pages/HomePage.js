@@ -16,6 +16,7 @@ lineSpinner.register();
 
 const AskBox = styled.textarea`
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   &:focus {
     outline: none;
     box-shadow: 0 0 3px #131e56;
@@ -32,6 +33,7 @@ const AskButton = styled.button`
   cursor: pointer;
   height: 40px;
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
   &:hover {
     background-color: #555e66;
@@ -48,6 +50,7 @@ const SubmitButton = styled.button`
   height: 35px;
   font-size: 14px;
   border-radius: 2px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
   &:hover {
     background-color: #98c4e3;

@@ -25,6 +25,7 @@ const CardTitle = styled.div`
   display: flex;
   padding: 10px;
   color: #131d52;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 22px;
   font-weight: 500;
   justify-content: flex-start;
@@ -52,6 +53,7 @@ const Label = styled.label`
   margin-left: 5px;
   align-items: center;
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-weight: 450;
 `;
 
@@ -99,6 +101,7 @@ const AskButton = styled.button`
   cursor: pointer;
   height: 40px;
   font-size: 14px;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
   &:hover {
     background-color: #343a40;

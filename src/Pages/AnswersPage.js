@@ -26,6 +26,7 @@ const QuestionButton = styled.div`
   background-color: #131d52;
   color: white;
   border: none;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   cursor: pointer;
   font-size: 12px;
 `;
