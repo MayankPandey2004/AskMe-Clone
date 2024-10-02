@@ -8,7 +8,6 @@ import Side from "../Side";
 import useAuth from "../hooks/useAuth";
 import "../QuestionCard.css";
 import { BsFillPinFill } from "react-icons/bs";
-import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { lineSpinner } from 'ldrs';
 import QuestionLikeButton from "../components/QuestionLikeButton";
@@ -154,9 +153,11 @@ function QuestionPage() {
                         height: 50,
                         width: 50,
                         backgroundColor: "lightgray",
+                        overflow: 'hidden',
+                        border: '1px solid rgba(19, 29, 82, 0.5)'
                       }}
                     >
-                      <img src={UserImage} alt="profile-photo" style={{ height: 50, width: 50 }} />
+                      <img src={`data:image/png;base64,${q.profile_image}`} alt="profile-photo" style={{width: '100%',height: '100%', objectFit:'cover'}} />
                     </div>
                     <p
                       style={{

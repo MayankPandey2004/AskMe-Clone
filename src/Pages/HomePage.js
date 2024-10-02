@@ -104,6 +104,7 @@ function MainPage() {
     getApiData();
   }, [auth.user_id, setAuth]);
 
+  
   useEffect(() => {
     if (showProfile) {
       setLoginAreaHeight("300px");
@@ -177,7 +178,7 @@ function MainPage() {
                 marginTop: 20,
               }}
             >
-              <AskButton className="title-button" >About Us</AskButton>
+              <AskButton className="title-button" onClick={() => navigate("/contact")}>About Us</AskButton>
               <AskButton className="title-button" onClick={() => navigate("/askquestion")}>
                 Ask Question
               </AskButton>

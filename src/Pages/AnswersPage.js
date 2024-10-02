@@ -7,9 +7,7 @@ import MainNav from "../components/MainNav";
 import Side from "../Side";
 import useAuth from "../hooks/useAuth";
 import "../QuestionCard.css";
-
 import { BsFillPinFill } from "react-icons/bs";
-import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { lineSpinner } from 'ldrs';
 
@@ -157,9 +155,11 @@ function AnswersPage() {
                         height: 50,
                         width: 50,
                         backgroundColor: "lightgray",
+                        overflow: 'hidden',
+                        border: '1px solid rgba(19, 29, 82, 0.5)'
                       }}
                     >
-                      <img src={UserImage} alt="profile-photo" style={{ height: 50, width: 50 }} />
+                      <img src={`data:image/png;base64,${answer.profile_image}`} alt="profile-photo" style={{ height: 50, width: 50 }} />
                     </div>
                     <p style={{ fontSize: 22, fontWeight: "400", marginTop: 10, marginLeft: 5 }}>{answer.username}</p>
                   </div>

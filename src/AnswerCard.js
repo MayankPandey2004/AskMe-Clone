@@ -1,6 +1,5 @@
 import React from "react";
 import "./QuestionCard.css";
-import UserImage from "./assets/profilephoto.png";
 import styled from "styled-components";
 import AnswerLikeButton from "./components/AnswerLikeButton";
 
@@ -12,7 +11,7 @@ const AnswerTitle = styled.h2`
   width: 100%;
 `;
 
-const AnswerCard = ({ answers }) => {
+const AnswerCard = ({ answers, userImage }) => {
 
   return (
     <div
@@ -45,7 +44,7 @@ const AnswerCard = ({ answers }) => {
                   }}
                 >
                   <img
-                    src={UserImage}
+                    src={`data:image/png;base64,${userImage}}`}
                     alt="profile-photo"
                     style={{ height: 50, width: 50, borderRadius: "50%" }}
                   />
@@ -83,7 +82,7 @@ const AnswerCard = ({ answers }) => {
                 <img
                   src={`data:image/png;base64,${answer.image_file}`}
                   alt="Question-Image"
-                  style={{ width: "90%", height: "auto", objectFit: "contain" }}
+                  style={{ width: '100%',height: '100%', objectFit:'cover' }}
                 />
                 
               </div>

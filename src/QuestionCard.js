@@ -1,7 +1,6 @@
 import React from 'react';
 import './QuestionCard.css';
 import styled from "styled-components";
-import UserImage from './assets/profilephoto.png';
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import QuestionLikeButton from './components/QuestionLikeButton';
@@ -61,8 +60,8 @@ const QuestionCard = ({ questions }) => {
       <div className="question-content">
         <div style={{ display:'flex', justifyContent:'space-between'}}>
           <div style={{display:'flex', alignContent: 'center'}}>
-            <div style={{borderRadius:'50%', height:30, width:30, backgroundColor:'lightgray'}}>
-            <img src={UserImage} alt="profile-photo" style={{height:30, width:30}} />
+            <div style={{borderRadius:'50%', height:30, width:30, backgroundColor:'lightgray', overflow:'hidden'}}>
+            <img src={`data:image/png;base64,${question.profile_image}`} alt="profile-photo" style={{height:30, width:30}} />
           </div>
           <p style={{ fontSize: 16, fontWeight: '350', marginLeft:5 }}>{question.username}</p>
           </div>

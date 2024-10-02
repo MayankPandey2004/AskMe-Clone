@@ -7,7 +7,6 @@ import useAuth from "../hooks/useAuth";
 import { lineSpinner } from "ldrs";
 import AnswerCard from "../AnswerCard";
 import styled from "styled-components";
-import UserImage from "../assets/profilephoto.png";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import LeaveAnswerCard from "./LeaveAnswerCard";
 import QuestionLikeButton from "../components/QuestionLikeButton";
@@ -148,7 +147,7 @@ function AddAnswerPage() {
                     }}
                   >
                     <img
-                      src={UserImage}
+                      src={`data:image/png;base64,${question.profile_image}`}
                       alt="profile-photo"
                       style={{ height: 40, width: 40, objectFit: "cover" }}
                     />

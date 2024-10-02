@@ -92,7 +92,7 @@ const ProfileImage = styled.div`
   overflow: hidden;
   width: 100px;
   height: 100px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid rgba(19, 29, 82, 0.5);
 
   img {
     width: 100%;
